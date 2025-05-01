@@ -1,0 +1,42 @@
+
+/* Class = "UIButton"; configuration.title = "Iniciar sesión"; ObjectID = "CQT-hC-axg"; */
+"CQT-hC-axg.configuration.title" = "Iniciar sesión";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "CQT-hC-axg"; */
+"CQT-hC-axg.normalTitle" = "Button";
+
+/* Class = "UILabel"; text = "Guest Identity Link"; ObjectID = "MB5-t1-Tyc"; */
+"MB5-t1-Tyc.text" = "Guest Identity Link";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "MfO-8r-VgQ"; */
+"MfO-8r-VgQ.normalTitle" = "Button";
+
+/* Class = "UITabBarItem"; title = "Item 1"; ObjectID = "fbB-7A-FJn"; */
+"fbB-7A-FJn.title" = "Item 1";
+
+/* Class = "UITabBarItem"; title = "Item 2"; ObjectID = "hgi-9N-eTK"; */
+"hgi-9N-eTK.title" = "Item 2";
+
+/* Class = "UILabel"; text = "GIL"; ObjectID = "ikX-Oj-GP9"; */
+"ikX-Oj-GP9.text" = "GIL";
+
+/* Class = "UILabel"; text = "Registro"; ObjectID = "tDg-tn-g0K"; */
+"tDg-tn-g0K.text" = "Registro";
+
+/* Class = "UIButton"; configuration.title = "IRegistrar"; ObjectID = "hM8-As-Kre"; */
+"hM8-As-Kre.configuration.title" = "Registrar";
+
+/* Class = "UILabel"; text = "Eventos"; ObjectID = "qqu-UK-LDS"; */
+"qqu-UK-LDS.text" = "Eventos";
+
+/* Class = "UILabel"; text = "Contactos"; ObjectID = "ltk-I7-mjs"; */
+"ltk-I7-mjs.text" = "Contactos";
+
+/* Class = "UILabel"; text = "Nuevo evento"; ObjectID = "XzA-Ty-l4h"; */
+"XzA-Ty-l4h.text" = "Nuevo evento";
+
+/* Class = "UILabel"; text = "Escanear"; ObjectID = "HEo-h1-HEZ"; */
+"HEo-h1-HEZ.text" = "Escanear";
+
+/* Class = "UILabel"; text = "Ajustes"; ObjectID = "JyE-tU-4fr"; */
+"JyE-tU-4fr.text" = "Ajustes";

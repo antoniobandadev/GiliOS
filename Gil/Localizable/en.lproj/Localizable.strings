@@ -1,0 +1,42 @@
+/* --- General --- */
+"close" = "Close";
+"ok" = "Ok";
+/* --- LogIn --- */
+"user" = "Username";
+"password" = "Password";
+"login" = "Logine";
+"sign_up_now" = "Don’t have an account yet? \nClick here to sign up.";
+"empty_email" = "Please enter your email.";
+"empty_password" = "Please enter your password.";
+"invalid_data" = "Oops! The username or password doesn’t match. Please double-check your details and try again.";
+
+/* --- Sign Up --- */
+"sign_up" = "Sign Up";
+"name" = "Name";
+"email" = "Email";
+"confirm_email" = "Confirm email";
+"confirm_password" = "Confirm password";
+
+"invalid_name" = "Your name must be at least 3 characters long.";
+"invalid_email" = "The email field cannot be empty. Please enter your email address.";
+"invalid_confirmEmail" = "The confirm email field cannot be empty. Please confirm your email address.";
+"invalid_confirmPass" = "The confirm password field cannot be empty. Please confirm your password.";
+"not_same_value" = "The fields don’t match. Please check and try again.";
+"not_valid_email" = "Please enter a valid email address (e.g., user@domain.com).";
+"invalid_password" = "The password must be at least 8 characters long and include uppercase letters, lowercase letters, numbers, and symbols.";
+
+/* --- Menu --- */
+"events" = "Events";
+"contacts" = "Contacts";
+"new_event" = "New event";
+"scan_code" = "Scanner";
+"settings" = "Settings";
+
+/* --- Events --- */
+"my_events" = "My events";
+"my_invites" = "My invites";
+
+/* --- Contacts --- */
+"my_contacts" = "My contacts";
+"received_request" = "Received";
+"sent_request" = "Sent";
