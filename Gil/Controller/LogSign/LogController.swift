@@ -24,37 +24,20 @@ class LogController: KeyboardViewController {
     }
     
     @IBAction func btnLogin(_ sender: UIButton) {
-        
-        /*let validEmail = Utils.ValidTextField.error(textField: tfUserName, messageError: "empty_email".localized())
-        let validPassword = Utils.ValidTextField.error(textField: tfUserPassword, messageError: "empty_password".localized())
-
-            if validEmail && validPassword {
-                if(tfUserName.text == "admin" && tfUserPassword.text == "123"){
-                    // Continuar con login
-                    let storyboard = UIStoryboard(name: "Main", bundle: nil)
-                    let mainTabBarController = storyboard.instantiateViewController(identifier: "MainTabBarController")
-                    
-                    // This is to get the SceneDelegate object from your view controller
-                    // then call the change root view controller function to change to main tab bar
-                    (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootViewController(mainTabBarController)
-                    
-                }else{
-                    Utils.Snackbar.snackbarNoAction(message: "invalid_data".localized(), bgColor: Constants.Colors.red!)
-                }
-                
-            }*/
-        
-        
-        
+        if(isConnected){
+            logUser()
+        }else{
+            Utils.Snackbar.snackbarWithAction(message: "no_internet_connection".localized(), bgColor: Constants.Colors.red!, titleAction:"close".localized() ,duration: 5.0)
+        }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        // Network
+        observeConnectionChanges()
         
-        //self.hideKeyboardOnTapAround()
-        
-        //Iniciamos la vista
+        //Init view
         initUI()
         
     }
@@ -75,6 +58,42 @@ class LogController: KeyboardViewController {
         
     }
     
+    func validateFields() -> Bool {
+        var valid = true
+        
+        let valEmail = tfUserName.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+        let valPassword = tfUserPassword.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+        
+        if (valEmail.isEmpty) {
+            Utils.ValidTextField.error(textField: tfUserName, messageError: "empty_email".localized())
+            valid = false
+        }
+        
+        if (valPassword.isEmpty) {
+            Utils.ValidTextField.error(textField: tfUserPassword, messageError: "empty_password".localized())
+            valid = false
+        }
+        
+        return valid
+    }
+    
+    func logUser() {
+        if(validateFields()){
+            //Send log intent
+            if(tfUserName.text == "admin" && tfUserPassword.text == "123"){
+                UserDefaults.standard.set(true, forKey: "isLogged")
+                let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                let mainTabBarController = storyboard.instantiateViewController(identifier: "MainTabBarController")
+                (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootViewController(mainTabBarController)
+            }else{
+                Utils.Snackbar.snackbarWithAction(message: "invalid_data".localized(), bgColor: Constants.Colors.red!, titleAction:"close".localized() ,duration: 5.0)
+            }
+        }
+    }
+    
+    
+    
+    
     @objc func textFieldDidChange(_ textField: MDCOutlinedTextField) {
         applyValidStyle(to: textField)
     }
@@ -91,6 +110,4 @@ class LogController: KeyboardViewController {
     
     
 }
-
-
 

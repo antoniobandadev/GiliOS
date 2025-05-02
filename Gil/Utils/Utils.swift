@@ -83,19 +83,19 @@ class Utils {
     class ValidTextField {
         
         static func error(textField: MDCOutlinedTextField, messageError: String){
-                textField.leadingAssistiveLabel.text = messageError
-                textField.leadingAssistiveLabel.font = Constants.Fonts.fontMini
-                textField.leadingAssistiveLabel.adjustsFontSizeToFitWidth = true
-                textField.setLeadingAssistiveLabelColor(Constants.Colors.red!, for: .normal)
-                textField.setLeadingAssistiveLabelColor(Constants.Colors.red!, for: .editing)
-                textField.setOutlineColor(Constants.Colors.red!, for: .normal)
-                textField.setOutlineColor(Constants.Colors.red!, for: .editing)
-                textField.setFloatingLabelColor(Constants.Colors.red!, for: .normal)
-                textField.setFloatingLabelColor(Constants.Colors.red!, for: .editing)
-                textField.setNormalLabelColor(Constants.Colors.red!, for: .normal)
+            textField.leadingAssistiveLabel.text = messageError
+            textField.leadingAssistiveLabel.font = Constants.Fonts.fontMini
+            textField.leadingAssistiveLabel.adjustsFontSizeToFitWidth = true
+            textField.setLeadingAssistiveLabelColor(Constants.Colors.red!, for: .normal)
+            textField.setLeadingAssistiveLabelColor(Constants.Colors.red!, for: .editing)
+            textField.setOutlineColor(Constants.Colors.red!, for: .normal)
+            textField.setOutlineColor(Constants.Colors.red!, for: .editing)
+            textField.setFloatingLabelColor(Constants.Colors.red!, for: .normal)
+            textField.setFloatingLabelColor(Constants.Colors.red!, for: .editing)
+            textField.setNormalLabelColor(Constants.Colors.red!, for: .normal)
         }
         
-       
+        
     }//Validate TextField
     
     class Snackbar {
@@ -111,31 +111,30 @@ class Utils {
             MDCSnackbarMessageView.appearance().messageFont = Constants.Fonts.fontMini
             MDCSnackbarMessageView.appearance().setButtonTitleColor(Constants.Colors.accent, for: .normal)
             MDCSnackbarMessageView.appearance().buttonFont = Constants.Fonts.fontMini
-
+            
             snackManager.show(snackMessage)
         }//SnackBar
         
-       static func snackbarWithAction(message:String, bgColor:UIColor, titleAction:String, duration:Double) {
-           
+        static func snackbarWithAction(message:String, bgColor:UIColor, titleAction:String, duration:Double) {
+            
             let snackMessage = MDCSnackbarMessage()
             snackMessage.text = message
-           
+            
             let action = MDCSnackbarMessageAction()
             action.title = titleAction
             action.handler = {
-               
+                
             }
-
+            
             snackMessage.action = action
             snackMessage.duration = duration
-           
+            
             let snackManager = MDCSnackbarManager.default
-           
-            snackManager.snackbarMessageViewBackgroundColor = UIColor.black
-            MDCSnackbarMessageView.appearance().messageTextColor = .white
-            MDCSnackbarMessageView.appearance().messageFont = UIFont.systemFont(ofSize: 15, weight: .regular)
-            MDCSnackbarMessageView.appearance().setButtonTitleColor(.cyan, for: .normal)
-            MDCSnackbarMessageView.appearance().buttonFont = UIFont.boldSystemFont(ofSize: 14)
+            snackManager.snackbarMessageViewBackgroundColor = bgColor
+            MDCSnackbarMessageView.appearance().messageTextColor = Constants.Colors.accent
+            MDCSnackbarMessageView.appearance().messageFont = Constants.Fonts.fontMini
+            MDCSnackbarMessageView.appearance().setButtonTitleColor(Constants.Colors.accent, for: .normal)
+            MDCSnackbarMessageView.appearance().buttonFont = Constants.Fonts.fontMini
             snackManager.show(snackMessage)
         }
     }
@@ -171,7 +170,7 @@ extension MDCOutlinedTextField {
     }
     func clearText() {
         self.leadingAssistiveLabel.text = nil
-    
+        
         self.setOutlineColor(Constants.Colors.secondary!, for: .normal)
         self.setOutlineColor(Constants.Colors.secondary!, for: .editing)
         self.setFloatingLabelColor(Constants.Colors.secondary!, for: .normal)
@@ -188,7 +187,7 @@ extension String {
     func isValidEmail() -> Bool {
         let emailRegEx =
         "^[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$"
-
+        
         let emailPredicate = NSPredicate(format: "SELF MATCHES[c] %@", emailRegEx)
         return emailPredicate.evaluate(with: self)
     }
@@ -198,7 +197,7 @@ extension String {
     func isSecurePassword(minLength: Int = 8) -> Bool {
         let regex =
         "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[!@#\\$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>/?]).{\(minLength),}$"
-
+        
         let predicate = NSPredicate(format: "SELF MATCHES %@", regex)
         return predicate.evaluate(with: self)
     }

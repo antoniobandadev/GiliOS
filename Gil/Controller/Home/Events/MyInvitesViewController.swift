@@ -1,22 +1,28 @@
 //
-//  EventsViewController.swift
+//  MyGuestViewController.swift
 //  Gil
 //
-//  Created by Antonio Banda  on 29/04/25.
+//  Created by Antonio Banda  on 01/05/25.
 //
 
 import UIKit
 
-class EventsViewController: UIViewController {
+class MyInvitesViewController: UIViewController {
 
-    @IBOutlet weak var tbItemEvent: UITabBarItem!
+    @IBOutlet weak var lbTitle: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        tbItemEvent.imageInsets = UIEdgeInsets(top: 4, left: 0, bottom: -4, right: 0)
         // Do any additional setup after loading the view.
+        initUI()
     }
+    
+    func initUI(){
+        lbTitle.font = Constants.Fonts.fontTitleBold
+        lbTitle.text = "my_invites".localized()
+    }
+    
     
 
     /*

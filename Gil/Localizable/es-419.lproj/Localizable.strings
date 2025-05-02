@@ -1,6 +1,8 @@
 /* --- General --- */
 "close" = "Cerrar";
 "ok" = "Ok";
+"no_internet_connection" = "No se detectó conexión a internet. Verifica tu red e inténtalo de nuevo.";
+
 /* --- LogIn --- */
 "user" = "Usuario";
 "password" = "Contraseña";
@@ -8,7 +10,7 @@
 "sign_up_now" = "¿Aún no tienes cuenta? \nHaz clic aquí para registrarte";
 "empty_email" = "Por favor, ingresa tu correo electrónico.";
 "empty_password" = "Por favor, ingresa tu contraseña.";
-"invalid_data" = "¡Ups! El nombre de usuario o la contraseña no coinciden. Verifica tus datos e inténtalo de nuevo.";
+"invalid_data" = "¡Ups! El correo electrónico o la contraseña no coinciden. Verifica tus datos e inténtalo de nuevo.";
 
 /* --- Sign Up --- */
 "sign_up" = "Registrar";

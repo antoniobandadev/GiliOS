@@ -33,10 +33,8 @@ class SignViewController: KeyboardViewController, UITextFieldDelegate {
         if(isConnected){
             signUpUser()
         }else{
-            Utils.Snackbar.snackbarNoAction(message: "Sin conexion", bgColor: Constants.Colors.red!, duration: 3.0)
+            Utils.Snackbar.snackbarWithAction(message: "no_internet_connection".localized(), bgColor: Constants.Colors.red!, titleAction:"close".localized() ,duration: 5.0)
         }
-        
-        
     }
     
     
@@ -134,7 +132,7 @@ class SignViewController: KeyboardViewController, UITextFieldDelegate {
     func signUpUser() {
         
         if (validateinputs()){
-            Utils.Snackbar.snackbarNoAction(message: "Registro exitoso!!", bgColor: Constants.Colors.green!, duration: 3.0)
+            Utils.Snackbar.snackbarNoAction(message: "Registro exitoso!!", bgColor: Constants.Colors.green!, duration: 5.0)
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                 [self.tfName, self.tfEmail, self.tfEmailConf, self.tfPassword, self.tfPasswordConf].forEach { $0?.clearText() }
                 self.dismiss(animated: true)

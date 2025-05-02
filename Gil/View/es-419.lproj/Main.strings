@@ -38,5 +38,9 @@
 /* Class = "UILabel"; text = "Escanear"; ObjectID = "HEo-h1-HEZ"; */
 "HEo-h1-HEZ.text" = "Escanear";
 
+/*Settings*/
 /* Class = "UILabel"; text = "Ajustes"; ObjectID = "JyE-tU-4fr"; */
 "JyE-tU-4fr.text" = "Ajustes";
+
+"cVE-rL-eHw.configuration.title" = "Cerrar sesión";
+

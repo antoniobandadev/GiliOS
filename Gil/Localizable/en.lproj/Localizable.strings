@@ -1,6 +1,8 @@
 /* --- General --- */
 "close" = "Close";
 "ok" = "Ok";
+"no_internet_connection" = "No internet connection detected. Please check your network and try again.";
+
 /* --- LogIn --- */
 "user" = "Username";
 "password" = "Password";
@@ -8,7 +10,7 @@
 "sign_up_now" = "Don’t have an account yet? \nClick here to sign up.";
 "empty_email" = "Please enter your email.";
 "empty_password" = "Please enter your password.";
-"invalid_data" = "Oops! The username or password doesn’t match. Please double-check your details and try again.";
+"invalid_data" = "Oops! The email or password doesn’t match. Please double-check your details and try again.";
 
 /* --- Sign Up --- */
 "sign_up" = "Sign Up";
