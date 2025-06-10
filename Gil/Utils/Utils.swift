@@ -22,6 +22,7 @@ class Utils {
                 textField.label.text = label
                 textField.setOutlineColor(Constants.Colors.secondary!, for: .normal)
                 textField.setOutlineColor(Constants.Colors.secondary!, for: .editing)
+                textField.setOutlineColor(Constants.Colors.secondary!, for: .disabled)
                 textField.setFloatingLabelColor(Constants.Colors.secondary!, for: .normal)
                 textField.setFloatingLabelColor(Constants.Colors.secondary!, for: .editing)
                 textField.setNormalLabelColor(Constants.Colors.secondary!, for: .normal)
@@ -50,9 +51,12 @@ class Utils {
                 }
                 
                 // Config icon leading
-                if let iconName = icon, let image = UIImage(systemName: iconName) {
+                if let iconName = icon, let image = UIImage(named: iconName) {
                     let iconView = UIImageView(image: image)
                     iconView.tintColor = Constants.Colors.accent!
+                    // Configurar tamaño del icono
+                    iconView.frame = CGRect(x: 0, y: 0, width: 24, height: 24) // Ajusta el tamaño según necesites
+                    iconView.contentMode = .scaleAspectFit
                     textField.leadingView = iconView
                     textField.leadingViewMode = .always
                 }
@@ -67,7 +71,7 @@ class Utils {
             textField.isSecureTextEntry.toggle()
             
             // Change icon visible or invible
-            let imageName = textField.isSecureTextEntry ? "eye" : "eye.slash"
+            let imageName = textField.isSecureTextEntry ? "eye.fill" : "eye.slash.fill"
             let image = UIImage(systemName: imageName)
             button.setImage(image, for: .normal)
         }
@@ -137,7 +141,107 @@ class Utils {
             MDCSnackbarMessageView.appearance().buttonFont = Constants.Fonts.fontMini
             snackManager.show(snackMessage)
         }
+    }//SnackBar
+    
+    
+    class LoadigAlert{
+        static func showAlert(on viewController: UIViewController) -> UIAlertController {
+            let alert = UIAlertController(title: "", message: "", preferredStyle: .alert)
+
+          
+            if let backgroundView = alert.view.subviews.first?.subviews.first?.subviews.first {
+                backgroundView.backgroundColor = Constants.Colors.secondary
+                backgroundView.layer.cornerRadius = 12
+            }
+
+           
+            let widthConstraint = NSLayoutConstraint(item: alert.view!,
+                                                     attribute: .width,
+                                                     relatedBy: .equal,
+                                                     toItem: nil,
+                                                     attribute: .notAnAttribute,
+                                                     multiplier: 1,
+                                                     constant: 300)
+
+            let heightConstraint = NSLayoutConstraint(item: alert.view!,
+                                                      attribute: .height,
+                                                      relatedBy: .equal,
+                                                      toItem: nil,
+                                                      attribute: .notAnAttribute,
+                                                      multiplier: 1,
+                                                      constant: 100)
+
+            alert.view.addConstraint(widthConstraint)
+            alert.view.addConstraint(heightConstraint)
+
+            
+            let loadingIndicator = UIActivityIndicatorView(style: .large)
+            loadingIndicator.translatesAutoresizingMaskIntoConstraints = false
+            loadingIndicator.color = .white
+            loadingIndicator.startAnimating()
+            alert.view.addSubview(loadingIndicator)
+
+           
+            let messageLabel = UILabel()
+            messageLabel.text = "loading".localized()
+            messageLabel.textColor = .white
+            messageLabel.font = Constants.Fonts.font
+            messageLabel.textAlignment = .center
+            messageLabel.translatesAutoresizingMaskIntoConstraints = false
+            messageLabel.numberOfLines = 0
+            alert.view.addSubview(messageLabel)
+            
+            NSLayoutConstraint.activate([
+                loadingIndicator.centerXAnchor.constraint(equalTo: alert.view.centerXAnchor),
+                loadingIndicator.topAnchor.constraint(equalTo: alert.view.topAnchor, constant: 30),
+
+                messageLabel.topAnchor.constraint(equalTo: loadingIndicator.bottomAnchor, constant: 15),
+                messageLabel.leadingAnchor.constraint(equalTo: alert.view.leadingAnchor, constant: 16),
+                messageLabel.trailingAnchor.constraint(equalTo: alert.view.trailingAnchor, constant: -16),
+                messageLabel.bottomAnchor.constraint(lessThanOrEqualTo: alert.view.bottomAnchor, constant: -20)
+            ])
+
+            viewController.present(alert, animated: true)
+            return alert
+        }
+        
+        static func dismissAlert(_ alert: UIAlertController) {
+            alert.dismiss(animated: true)
+        }
+        
+    }//LoadingAlert
+    
+    class AlertConfirmUtils {
+        static func showCustomAlert(
+                on viewController: UIViewController,
+                title: String,
+                message: String,
+                confirmTitle: String = "Aceptar",
+                cancelTitle: String? = nil,
+                confirmColor: UIColor = .systemBlue,
+                cancelColor: UIColor = .systemGray,
+                onConfirm: (() -> Void)? = nil
+               // onCancel: (() -> Void)? = nil
+            ) {
+                let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                if let alertVC = storyboard.instantiateViewController(withIdentifier: "AlertConfViewController") as? AlertConfViewController {
+                    alertVC.modalPresentationStyle = .overFullScreen
+                    alertVC.modalTransitionStyle = .crossDissolve
+                    alertVC.alertTitle = title
+                    alertVC.alertMessage = message
+                    alertVC.confirmButtonTitle = confirmTitle
+                    alertVC.cancelButtonTitle = cancelTitle
+                    alertVC.confirmButtonColor = confirmColor
+                    alertVC.cancelButtonColor = cancelColor
+                    alertVC.onConfirm = onConfirm
+                    //alertVC.onCancel = onCancel
+                    viewController.present(alertVC, animated: true)
+                }
+            }
     }
+    
+    
+    
     
     
     

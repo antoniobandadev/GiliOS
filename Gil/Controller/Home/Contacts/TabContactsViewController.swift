@@ -19,15 +19,15 @@ class TabContactsViewController: UIViewController {
         tabBar.items = self.tabBarItems
         tabBar.tabBarDelegate = self
         tabBar.translatesAutoresizingMaskIntoConstraints = false
-        tabBar.contentAlignmentPoint = .init(x: 1.0, y: 0.5)
+        tabBar.contentAlignmentPoint = .init(x: 10.0, y: 0.5)
         return tabBar
     }()
     
-    let myContacts = "my_contacts".localized()
+    let myContacts = "my_friends".localized()
     let recivedRequest = "received_request".localized()
     let sentRequest = "sent_request".localized()
     
-    let itemTitles = ["my_contacts".localized(), "received_request".localized(), "sent_request".localized()]
+    let itemTitles = ["my_friends".localized(), "received_request".localized(), "sent_request".localized()]
     
     lazy var tabBarItems: [UITabBarItem] = {
         return itemTitles.enumerated().map { (index, title) in
@@ -54,11 +54,14 @@ class TabContactsViewController: UIViewController {
         view.addSubview(containerView)
         view.addSubview(tabBar)
         
+        
         //Constrains TabBar
         NSLayoutConstraint.activate([
             tabBar.topAnchor.constraint(equalTo: lbTitle.bottomAnchor),
-            tabBar.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            tabBar.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0),
             tabBar.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+            // tabBar.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            //
         ])
         
         // Constrains ContainerView
@@ -84,7 +87,7 @@ class TabContactsViewController: UIViewController {
     
     private func applyThemingToTabBarView() {
         tabBar.selectedItem = tabBarItems[0] //View Default
-        tabBar.barTintColor = .black //background tabBar
+        tabBar.barTintColor = Constants.Colors.primary //background tabBar
         tabBar.setTitleColor(Constants.Colors.accent,for: .normal)
         tabBar.setTitleColor(Constants.Colors.secondary, for: .selected)
         tabBar.setImageTintColor(Constants.Colors.accent, for: .normal)

@@ -1,0 +1,10 @@
+#APIS
+api.keys
+*.keys
+
+# CocoaPods
+Pods/
+Podfile.lock
+
+# Carthage (si lo usás también)
+Carthage/

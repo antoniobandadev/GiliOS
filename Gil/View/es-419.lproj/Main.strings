@@ -30,13 +30,27 @@
 "qqu-UK-LDS.text" = "Eventos";
 
 /* Class = "UILabel"; text = "Contactos"; ObjectID = "ltk-I7-mjs"; */
-"ltk-I7-mjs.text" = "Contactos";
+"ltk-I7-mjs.text" = "Amigos";
+"loH-bP-8vF.text" = "Contactos";
+"AbL-zY-YRG.text" = "Mis invitados";
+
 
 /* Class = "UILabel"; text = "Nuevo evento"; ObjectID = "XzA-Ty-l4h"; */
 "XzA-Ty-l4h.text" = "Nuevo evento";
 
 /* Class = "UILabel"; text = "Escanear"; ObjectID = "HEo-h1-HEZ"; */
 "HEo-h1-HEZ.text" = "Escanear";
+
+/*Terms*/
+//Buttons
+"OqR-FE-jEV.configuration.title" = "Términos y Condiciones";
+"jQV-rp-Jj5.configuration.title" = "Acepto los Términos y Condiciones";
+"Rzh-nC-xyB.configuration.title" = "Cerrar";
+"D0r-j2-4Gn.configuration.title" = "¿Olvidaste tu contraseña?";
+
+//Label
+"1Bm-sr-Kn8.text" = "Términos y Condiciones";
+
 
 /*Settings*/
 /* Class = "UILabel"; text = "Ajustes"; ObjectID = "JyE-tU-4fr"; */

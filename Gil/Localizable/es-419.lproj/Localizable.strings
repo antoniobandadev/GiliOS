@@ -1,7 +1,9 @@
 /* --- General --- */
 "close" = "Cerrar";
-"ok" = "Ok";
+"ok" = "OK";
+"loading" = "Cargando...";
 "no_internet_connection" = "No se detectó conexión a internet. Verifica tu red e inténtalo de nuevo.";
+"server_error"="Ha ocurrido un error inesperado. Intente nuevamente más tarde.";
 
 /* --- LogIn --- */
 "user" = "Usuario";
@@ -11,6 +13,21 @@
 "empty_email" = "Por favor, ingresa tu correo electrónico.";
 "empty_password" = "Por favor, ingresa tu contraseña.";
 "invalid_data" = "¡Ups! El correo electrónico o la contraseña no coinciden. Verifica tus datos e inténtalo de nuevo.";
+
+"login_success"="Sesión iniciada correctamente. Bienvenido(a).";
+
+"forgot_password" = "¿Olvidaste tu contraseña?";
+"change_password" = "Actualizar contraseña";
+"forgot_code" = "Código";
+"new_password" = "Nueva contraseña";
+"confirm_new_password" = "Confirma nueva contraseña";
+"no_email_found" = "No se encontró ningún usuario con esta cuenta de correo. Verifica tu correo e inténtalo de nuevo.";
+"send_code" = "Código enviado.";
+"verification_code_sent" = "Te enviamos un código de verificación por correo electrónico.";
+"incorrect_code" = "El código no es correcto. Verifícalo de nuevo.";
+"password_changed_successfully" = "La contraseña se cambió exitosamente.";
+"invalid_code_val" = "El campo del código no puede quedar vacío.";
+
 
 /* --- Sign Up --- */
 "sign_up" = "Registrar";
@@ -26,6 +43,9 @@
 "not_same_value" = "Los campos no coinciden. Por favor, revisa y vuelve a intentarlo.";
 "not_valid_email" = "Por favor, ingresa una dirección de correo electrónico válida (ejemplo: usuario@dominio.com).";
 "invalid_password" = "La contraseña debe tener al menos 8 caracteres, incluir mayúsculas, minúsculas, números y símbolos.";
+"user_exists"= "Ya existe una cuenta con este correo electrónico. Por favor, verifica la información e inténtalo de nuevo.";
+
+"registration_success" = "Su registro se ha completado exitosamente.";
 
 /* --- Menu --- */
 "events" = "Eventos";
@@ -40,5 +60,9 @@
 
 /* --- Contacts --- */
 "my_contacts" = "Mis contactos";
-"received_request" = "Recibidas";
-"sent_request" = "Enviadas";
+"my_friends" = "  Mis amigos  ";
+"received_request" = " Recibidas ";
+"sent_request" = " Enviadas ";
+/* --- Contacts Menu --- */
+"my_guests" = "Mis invitados";
+"friends" = "Amigos";

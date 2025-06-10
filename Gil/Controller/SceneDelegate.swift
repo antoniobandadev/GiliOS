@@ -30,6 +30,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             let loginNavController = storyboard.instantiateViewController(identifier: "LoginNavigationController")
             window?.rootViewController = loginNavController
         }
+        window?.makeKeyAndVisible()
         
     }
     
