@@ -19,6 +19,7 @@ enum APIError: Error {
     case notFound
     case responseSerializationFailed
     case unknown(Error)
+    case process
     
     var localizedDescription: String {
         switch self {
@@ -34,6 +35,8 @@ enum APIError: Error {
             return "The request is not valid."
         case .unauthorized:
             return "You need to log in to access this content."
+        case .process:
+            return "You have a pending request."
         case .forbidden:
             return "You do not have permission to access this resource."
         case .notFound:

@@ -119,6 +119,12 @@ class LogController: KeyboardViewController, UITextFieldDelegate {
                     
                     
                         UserDefaults.standard.set(true, forKey: "isLogged")
+                        UserDefaults.standard.set(user.userId, forKey: "userId")
+                        UserDefaults.standard.set(user.userName, forKey: "userName")
+                        UserDefaults.standard.set(user.userEmail, forKey: "userEmail")
+                        UserDefaults.standard.set(user.userProfile, forKey: "userProfile")
+                        UserDefaults.standard.set(false, forKey: "contactTable")
+                      
                         let storyboard = UIStoryboard(name: "Main", bundle: nil)
                         let mainTabBarController = storyboard.instantiateViewController(identifier: "MainTabBarController")
                         (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootViewController(mainTabBarController)
@@ -163,10 +169,11 @@ class LogController: KeyboardViewController, UITextFieldDelegate {
     
     
     @objc func textFieldDidChange(_ textField: MDCOutlinedTextField) {
-        applyValidStyle(to: textField)
+        //applyValidStyle(to: textField)
+        textField.applyValidStyle()
     }
     
-    func applyValidStyle(to textField: MDCOutlinedTextField) {
+    /*func applyValidStyle(to textField: MDCOutlinedTextField) {
         textField.leadingAssistiveLabel.text = nil
         textField.setOutlineColor(Constants.Colors.secondary!, for: .normal)
         textField.setOutlineColor(Constants.Colors.secondary!, for: .editing)
@@ -179,7 +186,7 @@ class LogController: KeyboardViewController, UITextFieldDelegate {
         if let mdcTextField = textField as? MDCOutlinedTextField {
             mdcTextField.clearTextFieldError()
         }
-    }
+    }*/
     
     
     

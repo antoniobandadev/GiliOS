@@ -28,7 +28,7 @@ class Utils {
                 textField.setNormalLabelColor(Constants.Colors.secondary!, for: .normal)
                 textField.setTextColor(Constants.Colors.accent!, for: .normal)
                 textField.setTextColor(Constants.Colors.accent!, for: .editing)
-                textField.tintColor = Constants.Colors.accent!
+                textField.tintColor = Constants.Colors.accent!                
                 
                 // Config icon trailing
                 if let iconNameT = iconTrailing, let image = UIImage(systemName: iconNameT) {
@@ -80,6 +80,7 @@ class Utils {
         @objc static func clearTextField(_ sender: UIButton) {
             guard let textField = sender.superview as? MDCOutlinedTextField else { return }
             textField.text = ""
+            textField.sendActions(for: .editingChanged)
             textField.leadingAssistiveLabel.text = nil
         }
     }//TextFieldConfig
@@ -216,10 +217,10 @@ class Utils {
                 on viewController: UIViewController,
                 title: String,
                 message: String,
-                confirmTitle: String = "Aceptar",
+                confirmTitle: String = "accept".localized(),
                 cancelTitle: String? = nil,
-                confirmColor: UIColor = .systemBlue,
-                cancelColor: UIColor = .systemGray,
+                confirmColor: UIColor? = nil,
+                cancelColor: UIColor? = nil,
                 onConfirm: (() -> Void)? = nil
                // onCancel: (() -> Void)? = nil
             ) {
@@ -231,10 +232,164 @@ class Utils {
                     alertVC.alertMessage = message
                     alertVC.confirmButtonTitle = confirmTitle
                     alertVC.cancelButtonTitle = cancelTitle
-                    alertVC.confirmButtonColor = confirmColor
-                    alertVC.cancelButtonColor = cancelColor
+                   // alertVC.confirmButtonColor = confirmColor
+                   // alertVC.cancelButtonColor = cancelColor
                     alertVC.onConfirm = onConfirm
                     //alertVC.onCancel = onCancel
+                    viewController.present(alertVC, animated: true)
+                }
+            }
+    }
+    
+    class AlertCustomUtils {
+        static func showCustomAlert(
+                on viewController: UIViewController,
+                title: String,
+                confirmTitle: String = "save".localized(),
+                cancelTitle: String? = nil,
+                onConfirm: (() -> Void)? = nil,
+                onCancel: (() -> Void)? = nil,
+                message: String? = nil
+                
+        ) {
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                if let alertVC = storyboard.instantiateViewController(withIdentifier: "AlertViewController") as? AlertViewController {
+                    alertVC.modalPresentationStyle = .overFullScreen
+                    alertVC.modalTransitionStyle = .crossDissolve
+                    alertVC.alertTitle = title
+                    alertVC.confirmButtonTitle = confirmTitle
+                    alertVC.cancelButtonTitle = cancelTitle
+                   // alertVC = confirmColor
+                   // alertVC.cancelButtonColor = cancelColor
+                    alertVC.onConfirm = onConfirm
+                    alertVC.onCancel = onCancel
+                    viewController.present(alertVC, animated: true)
+                }
+            }
+        
+        static func showEditCustomAlert(
+                on viewController: UIViewController,
+                title: String,
+                confirmTitle: String = "update".localized(),
+                newContact: Bool,
+                contact: ContactEntity,
+                cancelTitle: String? = "delete".localized(),
+                onConfirm: (() -> Void)? = nil,
+                onCancel: (() -> Void)? = nil,
+                message: String? = nil
+        ) {
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                if let alertVC = storyboard.instantiateViewController(withIdentifier: "AlertViewController") as? AlertViewController {
+                    alertVC.modalPresentationStyle = .overFullScreen
+                    alertVC.modalTransitionStyle = .crossDissolve
+                    alertVC.alertTitle = title
+                    alertVC.confirmButtonTitle = confirmTitle
+                    alertVC.cancelButtonTitle = cancelTitle
+                    alertVC.newContact = newContact
+                    alertVC.myContact = contact
+                   // alertVC = confirmColor
+                   // alertVC.cancelButtonColor = cancelColor
+                    alertVC.onConfirm = onConfirm
+                    alertVC.onCancel = onCancel
+                    viewController.present(alertVC, animated: true)
+                }
+            }
+        
+        static func showConfirmCustomAlert(
+                on viewController: UIViewController,
+                title: String,
+                message: String,
+                confirmTitle: String = "yes".localized(),
+                cancelTitle: String? = "no".localized(),
+                onConfirm: (() -> Void)? = nil,
+                onCancel: (() -> Void)? = nil
+                
+        ) {
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                if let alertVC = storyboard.instantiateViewController(withIdentifier: "AlertViewController") as? AlertViewController {
+                    alertVC.modalPresentationStyle = .overFullScreen
+                    alertVC.modalTransitionStyle = .crossDissolve
+                    alertVC.alertTitle = title
+                    alertVC.confirmButtonTitle = confirmTitle
+                    alertVC.cancelButtonTitle = cancelTitle
+                    alertVC.onConfirm = onConfirm
+                    alertVC.onCancel = onCancel
+                    alertVC.message = message
+                    viewController.present(alertVC, animated: true)
+                }
+            }
+    }
+    
+    class AlertFriendsUtils {
+        static func showAlert(
+            on viewController: UIViewController,
+            title: String,
+            confirmTitle: String? = "delete".localized(),
+            cancelTitle: String? = nil,
+            friend: FriendDto,
+            newFriend: Bool = false,
+            onConfirm: (() -> Void)? = nil,
+            onCancel: (() -> Void)? = nil,
+            message: String? = nil
+            
+        ) {
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            if let alertVC = storyboard.instantiateViewController(withIdentifier: "AlertFriendViewController") as? AlertFriendViewController {
+                alertVC.modalPresentationStyle = .overFullScreen
+                alertVC.modalTransitionStyle = .crossDissolve
+                alertVC.alertTitle = title
+                alertVC.confirmButtonTitle = confirmTitle
+                alertVC.cancelButtonTitle = cancelTitle
+                alertVC.myFriend = friend
+                alertVC.newFriend = newFriend
+                alertVC.onConfirm = onConfirm
+                alertVC.onCancel = onCancel
+                viewController.present(alertVC, animated: true)
+            }
+        }
+        static func showAddFriendAlert(
+            on viewController: UIViewController,
+            title: String,
+            confirmTitle: String? = "add".localized(),
+            cancelTitle: String? = nil,
+            onConfirm: (() -> Void)? = nil,
+            onCancel: (() -> Void)? = nil,
+            message: String? = nil
+            
+        ) {
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            if let alertVC = storyboard.instantiateViewController(withIdentifier: "AlertFriendViewController") as? AlertFriendViewController {
+                alertVC.modalPresentationStyle = .overFullScreen
+                alertVC.modalTransitionStyle = .crossDissolve
+                alertVC.alertTitle = title
+                alertVC.confirmButtonTitle = confirmTitle
+                alertVC.cancelButtonTitle = cancelTitle
+                alertVC.onConfirm = onConfirm
+                alertVC.onCancel = onCancel
+                viewController.present(alertVC, animated: true)
+            }
+        }
+        
+        static func showConfirmFriendAlert(
+                on viewController: UIViewController,
+                title: String,
+                message: String,
+                confirmTitle: String = "yes".localized(),
+                cancelTitle: String? = "no".localized(),
+                onConfirm: (() -> Void)? = nil,
+                onCancel: (() -> Void)? = nil
+                
+        ) {
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                if let alertVC = storyboard.instantiateViewController(withIdentifier: "AlertFriendViewController") as? AlertFriendViewController {
+                    alertVC.modalPresentationStyle = .overFullScreen
+                    alertVC.modalTransitionStyle = .crossDissolve
+                    alertVC.alertTitle = title
+                    alertVC.confirmButtonTitle = confirmTitle
+                    alertVC.cancelButtonTitle = cancelTitle
+                    alertVC.onConfirm = onConfirm
+                    alertVC.onCancel = onCancel
+                    alertVC.message = message
                     viewController.present(alertVC, animated: true)
                 }
             }

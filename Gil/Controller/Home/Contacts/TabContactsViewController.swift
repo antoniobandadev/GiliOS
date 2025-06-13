@@ -109,7 +109,7 @@ class TabContactsViewController: UIViewController {
         view.addSubview(bugFixScrollView)
     }
     
-    // Change View
+    /*// Change View
     private func displaySelectedViewController(for identifier: String) {
         guard let selectedViewController = viewControllers[identifier] else {
             return
@@ -125,6 +125,29 @@ class TabContactsViewController: UIViewController {
         selectedViewController.view.frame = containerView.bounds
         containerView.addSubview(selectedViewController.view)
         selectedViewController.didMove(toParent: self)
+    }*/
+    
+    private var currentViewController: UIViewController?
+
+    private func displaySelectedViewController(for identifier: String) {
+        guard let selectedViewController = viewControllers[identifier] else {
+            return
+        }
+
+        // Quitar el view controller anterior correctamente
+        if let current = currentViewController {
+            current.willMove(toParent: nil)
+            current.view.removeFromSuperview()
+            current.removeFromParent()
+        }
+
+        // Agregar nuevo controller
+        addChild(selectedViewController)
+        selectedViewController.view.frame = containerView.bounds
+        containerView.addSubview(selectedViewController.view)
+        selectedViewController.didMove(toParent: self)
+
+        currentViewController = selectedViewController
     }
     
     

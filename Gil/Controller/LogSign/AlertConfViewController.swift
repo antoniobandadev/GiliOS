@@ -29,11 +29,11 @@ class AlertConfViewController: UIViewController {
     @IBOutlet weak var alertContainerView: UIView!
     
     
-    // Parámetros configurables
+   
     var alertTitle: String?
     var alertMessage: String?
     var confirmButtonTitle: String?
-    var cancelButtonTitle: String? = nil // Si es nil, no se muestra
+    var cancelButtonTitle: String? = nil
     var confirmButtonColor: UIColor = .systemBlue
     var cancelButtonColor: UIColor = .systemGray
 
@@ -52,14 +52,14 @@ class AlertConfViewController: UIViewController {
         // Configurar botón Confirmar
         btnConfirm.setTitle(confirmButtonTitle, for: .normal)
         btnConfirm.setTitleColor(.white, for: .normal)
-        btnConfirm.backgroundColor = confirmButtonColor
+       // btnConfirm.backgroundColor = confirmButtonColor
         btnConfirm.layer.cornerRadius = 8
 
         // Configurar botón Cancelar (opcional)
         if let cancelTitle = cancelButtonTitle {
             btnCancel.setTitle(cancelTitle, for: .normal)
             btnCancel.setTitleColor(.white, for: .normal)
-            btnCancel.backgroundColor = cancelButtonColor
+            //btnCancel.backgroundColor = cancelButtonColor
             btnCancel.layer.cornerRadius = 8
             btnCancel.isHidden = false
         } else {

@@ -15,6 +15,12 @@ enum EndPoint {
     case logUser
     case forgotPassword
     case updatePassword
+    case newContact
+    case updateContact
+    case getContacts
+    case getFriends
+    case newFriend
+    case solFriend
     
     var url : URL {
         
@@ -27,6 +33,18 @@ enum EndPoint {
             return URL(string: "\(EndPoint.baseURL)/users/forgotPass")!
         case .updatePassword:
             return URL(string: "\(EndPoint.baseURL)/users/updatePass")!
+        case .newContact:
+            return URL(string: "\(EndPoint.baseURL)/contacts/newContacts")!
+        case.updateContact:
+            return URL(string: "\(EndPoint.baseURL)/contacts/updateContact")!
+        case.getContacts:
+            return URL(string: "\(EndPoint.baseURL)/contacts/contacts")!
+        case.getFriends:
+            return URL(string: "\(EndPoint.baseURL)/friends/friends")!
+        case.newFriend:
+            return URL(string: "\(EndPoint.baseURL)/friends/newFriend")!
+        case.solFriend:
+            return URL(string: "\(EndPoint.baseURL)/friends/solFriend")!
         }
         
     }

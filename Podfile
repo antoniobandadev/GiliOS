@@ -8,6 +8,7 @@ target 'Gil' do
   # Pods for Gil
 
   pod 'MaterialComponents'
+  pod 'SkeletonView'
 
 
 end

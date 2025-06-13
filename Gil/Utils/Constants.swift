@@ -14,6 +14,7 @@ struct Constants {
         static let accent = UIColor(named: "accent")
         static let red = UIColor(named: "red")
         static let green = UIColor(named: "green")
+        static let primaryLigth = UIColor(named: "primaryLight")
     }
     
     struct Fonts {

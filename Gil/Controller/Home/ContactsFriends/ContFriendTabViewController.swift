@@ -16,11 +16,11 @@ class ContFriendTabViewController: UITableViewController {
     let menuOptions : [MenuOption] = [
         MenuOption(
             title:"contacts",
-            image:"book",
+            image:"ic_contacts",
             segue:"contactsSegue")
         , MenuOption(
             title:"friends",
-            image:"person.3.fill",
+            image:"ic_friends",
             segue:"friendsSegue")
     ]
 
@@ -53,11 +53,12 @@ class ContFriendTabViewController: UITableViewController {
         
         let menuOption = menuOptions[indexPath.row]
         cell.lbCellOption.text = menuOption.title.localized()
-        cell.imgCelloption.image = UIImage(systemName: menuOption.image)
+        cell.imgCelloption.image = UIImage(named: menuOption.image)
+        cell.imgCellNav.image = UIImage(systemName: "chevron.right")
         
-        let chevronImage = UIImageView(image: UIImage(systemName: "chevron.right"))
+       /* let chevronImage = UIImageView(image: UIImage(systemName: "chevron.right"))
         chevronImage.tintColor = Constants.Colors.accent
-        cell.accessoryView = chevronImage
+        cell.accessoryView = chevronImage*/
         
         return cell
     }

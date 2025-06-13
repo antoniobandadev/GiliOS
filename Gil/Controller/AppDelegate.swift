@@ -7,6 +7,7 @@
 
 import UIKit
 import MaterialComponents
+import CoreData
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -57,7 +58,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         
     }
-
 
 }
 
