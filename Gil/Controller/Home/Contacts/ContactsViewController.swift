@@ -61,45 +61,19 @@ class ContactsViewController: KeyboardViewController , SkeletonTableViewDataSour
         tfShearchC.delegate = self
 
         tvContacts.isSkeletonable = true
-       /*DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-            self.tvContacts.stopSkeletonAnimation()
-            self.tvContacts.hideSkeleton(reloadDataAfter: true)
-        }*/
         
         // Do any additional setup after loading the view.
         initUI()
         
-        if(isConnected){
-            let contactsApiSelect = UserDefaults.standard.bool(forKey: "contactTable")
-            if(contactsApiSelect){
-                updateContacts()
-                pendingContactsApi()
-            }else{
-                updateContactsApi()
-                pendingContactsApi()
-                UserDefaults.standard.set(true, forKey: "contactTable")
-            }
-        }else{
-            updateContacts()
-        }
         
-        NotificationCenter.default.addObserver(self, selector:#selector(updateContacts), name: NSNotification.Name("ADD_CONTACT"), object:nil)
+        updateGetContacts()
+        NotificationCenter.default.addObserver(self, selector:#selector(updateGetContacts), name: NSNotification.Name("ADD_CONTACT"), object:nil)
         
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
         tfShearchC.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
-        
-        if searchContacts.isEmpty {
-            contactsLabel.isHidden = false
-            tvContacts.isHidden = true
-        } else {
-            contactsLabel.isHidden = true
-            tvContacts.isHidden = false
-        }
-        
     }
     
     
@@ -193,7 +167,7 @@ class ContactsViewController: KeyboardViewController , SkeletonTableViewDataSour
     
     
     @objc
-    func updateContacts() {
+    func updateContacts(completion: @escaping () -> Void) {
         self.tvContacts.showAnimatedGradientSkeleton(animation: fastShimmer, transition: .none)
         DispatchQueue.main.async {
             self.contacts = DataManager.shared.getContacts()
@@ -202,11 +176,12 @@ class ContactsViewController: KeyboardViewController , SkeletonTableViewDataSour
         }
         self.tvContacts.stopSkeletonAnimation()
         self.tvContacts.hideSkeleton(reloadDataAfter: true)
+        completion()
     }
     
     
     @objc
-    func updateContactsApi() {
+    func updateContactsApi(completion: @escaping () -> Void) {
         self.tvContacts.showAnimatedGradientSkeleton(animation: fastShimmer, transition: .none)
         let userId = UserDefaults.standard.integer(forKey: "userId")
         
@@ -240,6 +215,7 @@ class ContactsViewController: KeyboardViewController , SkeletonTableViewDataSour
                 }
                 self.tvContacts.stopSkeletonAnimation()
                 self.tvContacts.hideSkeleton(reloadDataAfter: true)
+                completion()
             }
             
         }
@@ -247,7 +223,7 @@ class ContactsViewController: KeyboardViewController , SkeletonTableViewDataSour
     }
     
     @objc
-    func pendingContactsApi() {
+    func pendingContactsApi(completion: @escaping () -> Void) {
         contactsPendings = DataManager.shared.getContactsPending()
         if(!contactsPendings.isEmpty){
             for contactEntity in contactsPendings {
@@ -302,6 +278,7 @@ class ContactsViewController: KeyboardViewController , SkeletonTableViewDataSour
                 }
             }
         }
+        completion()
     }
     
     @objc func textFieldDidChange(_ textField: UITextField) {
@@ -322,6 +299,60 @@ class ContactsViewController: KeyboardViewController , SkeletonTableViewDataSour
         contactsLabel.text = noResultVal
         contactsLabel.isHidden = !searchContacts.isEmpty
         tvContacts.isHidden = searchContacts.isEmpty
+    }
+    
+    @objc func updateGetContacts(){
+        print("getcontacts")
+        if(isConnected){
+            print("getcontacts_conectado")
+            let contactsApiSelect = UserDefaults.standard.bool(forKey: "contactTable")
+            if(contactsApiSelect){
+                print("contactsApiSelect")
+                updateContacts{
+                    print("updateContacts")
+                    self.pendingContactsApi{
+                        print("pendingContactsApi")
+                       /* if self.searchContacts.isEmpty {
+                            self.contactsLabel.isHidden = false
+                            self.tvContacts.isHidden = true
+                        } else {
+                            print("ElsependingContactsApi")
+                            self.contactsLabel.isHidden = true
+                            self.tvContacts.isHidden = false
+                        }*/
+                    }
+                }
+                
+            }else{
+                print("getcontacts_no_conectado")
+                updateContactsApi{
+                    self.pendingContactsApi{
+                        /*if self.searchContacts.isEmpty {
+                            self.contactsLabel.isHidden = false
+                            self.tvContacts.isHidden = true
+                        } else {
+                            self.contactsLabel.isHidden = true
+                            self.tvContacts.isHidden = false
+                        }*/
+                    }
+                }
+                
+                UserDefaults.standard.set(true, forKey: "contactTable")
+            }
+        }else{
+            updateContacts{
+                self.pendingContactsApi{
+                    if self.searchContacts.isEmpty {
+                        self.contactsLabel.isHidden = false
+                        self.tvContacts.isHidden = true
+                    } else {
+                        self.contactsLabel.isHidden = true
+                        self.tvContacts.isHidden = false
+                    }
+                }
+            }
+        }
+        
     }
 
     

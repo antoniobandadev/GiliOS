@@ -45,29 +45,20 @@ class ReceivedViewController: KeyboardViewController , SkeletonTableViewDataSour
 
         // Do any additional setup after loading the view.
         initUI()
-        print("\(String(describing: self)) cargo")
         
-        NotificationCenter.default.addObserver(self, selector: #selector(onNetworkStatusChanged), name: .networkStatusChanged, object: nil)
-       // NotificationCenter.default.addObserver(self, selector:#selector(getFriends), name: NSNotification.Name("DELETE_FRIEND"), object:nil)
+        //Observo los cambios de internet
+        observeConnectionChanges { [weak self] isConnected in
+            self?.updateGetFriends()
+        }
+        
+      
+        NotificationCenter.default.addObserver(self, selector:#selector(updateGetFriends), name: NSNotification.Name("DELETE_FRIEND"), object:nil)
     }
     
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-           
-        getFriends{
-            print("\(String(describing: self)) apareció")
-            
-            self.tfReceivedSearch.addTarget(self, action: #selector(self.textFieldDidChange(_:)), for: .editingChanged)
-            
-            if self.searchFriends.isEmpty {
-                self.friendsLabel.isHidden = false
-                self.tvReceived.isHidden = true
-            } else {
-                self.friendsLabel.isHidden = true
-                self.tvReceived.isHidden = false
-            }
-        }
+        updateGetFriends()
     }
     
     
@@ -113,7 +104,7 @@ class ReceivedViewController: KeyboardViewController , SkeletonTableViewDataSour
        //performSegue(withIdentifier: menuOptions[indexPath.row].segue, sender: nil)
        //if let cell = tableView.cellForRow(at: indexPath) as? CustomTableViewCell {
         let friend = searchFriends[indexPath.row]
-        Utils.AlertFriendsUtils.showAlert(on: self, title: "delete_friend".localized(), friend: friend)
+        Utils.AlertFriendsUtils.showAlert(on: self, title: "add_friend".localized(), friend: friend, recivedFriend: true)
       //  Utils.AlertCustomUtils.showEditCustomAlert(on: self, title: "update_contact".localized(), newContact:false, contact: contact)
            // cell.lbName.textColor = Constants.Colors.secondary
      //   }
@@ -157,7 +148,7 @@ class ReceivedViewController: KeyboardViewController , SkeletonTableViewDataSour
       
         let userId = UserDefaults.standard.integer(forKey: "userId")
 
-        serviceManager.getFriends(userId: userId, friendStatus: "A") { result in
+        serviceManager.getFriends(userId: userId, friendStatus: "R") { result in
             DispatchQueue.main.async {
                 switch result {
                     case .success(let friendsApi):
@@ -213,20 +204,36 @@ class ReceivedViewController: KeyboardViewController , SkeletonTableViewDataSour
     }
     
     
-    
-    @objc func onNetworkStatusChanged() {
-        let isConnected = NetworkMonitor.shared.isConnected
-        if( isConnected){
-            //Utils.Snackbar.snackbarNoAction(message: "no_internet_connection".localized(), bgColor: Constants.Colors.green! ,duration: 5.0)
-            getFriends{}
+    @objc
+    func updateGetFriends() {
+        
+        if(isConnected){
+           // Utils.Snackbar.snackbarNoAction(message: "conectado", bgColor: Constants.Colors.green! ,duration: 5.0)
+            getFriends{
+                self.tfReceivedSearch.addTarget(self, action: #selector(self.textFieldDidChange(_:)), for: .editingChanged)
+                
+                if self.searchFriends.isEmpty {
+                    self.friendsLabel.isHidden = false
+                    self.tvReceived.isHidden = true
+                } else {
+                    self.friendsLabel.isHidden = true
+                    self.tvReceived.isHidden = false
+                }
+               
+            }
         }else{
             self.tvReceived.showAnimatedGradientSkeleton(animation: fastShimmer, transition: .none)
             Utils.Snackbar.snackbarWithAction(message: "no_internet_connection".localized(), bgColor: Constants.Colors.red!, titleAction:"close".localized() ,duration: 5.0)
         }
     }
-
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        removeNetworkObserver()
+    }
+    
     deinit {
-        NotificationCenter.default.removeObserver(self, name: .networkStatusChanged, object: nil)
+        removeNetworkObserver()
     }
 
 }

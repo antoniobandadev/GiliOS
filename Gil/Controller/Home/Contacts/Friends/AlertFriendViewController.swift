@@ -21,6 +21,15 @@ class AlertFriendViewController: KeyboardViewController, UITextFieldDelegate {
     var confirmCancel: Bool = false
     var myFriend: FriendDto?
     var newFriend: Bool = true
+    var sentFriend: Bool = false
+    var recivedFriend: Bool = false
+    
+    //Si vamos a cancelar amistad
+    var successVal = "delete_friend_success".localized()
+    var titleVal = "delete_friend".localized()
+    var messageVal = "confirm_delete_friend".localized()
+    var buttonVal = "delete".localized()
+    
     
     @IBOutlet weak var lbFriendTitle: UILabel!
     
@@ -46,7 +55,12 @@ class AlertFriendViewController: KeyboardViewController, UITextFieldDelegate {
     
     @IBAction func btnPositiveAction(_ sender: UIButton) {
         self.onConfirm?()
-        if(newFriend){
+        if(recivedFriend){
+            updateSolFriendsAcept()
+           // self.dismiss(animated: true)
+               // sendFriendRequest()
+           
+        }else if(newFriend){
             if(validate()){
                 sendFriendRequest()
             }
@@ -54,34 +68,52 @@ class AlertFriendViewController: KeyboardViewController, UITextFieldDelegate {
             if(confirmCancel){
                 
             }else{
-                Utils.AlertFriendsUtils.showConfirmFriendAlert(on: self, title: "delete_friend".localized(), message: "confirm_delete_friend".localized() ,
+                Utils.AlertFriendsUtils.showConfirmFriendAlert(on: self, title: titleVal, message: messageVal ,
                 onConfirm: {
                        
                         if(self.isConnected){
                             self.updateSolFriends()
-                            //self.updateContact(name: self.etValue1.text ?? "", email: self.etValue2.text ?? "", status: "C", contact: self.myContact!)
                         }else{
                             self.dismiss(animated: true)
-                           // self.updateContactDB(name: self.etValue1.text ?? "", email: self.etValue2.text ?? "", status: "C", contact: self.myContact!)
                         }
                     
-                        //alertLoading.dismiss(animated: true)
                 }, onCancel: {
                     self.dismiss(animated: true)
                     self.confirmCancel = false
                 })
                 confirmCancel = true
             }
+        }
+    }
+    
+    
+    
+    @IBAction func btnNegativeAction(_ sender: UIButton) {
+        self.onCancel?()
+        
+        if(recivedFriend){
+            Utils.AlertFriendsUtils.showConfirmFriendAlert(on: self, title: titleVal, message: messageVal ,
+            onConfirm: {
+                   
+                    if(self.isConnected){
+                        self.updateSolFriends()
+                    }else{
+                        self.dismiss(animated: true)
+                    }
+                
+            }, onCancel: {
+                self.dismiss(animated: true)
+                self.confirmCancel = false
+            })
+            confirmCancel = true
             
-            
+        }else{
+            dismiss(animated: true)
         }
        
     }
     
-    @IBAction func btnNegativeAction(_ sender: UIButton) {
-        self.onCancel?()
-        dismiss(animated: true)
-    }
+    
     
     
     
@@ -94,6 +126,15 @@ class AlertFriendViewController: KeyboardViewController, UITextFieldDelegate {
         tfFriendEmail.delegate = self
         
         [tfFriendName, tfFriendEmail].forEach { $0?.clearTextFieldError() }
+
+        initUI()
+        
+        
+        // Do any additional setup after loading the view.
+    }
+    
+    
+    func initUI(){
         
         view.backgroundColor = UIColor.black.withAlphaComponent(0.5)
         alertContainer.layer.cornerRadius = 16
@@ -104,16 +145,6 @@ class AlertFriendViewController: KeyboardViewController, UITextFieldDelegate {
         tfFriendEmail.text = myFriend?.contactEmail
         tfFriendName.isEnabled = false
         tfFriendEmail.isEnabled = false
-
-        
-        
-        
-        
-        /*btnPositive.setTitle("Confirmar", for: .normal)
-        btnPositive.setTitleColor(.white, for: .normal)
-        btnPositive.backgroundColor = .systemBlue
-        //btnPositive.layer.cornerRadius = 20
-        btnPositive.clipsToBounds = true*/
 
         
         if let messageTitle = message {
@@ -136,13 +167,6 @@ class AlertFriendViewController: KeyboardViewController, UITextFieldDelegate {
             btnNegative.isHidden = true
         }
         
-        initUI()
-
-        // Do any additional setup after loading the view.
-    }
-    
-    
-    func initUI(){
         Utils.TextField.config(tfFriendName, label: NSLocalizedString("name".localized(), comment: ""), icon: "ic_user", iconTrailing: "xmark.circle.fill")
         tfFriendName.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
         
@@ -161,6 +185,27 @@ class AlertFriendViewController: KeyboardViewController, UITextFieldDelegate {
             btnPositive.setTitle(confirmButtonTitle, for: .normal)
             btnPositive.layer.cornerRadius = 16
             btnPositive.backgroundColor = Constants.Colors.red
+        }
+        
+        if(sentFriend){
+             successVal = "friend_request_cancelled_success".localized()
+             titleVal = "cancel_request".localized()
+             messageVal = "confirm_cancel_request".localized()
+             buttonVal = "cancel".localized()
+             btnPositive.setTitle(buttonVal, for: .normal)
+        }
+        
+        if(recivedFriend){
+             successVal = "friend_request_rejected_success".localized()
+             titleVal = "reject_friend".localized()
+             messageVal = "confirm_reject_friend".localized()
+             buttonVal = "acept".localized()
+             cancelButtonTitle = "reject".localized()
+             btnPositive.setTitle(buttonVal, for: .normal)
+             btnPositive.layer.cornerRadius = 16
+             btnPositive.backgroundColor = Constants.Colors.green
+             btnNegative.isHidden = false
+             btnNegative.setTitle(cancelButtonTitle, for: .normal)
         }
         
     }
@@ -237,7 +282,46 @@ class AlertFriendViewController: KeyboardViewController, UITextFieldDelegate {
             case .success(_):
                 alertLoading.dismiss(animated: true){
                     
-                    Utils.Snackbar.snackbarNoAction(message: "delete_friend_success".localized(), bgColor: Constants.Colors.green!, duration: 3.0)
+                    Utils.Snackbar.snackbarNoAction(message: self.successVal, bgColor: Constants.Colors.green!, duration: 3.0)
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                        self.dismiss(animated: true){
+                            self.dismiss(animated: true)
+                        }
+                    }
+                    NotificationCenter.default.post(name: NSNotification.Name("DELETE_FRIEND"), object:nil)
+                }
+            
+            case .failure(let error):
+                alertLoading.dismiss(animated: true){
+                    if let apiError = error as? APIError {
+                        switch apiError {
+                        default:
+                            
+                            Utils.Snackbar.snackbarNoAction(message: "server_error".localized(), bgColor: Constants.Colors.red!, duration: 5.0)
+                            
+                        }
+                    } else {
+                        Utils.Snackbar.snackbarNoAction(message: "server_error".localized(), bgColor: Constants.Colors.red!, duration: 5.0)
+                        print(error.localizedDescription)
+                    }
+                }
+            }
+        }
+    }
+    
+    func updateSolFriendsAcept(){
+        let alertLoading = Utils.LoadigAlert.showAlert(on: self)
+        let solFriend = SolFriendDto(
+            userId: myFriend?.userId, friendId: myFriend?.contactId, friendStatus: "A"
+            )
+        
+        serviceManager.solFriends(solFriend: solFriend){ result in
+            switch result {
+                
+            case .success(_):
+                alertLoading.dismiss(animated: true){
+                    
+                    Utils.Snackbar.snackbarNoAction(message: self.successVal, bgColor: Constants.Colors.green!, duration: 3.0)
                     DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
                         self.dismiss(animated: true){
                             self.dismiss(animated: true)

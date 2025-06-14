@@ -330,7 +330,9 @@ class Utils {
             newFriend: Bool = false,
             onConfirm: (() -> Void)? = nil,
             onCancel: (() -> Void)? = nil,
-            message: String? = nil
+            message: String? = nil,
+            sentFriend: Bool = false,
+            recivedFriend: Bool = false
             
         ) {
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
@@ -344,6 +346,8 @@ class Utils {
                 alertVC.newFriend = newFriend
                 alertVC.onConfirm = onConfirm
                 alertVC.onCancel = onCancel
+                alertVC.sentFriend = sentFriend
+                alertVC.recivedFriend = recivedFriend
                 viewController.present(alertVC, animated: true)
             }
         }

@@ -1,4 +1,5 @@
 PODS:
+  - Kingfisher (6.3.1)
   - MaterialComponents (112.1.0):
     - MaterialComponents/ActionSheet (= 112.1.0)
     - "MaterialComponents/ActionSheet+Theming (= 112.1.0)"
@@ -636,11 +637,13 @@ PODS:
   - SkeletonView (1.30.4)
 
 DEPENDENCIES:
+  - Kingfisher
   - MaterialComponents
   - SkeletonView
 
 SPEC REPOS:
   trunk:
+    - Kingfisher
     - MaterialComponents
     - MDFInternationalization
     - MDFTextAccessibility
@@ -649,6 +652,7 @@ SPEC REPOS:
     - SkeletonView
 
 SPEC CHECKSUMS:
+  Kingfisher: 016c8b653a35add51dd34a3aba36b580041acc74
   MaterialComponents: ba54523b921faa5c2adaaa692048c6b95a09263d
   MDFInternationalization: 010097556d6b09d2c4ea38e0820ea6d37be6a314
   MDFTextAccessibility: f4bb4cc2194286651b59a215fdeaa0e05dc90ba5
@@ -656,6 +660,6 @@ SPEC CHECKSUMS:
   MotionInterchange: ead0e3ae1f3a5fb539e289debbc7ae036160a10d
   SkeletonView: 5a050f6411e697abd4cda0a8d767013399dccd69
 
-PODFILE CHECKSUM: 8ac163b8921c9ec49d2ff2ee26a3a72936783f4a
+PODFILE CHECKSUM: d363b740621fa0246202f4120c1539b53894a60b
 
 COCOAPODS: 1.16.2

@@ -37,16 +37,22 @@ class ForgotViewController: KeyboardViewController, UITextFieldDelegate {
         tfForgCode.clearTextFieldError()
         let email = tfForgEmail.text ?? ""
         
-        if(codeSend){
-            if(validPassword()){
-                updatePassword()
+        if(isConnected){
+            if(codeSend){
+                if(validPassword()){
+                    updatePassword()
+                }
+                
+            }else{
+                if(valEmail(email: email)){
+                    sendCode()
+                }
             }
-            
         }else{
-            if(valEmail(email: email)){
-                sendCode()
-            }
+            Utils.Snackbar.snackbarWithAction(message: "no_internet_connection".localized(), bgColor: Constants.Colors.red!, titleAction:"close".localized() ,duration: 5.0)
         }
+        
+        
         
     }
     

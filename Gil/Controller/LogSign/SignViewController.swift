@@ -63,7 +63,7 @@ class SignViewController: KeyboardViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Network
-        observeConnectionChanges()
+        //observeConnectionChanges()
         
         // Do any additional setup after loading the view.
         tfName.delegate = self

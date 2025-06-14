@@ -9,6 +9,7 @@ target 'Gil' do
 
   pod 'MaterialComponents'
   pod 'SkeletonView'
+  pod 'Kingfisher'
 
 
 end

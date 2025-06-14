@@ -20,7 +20,46 @@ class NetworkMonitor {
     
     private init() {}
     
+    private var lastConnectionStatus: Bool?
+    private var lastConnectionType: String?
+    
     func startMonitoring() {
+        guard !isMonitoringStarted else { return }
+
+        monitor.pathUpdateHandler = { path in
+            let isNowConnected = (path.status == .satisfied)
+            let isNowExpensive = path.isExpensive
+            let newConnectionType = self.connectionType(path: path)
+
+            // Evita notificaciones duplicadas
+            if self.lastConnectionStatus == isNowConnected && self.lastConnectionType == newConnectionType {
+                return // No cambio real, no notificar
+            }
+
+            self.isConnected = isNowConnected
+            self.isExpensive = isNowExpensive
+            self.currentConnectionType = newConnectionType
+            self.lastConnectionStatus = isNowConnected
+            self.lastConnectionType = newConnectionType
+
+            DispatchQueue.main.async {
+                NotificationCenter.default.post(
+                    name: .networkStatusChanged,
+                    object: nil,
+                    userInfo: [
+                        "isConnected": self.isConnected,
+                        "isExpensive": self.isExpensive,
+                        "connectionType": self.currentConnectionType
+                    ]
+                )
+            }
+        }
+
+        monitor.start(queue: queue)
+        isMonitoringStarted = true
+    }
+    
+    /*func startMonitoring() {
         //If monitoring already started, exit
         guard !isMonitoringStarted else {
             return
@@ -46,7 +85,7 @@ class NetworkMonitor {
         } //Handler
         monitor.start(queue: queue)
         isMonitoringStarted = true
-    }
+    }*/
     
     func stopMonitoring() {
         guard isMonitoringStarted else {

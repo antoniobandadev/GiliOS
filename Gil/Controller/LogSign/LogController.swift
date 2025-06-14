@@ -50,7 +50,7 @@ class LogController: KeyboardViewController, UITextFieldDelegate {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         // Network
-        observeConnectionChanges()
+        //observeConnectionChanges()
         tfUserName.delegate = self
         tfUserPassword.delegate = self
         

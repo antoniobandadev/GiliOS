@@ -63,26 +63,21 @@ class FriendsViewController: KeyboardViewController , SkeletonTableViewDataSourc
 
         // Do any additional setup after loading the view.
         initUI()
-        getFriends()
-        NotificationCenter.default.addObserver(self, selector: #selector(onNetworkStatusChanged), name: .networkStatusChanged, object: nil)
+        //Observo los cambios de internet
+        observeConnectionChanges { [weak self] isConnected in
+            self?.updateGetFriends()
+        }
+        
+        
+        
         NotificationCenter.default.addObserver(self, selector:#selector(getFriends), name: NSNotification.Name("DELETE_FRIEND"), object:nil)
     }
     
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
-        
-        tfFriendSearch.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
-        
-        if searchFriends.isEmpty {
-            friendsLabel.isHidden = false
-            tvFriends.isHidden = true
-        } else {
-            friendsLabel.isHidden = true
-            tvFriends.isHidden = false
-        }
-        
+        //Observo los cambios de internet
+        updateGetFriends()
     }
     
     
@@ -178,7 +173,7 @@ class FriendsViewController: KeyboardViewController , SkeletonTableViewDataSourc
     }
     
     @objc
-    func getFriends() {
+    func getFriends(completion: @escaping () -> Void) {
         self.tvFriends.showAnimatedGradientSkeleton(animation: fastShimmer, transition: .none)
         floatingButton.isHidden = true
 
@@ -215,6 +210,7 @@ class FriendsViewController: KeyboardViewController , SkeletonTableViewDataSourc
                 self.tvFriends.stopSkeletonAnimation()
                 self.tvFriends.hideSkeleton(reloadDataAfter: true)
                 self.floatingButton.isHidden = false
+                completion()
             }
         }
     }
@@ -241,20 +237,36 @@ class FriendsViewController: KeyboardViewController , SkeletonTableViewDataSourc
     
     
     
-    @objc func onNetworkStatusChanged() {
-        let isConnected = NetworkMonitor.shared.isConnected
-        if( isConnected){
-            //Utils.Snackbar.snackbarNoAction(message: "no_internet_connection".localized(), bgColor: Constants.Colors.green! ,duration: 5.0)
-            getFriends()
+    func updateGetFriends() {
+        
+        if(isConnected){
+           // Utils.Snackbar.snackbarNoAction(message: "conectado", bgColor: Constants.Colors.green! ,duration: 5.0)
+            getFriends{
+                self.tfFriendSearch.addTarget(self, action: #selector(self.textFieldDidChange(_:)), for: .editingChanged)
+                
+                if self.searchFriends.isEmpty {
+                    self.friendsLabel.isHidden = false
+                    self.tvFriends.isHidden = true
+                } else {
+                    self.friendsLabel.isHidden = true
+                    self.tvFriends.isHidden = false
+                }
+                self.floatingButton.isHidden = false
+            }
         }else{
             self.tvFriends.showAnimatedGradientSkeleton(animation: fastShimmer, transition: .none)
             Utils.Snackbar.snackbarWithAction(message: "no_internet_connection".localized(), bgColor: Constants.Colors.red!, titleAction:"close".localized() ,duration: 5.0)
             floatingButton.isHidden = true
         }
     }
-
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        removeNetworkObserver()
+    }
+    
     deinit {
-        NotificationCenter.default.removeObserver(self, name: .networkStatusChanged, object: nil)
+        removeNetworkObserver()
     }
 
 }
