@@ -399,6 +399,29 @@ class Utils {
             }
     }
     
+    class AlertSettingsUtils {
+        static func showAlert(
+            on viewController: UIViewController,
+            title: String,
+            userId: Int,
+            userName: String,
+            onConfirm: (() -> Void)? = nil,
+            onCancel: (() -> Void)? = nil
+        ) {
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            if let alertVC = storyboard.instantiateViewController(withIdentifier: "AlertSettingsViewController") as? AlertSettingsViewController{
+                alertVC.modalPresentationStyle = .overFullScreen
+                alertVC.modalTransitionStyle = .crossDissolve
+                alertVC.title = title
+                alertVC.userId = userId
+                alertVC.userName = userName
+                alertVC.onConfirm = onConfirm
+                alertVC.onCancel = onCancel
+                viewController.present(alertVC, animated: true)
+            }
+        }
+    }
+    
     
     
     

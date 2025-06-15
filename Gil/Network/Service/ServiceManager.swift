@@ -4,7 +4,7 @@
 //
 //  Created by Antonio Banda  on 09/05/25.
 //
-
+import UIKit
 import Foundation
 import Alamofire
 
@@ -259,6 +259,67 @@ class ServiceManager{
         let url = EndPoint.solFriend.url
         
         AF.request(url, method: .put, parameters: solFriend, encoder: JSONParameterEncoder.default)
+        .validate(statusCode: 200..<300)
+        .response{ response in
+            if let statusCode = response.response?.statusCode {
+                switch statusCode {
+                case 200:
+                    completion(.success(statusCode))
+                default:
+                    let error = NSError(domain: "", code: statusCode, userInfo: [NSLocalizedDescriptionKey: "StatusCode: \(statusCode)"])
+                    completion(.failure(error))
+                }
+            }else if let error = response.error {
+                completion(.failure(error))
+            }else {
+                let unknownError = NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey: "Error desconocido"])
+                completion(.failure(unknownError))
+            }
+        }
+    }
+    
+    
+    
+    //MARK: Settings
+    func uploadImageWithAlamofire(image: UIImage, fileName: String = "imagen.jpg", userId : Int) {
+        let url = EndPoint.profileUser.url
+
+        // 1. Convierte la imagen a JPEG o PNG
+        guard let imageData = image.jpegData(compressionQuality: 0.8) else {
+            print("No se pudo convertir la imagen a Data")
+            return
+        }
+
+        // 2. Encabezados opcionales
+        let headers: HTTPHeaders = [
+            "Authorization": "Bearer tu_token_si_aplica",
+            "Content-type": "multipart/form-data"
+        ]
+
+        // 3. Subida con Alamofire
+        AF.upload(
+            multipartFormData: { multipartFormData in
+                multipartFormData.append(imageData, withName: "userProfile", fileName: fileName, mimeType: "image/jpeg")
+                multipartFormData.append(Data(String(userId).utf8), withName: "userId")
+            },
+            to: url,
+            method: .post,
+            headers: headers
+        )
+        .response { response in
+            switch response.result {
+            case .success:
+                print("Imagen subida con éxito")
+            case .failure(let error):
+                print("Error al subir imagen: \(error.localizedDescription)")
+            }
+        }
+    }
+    
+    func updateName(userId: Int, userName: String, completion: @escaping (Result<Int, Error>) -> Void){
+        let url = EndPoint.updateUserName.url
+        
+        AF.request(url, method: .post, parameters: ["userId": String(userId), "userName": userName], encoder: JSONParameterEncoder.default)
         .validate(statusCode: 200..<300)
         .response{ response in
             if let statusCode = response.response?.statusCode {

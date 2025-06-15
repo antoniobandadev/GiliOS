@@ -7,12 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0C18B1652DFE1D3B001A02AE /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C18B1642DFE1D3B001A02AE /* AVFoundation.framework */; };
 		0C48BB492DCE9D87005A098E /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 0C48BB482DCE9D87005A098E /* Alamofire */; };
 		0CF2A0602DC66E1000563DE9 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 0CF2A05F2DC66E1000563DE9 /* .gitignore */; };
 		68E500700C939F2BB438E449 /* Pods_Gil.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1323A251013F2521314A146A /* Pods_Gil.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0C18B1642DFE1D3B001A02AE /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		0C5C82282D94C0A9003E639E /* Gil.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Gil.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0CF2A05F2DC66E1000563DE9 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		1323A251013F2521314A146A /* Pods_Gil.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Gil.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -48,6 +50,7 @@
 			files = (
 				68E500700C939F2BB438E449 /* Pods_Gil.framework in Frameworks */,
 				0C48BB492DCE9D87005A098E /* Alamofire in Frameworks */,
+				0C18B1652DFE1D3B001A02AE /* AVFoundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -76,6 +79,7 @@
 		D034E65400C15744FE2E9AC9 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				0C18B1642DFE1D3B001A02AE /* AVFoundation.framework */,
 				1323A251013F2521314A146A /* Pods_Gil.framework */,
 			);
 			name = Frameworks;

@@ -8,12 +8,16 @@
 import UIKit
 import MaterialComponents
 import Kingfisher
+import AVFoundation
 
-class SettingsViewController: KeyboardViewController, UITextFieldDelegate {
+class SettingsViewController: KeyboardViewController, UITextFieldDelegate, UIImagePickerControllerDelegate & UINavigationControllerDelegate {
     
-    let userName = UserDefaults.standard.string(forKey: "userName")
+    let userId = UserDefaults.standard.integer(forKey: "userId")
+    var userName = UserDefaults.standard.string(forKey: "userName")
     let userEmail = UserDefaults.standard.string(forKey: "userEmail")
     let userProfile = UserDefaults.standard.string(forKey: "userProfile")
+    let imagePicker = UIImagePickerController()
+    let serviceManager = ServiceManager.shared
     
     @IBOutlet weak var ivPhoto: UIImageView!
     
@@ -24,6 +28,21 @@ class SettingsViewController: KeyboardViewController, UITextFieldDelegate {
     @IBOutlet weak var tfUserEmail: MDCOutlinedTextField!
     
     @IBOutlet weak var btnEditName: UIButton!
+    
+    
+ 
+    @IBAction func btnAddPhotoAction(_ sender: UIButton) {
+        
+        imagePicker.delegate = self
+        imagePicker.allowsEditing = true
+        imagePicker.sourceType = .photoLibrary
+        present(imagePicker, animated: true)
+    }
+    
+    
+    @IBAction func btnEditNameAction(_ sender: UIButton) {
+        Utils.AlertSettingsUtils.showAlert(on: self, title: "edit_name".localized(), userId: userId, userName: userName!)
+    }
     
     
     @IBAction func closeSession(_ sender: UIButton) {
@@ -49,6 +68,8 @@ class SettingsViewController: KeyboardViewController, UITextFieldDelegate {
         
         
         initUI()
+        
+        NotificationCenter.default.addObserver(self, selector:#selector(updateName), name: NSNotification.Name("UPDATE_NAME"), object:nil)
         // Do any additional setup after loading the view.
     }
     
@@ -102,6 +123,36 @@ class SettingsViewController: KeyboardViewController, UITextFieldDelegate {
     }
     
     
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        
+        if(isConnected){
+            if let imgProfile = info[.editedImage] as? UIImage{
+                ivPhoto.image = imgProfile
+                serviceManager.uploadImageWithAlamofire(image: imgProfile, fileName: "profileImge.jpg", userId: userId)
+                // UIImageWriteToSavedPhotosAlbum(imgProfile, nil, nil, nil)
+                picker.dismiss(animated: true){
+                    Utils.Snackbar.snackbarNoAction(message: "image_updated_success".localized(), bgColor: Constants.Colors.green!, duration: 3.0)
+                }
+            }
+        }else{
+            picker.dismiss(animated: true){
+                Utils.Snackbar.snackbarWithAction(message: "no_internet_connection".localized(), bgColor: Constants.Colors.red!, titleAction: "close".localized() , duration: 5.0)
+            }
+            
+        }
+        
+        
+        
+        //let URL = info[.imageURL] ?? ""
+        //print(URL)
+        //UserDefaults.standard.set(URL, forKey: "userProfile")
+        
+    }
+    @objc func updateName(){
+        tfUserName.text = UserDefaults.standard.string(forKey: "userName")
+        userName = UserDefaults.standard.string(forKey: "userName")
+    }
+    
     
     
     
@@ -109,15 +160,5 @@ class SettingsViewController: KeyboardViewController, UITextFieldDelegate {
         textField.applyValidStyle()
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }

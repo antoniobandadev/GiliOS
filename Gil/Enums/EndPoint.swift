@@ -11,7 +11,9 @@ enum EndPoint {
     
     static let baseURL = "https://app.fipros.com/api"
     
+    case profileUser
     case newUser
+    case updateUserName
     case logUser
     case forgotPassword
     case updatePassword
@@ -25,8 +27,12 @@ enum EndPoint {
     var url : URL {
         
         switch self {
+        case .profileUser:
+            return URL(string: "\(EndPoint.baseURL)/users/updateProfile")!
         case .newUser:
             return URL(string: "\(EndPoint.baseURL)/users/newUser")!
+        case .updateUserName:
+            return URL(string: "\(EndPoint.baseURL)/users/updateName")!
         case .logUser:
             return URL(string: "\(EndPoint.baseURL)/users/login")!
         case .forgotPassword:
