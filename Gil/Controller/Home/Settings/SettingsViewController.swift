@@ -128,7 +128,7 @@ class SettingsViewController: KeyboardViewController, UITextFieldDelegate, UIIma
         if(isConnected){
             if let imgProfile = info[.editedImage] as? UIImage{
                 ivPhoto.image = imgProfile
-                serviceManager.uploadImageWithAlamofire(image: imgProfile, fileName: "profileImge.jpg", userId: userId)
+                serviceManager.uploadProfileImage(image: imgProfile, fileName: "profileImge.jpg", userId: userId)
                 // UIImageWriteToSavedPhotosAlbum(imgProfile, nil, nil, nil)
                 picker.dismiss(animated: true){
                     Utils.Snackbar.snackbarNoAction(message: "image_updated_success".localized(), bgColor: Constants.Colors.green!, duration: 3.0)

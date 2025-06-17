@@ -23,6 +23,9 @@ enum EndPoint {
     case getFriends
     case newFriend
     case solFriend
+    case newEvent
+    case updateEvent
+    case getEvent
     
     var url : URL {
         
@@ -51,6 +54,12 @@ enum EndPoint {
             return URL(string: "\(EndPoint.baseURL)/friends/newFriend")!
         case.solFriend:
             return URL(string: "\(EndPoint.baseURL)/friends/solFriend")!
+        case.newEvent:
+            return URL(string: "\(EndPoint.baseURL)/events/newEvent")!
+        case.updateEvent:
+            return URL(string: "\(EndPoint.baseURL)/events/updateEvent")!
+        case.getEvent:
+            return URL(string: "\(EndPoint.baseURL)/events/events")!
         }
         
     }

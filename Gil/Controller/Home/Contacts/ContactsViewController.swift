@@ -18,6 +18,8 @@ class ContactsViewController: KeyboardViewController , SkeletonTableViewDataSour
     var contactsPendings = [ContactEntity]()
     var searchContacts = [ContactEntity]()
     
+    let skeletonColor = SkeletonGradient(baseColor: UIColor.darkGray)
+    
     let fastShimmer = SkeletonAnimationBuilder()
            .makeSlidingAnimation(withDirection: .leftRight, duration: 0.5)
     
@@ -61,12 +63,13 @@ class ContactsViewController: KeyboardViewController , SkeletonTableViewDataSour
         tfShearchC.delegate = self
 
         tvContacts.isSkeletonable = true
-        
+        self.tvContacts.showAnimatedGradientSkeleton(usingGradient: skeletonColor, animation: fastShimmer, transition: .none)
         // Do any additional setup after loading the view.
         initUI()
         
-        
-        updateGetContacts()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+            self.updateGetContacts()
+        }
         NotificationCenter.default.addObserver(self, selector:#selector(updateGetContacts), name: NSNotification.Name("ADD_CONTACT"), object:nil)
         
     }
@@ -101,7 +104,7 @@ class ContactsViewController: KeyboardViewController , SkeletonTableViewDataSour
     
 
    
-    // MARK: - Navigation
+    // MARK: - TableView
     
     func numberOfSections(in tableView: UITableView) -> Int {
        // #warning Incomplete implementation, return the number of sections
@@ -116,12 +119,8 @@ class ContactsViewController: KeyboardViewController , SkeletonTableViewDataSour
    }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-       //performSegue(withIdentifier: menuOptions[indexPath.row].segue, sender: nil)
-       //if let cell = tableView.cellForRow(at: indexPath) as? CustomTableViewCell {
         let contact = searchContacts[indexPath.row]
         Utils.AlertCustomUtils.showEditCustomAlert(on: self, title: "update_contact".localized(), newContact:false, contact: contact)
-           // cell.lbName.textColor = Constants.Colors.secondary
-     //   }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -130,7 +129,6 @@ class ContactsViewController: KeyboardViewController , SkeletonTableViewDataSour
         let contact = searchContacts[indexPath.row]
         cell.lbName.text = contact.contactName
         
-      //  cell.lbName.text = "Mi contacto"
        return cell
    }
     
@@ -168,27 +166,30 @@ class ContactsViewController: KeyboardViewController , SkeletonTableViewDataSour
     
     @objc
     func updateContacts(completion: @escaping () -> Void) {
-        self.tvContacts.showAnimatedGradientSkeleton(animation: fastShimmer, transition: .none)
-        DispatchQueue.main.async {
+        DispatchQueue.main.async{
             self.contacts = DataManager.shared.getContacts()
-            self.searchContacts = self.contacts
+            self.searchContacts = DataManager.shared.getContacts()
             self.tvContacts.reloadData()
+            self.tvContacts.stopSkeletonAnimation()
+            self.tvContacts.hideSkeleton(reloadDataAfter: true)
+            completion()
         }
-        self.tvContacts.stopSkeletonAnimation()
-        self.tvContacts.hideSkeleton(reloadDataAfter: true)
-        completion()
+        
+        
+        
     }
     
     
     @objc
     func updateContactsApi(completion: @escaping () -> Void) {
-        self.tvContacts.showAnimatedGradientSkeleton(animation: fastShimmer, transition: .none)
+       
+        
         let userId = UserDefaults.standard.integer(forKey: "userId")
         
         DataManager.shared.deleteAllContacts(context: self.context)
         
         serviceManager.getContacts(userId: userId) { result in
-            DispatchQueue.main.async {
+            DispatchQueue.main.async{
                 switch result {
                     case .success(let contacts):
                     var contactsApiArray: [ContactEntity] = []
@@ -201,15 +202,17 @@ class ContactsViewController: KeyboardViewController , SkeletonTableViewDataSour
                             contactsApi.contactEmail = contactDto.contactEmail
                             contactsApi.contactStatus = contactDto.contactStatus
                             contactsApi.contactType = contactDto.contactType
-                            contactsApi.contactSinc = true
+                            contactsApi.contactSync = 1
                             contactsApiArray.append(contactsApi)
                         }
                     
                         DataManager.shared.insertContacts(contactsApiArray)
                         self.contacts = DataManager.shared.getContacts()
+                        self.searchContacts = DataManager.shared.getContacts()
                         self.tvContacts.reloadData()
                         self.tvContacts.stopSkeletonAnimation()
                         self.tvContacts.hideSkeleton(reloadDataAfter: true)
+                    print("Actualizados")
                     case .failure(let error):
                     print("Error al actualizar desde el api : \(error)")
                 }
@@ -236,11 +239,11 @@ class ContactsViewController: KeyboardViewController , SkeletonTableViewDataSour
                         switch result {
                         case .success(_):
                             if(contactEntity.contactStatus == "C"){
-                                contactEntity.contactSinc = true
+                                contactEntity.contactSync = 1
                                 
                             }else {
                                 contactEntity.contactStatus = "A"
-                                contactEntity.contactSinc = true
+                                contactEntity.contactSync = 1
                                 
                             }
                             
@@ -262,7 +265,7 @@ class ContactsViewController: KeyboardViewController , SkeletonTableViewDataSour
                         switch result {
                         case .success(_):
                             
-                            contactEntity.contactSinc = true
+                            contactEntity.contactSync = 1
                                 
                             do {
                                 try self.context.save()
@@ -308,9 +311,9 @@ class ContactsViewController: KeyboardViewController , SkeletonTableViewDataSour
             let contactsApiSelect = UserDefaults.standard.bool(forKey: "contactTable")
             if(contactsApiSelect){
                 print("contactsApiSelect")
-                updateContacts{
+                pendingContactsApi{
                     print("updateContacts")
-                    self.pendingContactsApi{
+                    self.updateContacts{
                         print("pendingContactsApi")
                        /* if self.searchContacts.isEmpty {
                             self.contactsLabel.isHidden = false
@@ -324,9 +327,10 @@ class ContactsViewController: KeyboardViewController , SkeletonTableViewDataSour
                 }
                 
             }else{
-                print("getcontacts_no_conectado")
-                updateContactsApi{
-                    self.pendingContactsApi{
+                
+                pendingContactsApi{
+                    print("getcontacts_no_sinc")
+                    self.updateContactsApi{
                         /*if self.searchContacts.isEmpty {
                             self.contactsLabel.isHidden = false
                             self.tvContacts.isHidden = true
@@ -341,14 +345,14 @@ class ContactsViewController: KeyboardViewController , SkeletonTableViewDataSour
             }
         }else{
             updateContacts{
-                self.pendingContactsApi{
-                    if self.searchContacts.isEmpty {
-                        self.contactsLabel.isHidden = false
-                        self.tvContacts.isHidden = true
-                    } else {
-                        self.contactsLabel.isHidden = true
-                        self.tvContacts.isHidden = false
-                    }
+                print("getcontacts_no_conectado")
+           
+                if self.searchContacts.isEmpty {
+                    self.contactsLabel.isHidden = false
+                    self.tvContacts.isHidden = true
+                } else {
+                    self.contactsLabel.isHidden = true
+                    self.tvContacts.isHidden = false
                 }
             }
         }

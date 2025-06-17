@@ -4,9 +4,25 @@
         <attribute name="contactEmail" optional="YES" attributeType="String"/>
         <attribute name="contactId" optional="YES" attributeType="String"/>
         <attribute name="contactName" optional="YES" attributeType="String"/>
-        <attribute name="contactSinc" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="contactStatus" optional="YES" attributeType="String"/>
+        <attribute name="contactSync" optional="YES" attributeType="Integer 16" usesScalarValueType="YES"/>
         <attribute name="contactType" optional="YES" attributeType="String"/>
         <attribute name="userId" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+    </entity>
+    <entity name="EventEntity" representedClassName="EventEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="eventCity" optional="YES" attributeType="String"/>
+        <attribute name="eventCreatedAt" optional="YES" attributeType="String"/>
+        <attribute name="eventDateEnd" optional="YES" attributeType="String"/>
+        <attribute name="eventDateStart" optional="YES" attributeType="String"/>
+        <attribute name="eventDesc" optional="YES" attributeType="String"/>
+        <attribute name="eventId" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="eventImg" optional="YES" attributeType="String"/>
+        <attribute name="eventName" optional="YES" attributeType="String"/>
+        <attribute name="eventStatus" optional="YES" attributeType="String"/>
+        <attribute name="eventStreet" optional="YES" attributeType="String"/>
+        <attribute name="eventSync" optional="YES" attributeType="Integer 16" usesScalarValueType="YES"/>
+        <attribute name="eventType" optional="YES" attributeType="String"/>
+        <attribute name="userId" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="userIdScan" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
     </entity>
 </model>

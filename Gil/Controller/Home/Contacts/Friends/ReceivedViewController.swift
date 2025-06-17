@@ -18,6 +18,7 @@ class ReceivedViewController: KeyboardViewController , SkeletonTableViewDataSour
     
     let fastShimmer = SkeletonAnimationBuilder()
            .makeSlidingAnimation(withDirection: .leftRight, duration: 0.5)
+    let skeletonColor = SkeletonGradient(baseColor: UIColor.darkGray)
     
     let friendsLabel: UILabel = {
         let label = UILabel()
@@ -47,8 +48,11 @@ class ReceivedViewController: KeyboardViewController , SkeletonTableViewDataSour
         initUI()
         
         //Observo los cambios de internet
-        observeConnectionChanges { [weak self] isConnected in
-            self?.updateGetFriends()
+        self.tvReceived.showAnimatedGradientSkeleton(usingGradient: skeletonColor,animation: fastShimmer, transition: .none)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+            self.observeConnectionChanges { [weak self] isConnected in
+                self?.updateGetFriends()
+            }
         }
         
       
@@ -58,7 +62,10 @@ class ReceivedViewController: KeyboardViewController , SkeletonTableViewDataSour
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        updateGetFriends()
+        self.tvReceived.showAnimatedGradientSkeleton(usingGradient: skeletonColor,animation: fastShimmer, transition: .none)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+            self.updateGetFriends()
+        }
     }
     
     
@@ -144,7 +151,6 @@ class ReceivedViewController: KeyboardViewController , SkeletonTableViewDataSour
     
     @objc
     func getFriends(completion: @escaping () -> Void) {
-        self.tvReceived.showAnimatedGradientSkeleton(animation: fastShimmer, transition: .none)
       
         let userId = UserDefaults.standard.integer(forKey: "userId")
 
@@ -222,7 +228,7 @@ class ReceivedViewController: KeyboardViewController , SkeletonTableViewDataSour
                
             }
         }else{
-            self.tvReceived.showAnimatedGradientSkeleton(animation: fastShimmer, transition: .none)
+            self.tvReceived.showAnimatedGradientSkeleton(usingGradient: skeletonColor,animation: fastShimmer, transition: .none)
             Utils.Snackbar.snackbarWithAction(message: "no_internet_connection".localized(), bgColor: Constants.Colors.red!, titleAction:"close".localized() ,duration: 5.0)
         }
     }

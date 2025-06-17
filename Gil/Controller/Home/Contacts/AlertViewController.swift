@@ -184,7 +184,7 @@ class AlertViewController: KeyboardViewController, UITextFieldDelegate {
             newContact.contactType = "C"
             let userId = UserDefaults.standard.integer(forKey: "userId")
             newContact.userId = Int16(userId)
-            newContact.contactSinc = true
+            newContact.contactSync = 1
         
         let newContactDto = ContactDto(entity: newContact)
 
@@ -230,7 +230,7 @@ class AlertViewController: KeyboardViewController, UITextFieldDelegate {
             newContact.contactType = "C"
             let userId = UserDefaults.standard.integer(forKey: "userId")
             newContact.userId = Int16(userId)
-            newContact.contactSinc = false
+            newContact.contactSync = 0
 
         do {
             try context.save()
@@ -259,7 +259,7 @@ class AlertViewController: KeyboardViewController, UITextFieldDelegate {
         contact.contactName = name
         contact.contactEmail = email
         contact.contactStatus = status
-        contact.contactSinc = true
+        contact.contactSync = 1
         
         let contactDto = ContactDto(entity: contact)
 
@@ -308,7 +308,7 @@ class AlertViewController: KeyboardViewController, UITextFieldDelegate {
         contact.contactName = name
         contact.contactEmail = email
         contact.contactStatus = status
-        contact.contactSinc = false
+        contact.contactSync = 0
 
         do {
             try context.save()

@@ -54,6 +54,27 @@ class DataManager : NSObject {
         return sortedArray
     }
     
+    func getFriendsArray() -> [String: String] {
+        let context = persistentContainer.viewContext
+        let contactQuery = ContactEntity.fetchRequest()
+        let contactFilter = NSPredicate(format: "contactStatus != 'C' AND contactType = 'F'")
+        contactQuery.predicate = contactFilter
+
+        do {
+            let contacts = try context.fetch(contactQuery)
+            let contactDict = contacts.reduce(into: [String: String]()) { dict, contact in
+                if let name = contact.contactName {
+                    dict[(contact.contactId!)] = name
+                }
+            }
+            return contactDict
+        } catch {
+            print("Error al obtener amigos: \(error)")
+            return [:]
+        }
+    }
+    
+    
     func insertContacts(_ contacts: [ContactEntity]){
         saveContext()
     }
@@ -61,7 +82,7 @@ class DataManager : NSObject {
     func getContactsPending() -> [ContactEntity] {
         var contactArray = [ContactEntity]()
         let contactQuery = ContactEntity.fetchRequest()
-        let contactFilter = NSPredicate(format: "contactSinc = false")
+        let contactFilter = NSPredicate(format: "contactSync = 0")
         contactQuery.predicate = contactFilter
         
         do{
@@ -88,6 +109,79 @@ class DataManager : NSObject {
             print("Error al eliminar contactos: \(error)")
         }
     }
+    
+    //MARK: Events
+    
+    func saveEventDB(event : EventEntity) -> Bool {
+        let context = persistentContainer.viewContext
+        // Crear una nueva instancia de Events
+        _ = event
+
+        do {
+            try context.save()
+            print("Evento Guardado")
+            return true
+           
+        } catch {
+            print("Error al guardar evento: \(error.localizedDescription)")
+            return false
+        }
+    }
+    
+    func getEventsPending() -> [EventEntity] {
+        var eventArray = [EventEntity]()
+        let eventQuery = EventEntity.fetchRequest()
+        let eventFilter = NSPredicate(format: "eventSync = 0")
+        eventQuery.predicate = eventFilter
+        
+        do{
+            eventArray = try persistentContainer.viewContext.fetch(eventQuery)
+        }
+        catch{
+            print ("no se puede ejecutar el query SELECT * FROM Events pending")
+        }
+        
+        return eventArray
+    }
+    
+    func deleteAllEvents(context: NSManagedObjectContext) {
+        let fetchRequest: NSFetchRequest<NSFetchRequestResult> = EventEntity.fetchRequest()
+        let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
+
+        do {
+            try context.execute(deleteRequest)
+            try context.save()
+            print("Todos los eventos han sido eliminados.")
+        } catch {
+            print("Error al eliminar contactos: \(error)")
+        }
+    }
+    
+    func insertEvents(_ events: [EventEntity]){
+        saveContext()
+    }
+    
+    func getAllEvents() -> [EventEntity] {
+        var eventArray = [EventEntity]()
+        let eventQuery = EventEntity.fetchRequest()
+        let eventFilter = NSPredicate(format: "eventStatus = 'A'")
+        eventQuery.predicate = eventFilter
+        
+        do{
+            eventArray = try persistentContainer.viewContext.fetch(eventQuery)
+        }
+        catch{
+            print ("no se puede ejecutar el query SELECT * FROM Events pending")
+        }
+        
+        
+        let sortedArray = eventArray.sorted { m1, m2 in
+            return m1.eventDateStart ?? "" > m2.eventDateStart ?? ""
+        }
+        
+        return sortedArray
+    }
+    
     
     
 }

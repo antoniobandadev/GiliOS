@@ -25,9 +25,11 @@ class Utils {
                 textField.setOutlineColor(Constants.Colors.secondary!, for: .disabled)
                 textField.setFloatingLabelColor(Constants.Colors.secondary!, for: .normal)
                 textField.setFloatingLabelColor(Constants.Colors.secondary!, for: .editing)
+                textField.setFloatingLabelColor(Constants.Colors.secondary!, for: .disabled)
                 textField.setNormalLabelColor(Constants.Colors.secondary!, for: .normal)
                 textField.setTextColor(Constants.Colors.accent!, for: .normal)
                 textField.setTextColor(Constants.Colors.accent!, for: .editing)
+                textField.setTextColor(Constants.Colors.accent!, for: .disabled)
                 textField.tintColor = Constants.Colors.accent!                
                 
                 // Config icon trailing
@@ -422,6 +424,24 @@ class Utils {
         }
     }
     
+    static let eventCategories = ["event_category_social".localized(), "event_category_corporate".localized(), "event_category_academic".localized(), "event_category_other".localized()]
+    
+    
+    static func dateFormatString(date: String, fromFormat: String, toFormat: String) -> String? {
+        let inputFormatter = DateFormatter()
+        inputFormatter.dateFormat = fromFormat
+        inputFormatter.locale = Locale(identifier: "en_US_POSIX")
+        let currentLocale = Locale.current
+
+        if let date = inputFormatter.date(from: date) {
+            let outputFormatter = DateFormatter()
+            outputFormatter.dateFormat = toFormat
+            outputFormatter.locale = Locale(identifier: currentLocale.identifier)
+            return outputFormatter.string(from: date)
+        }
+
+        return nil
+    }
     
     
     

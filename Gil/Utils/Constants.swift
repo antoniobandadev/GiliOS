@@ -15,6 +15,8 @@ struct Constants {
         static let red = UIColor(named: "red")
         static let green = UIColor(named: "green")
         static let primaryLigth = UIColor(named: "primaryLight")
+        static let gray = UIColor(named: "gray")
+        static let grayDark = UIColor(named: "grayDark")
     }
     
     struct Fonts {
@@ -25,14 +27,18 @@ struct Constants {
         static let fontTitleBold = UIFont(name: "parkinsans-bold", size: 24)!
        
     }
+    
+    struct URLs {
+        static let eventApi = "https://app.fipros.com/api/events/"
+    }
+    
+    
 
    /* struct Identifiers {
         static let homeVC = "Home"
         static let sendVC = "Send"
         static let historyVC = "His"
-    }
-
-    struct URLs {
-        static let apiBase = "https://api.ejemplo.com/"
     }*/
+
+    
 }

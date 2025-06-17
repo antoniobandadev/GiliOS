@@ -18,6 +18,7 @@ class SentViewController: KeyboardViewController , SkeletonTableViewDataSource, 
     
     let fastShimmer = SkeletonAnimationBuilder()
            .makeSlidingAnimation(withDirection: .leftRight, duration: 0.5)
+    let skeletonColor = SkeletonGradient(baseColor: UIColor.darkGray)
     
     let friendsLabel: UILabel = {
         let label = UILabel()
@@ -47,8 +48,11 @@ class SentViewController: KeyboardViewController , SkeletonTableViewDataSource, 
         // Do any additional setup after loading the view.
         initUI()
         //Observo los cambios de internet
-        observeConnectionChanges { [weak self] isConnected in
-            self?.updateGetFriends()
+        self.tvSent.showAnimatedGradientSkeleton(usingGradient: skeletonColor,animation: fastShimmer, transition: .none)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+            self.observeConnectionChanges { [weak self] isConnected in
+                self?.updateGetFriends()
+            }
         }
         
         NotificationCenter.default.addObserver(self, selector:#selector(updateGetFriends), name: NSNotification.Name("DELETE_FRIEND"), object:nil)
@@ -57,7 +61,10 @@ class SentViewController: KeyboardViewController , SkeletonTableViewDataSource, 
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        updateGetFriends()
+        self.tvSent.showAnimatedGradientSkeleton(usingGradient: skeletonColor,animation: fastShimmer, transition: .none)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+            self.updateGetFriends()
+        }
     }
     
     
@@ -138,8 +145,6 @@ class SentViewController: KeyboardViewController , SkeletonTableViewDataSource, 
     
     @objc
     func getFriends(completion: @escaping () -> Void) {
-        self.tvSent.showAnimatedGradientSkeleton(animation: fastShimmer, transition: .none)
-        
         let userId = UserDefaults.standard.integer(forKey: "userId")
 
         serviceManager.getFriends(userId: userId, friendStatus: "S") { result in
@@ -215,7 +220,7 @@ class SentViewController: KeyboardViewController , SkeletonTableViewDataSource, 
                 }
             }
         }else{
-            self.tvSent.showAnimatedGradientSkeleton(animation: fastShimmer, transition: .none)
+            self.tvSent.showAnimatedGradientSkeleton(usingGradient: skeletonColor,animation: fastShimmer, transition: .none)
             Utils.Snackbar.snackbarWithAction(message: "no_internet_connection".localized(), bgColor: Constants.Colors.red!, titleAction:"close".localized() ,duration: 5.0)
         }
     }

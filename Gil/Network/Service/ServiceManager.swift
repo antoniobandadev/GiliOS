@@ -278,13 +278,132 @@ class ServiceManager{
         }
     }
     
+    //MARK: Events
+    func uploadEvent(image: UIImage?, fileName: String = "imagen.jpg", event: EventEntity,
+                     completion: @escaping (Result<EventDto, Error>) -> Void) {
+        let url = EndPoint.newEvent.url
+        
+        let parameters: [String: String] = [
+                "eventName": event.eventName ?? "",
+                "eventDesc": event.eventDesc ?? "",
+                "eventType": event.eventType ?? "",
+                "eventDateStart": event.eventDateStart ?? "",
+                "eventDateEnd": event.eventDateEnd ?? "",
+                "eventStreet": event.eventStreet ?? "",
+                "eventCity": event.eventCity ?? "",
+                "eventStatus": event.eventStatus ?? "",
+                "userId": String(event.userId),
+                "userIdScan": String(event.userIdScan)
+            ]
+
+        AF.upload(
+            multipartFormData: { multipartFormData in
+                for (key, value) in parameters {
+                    multipartFormData.append(Data(value.utf8), withName: key)
+                }
+                
+                if let image = image, let imageData = image.jpegData(compressionQuality: 0.8) {
+                    multipartFormData.append(
+                        imageData,
+                        withName: "eventImage",
+                        fileName: fileName,
+                        mimeType: "image/jpeg"
+                    )
+                }
+            },
+            to: url,
+            method: .post
+        )
+        .validate()
+        .responseDecodable(of: EventDto.self) { response in
+            switch response.result {
+            case .success(let event):
+                print("Éxito:")
+                completion(.success(event))
+                
+            case .failure(let error):
+                print("Error: \(error.localizedDescription)")
+                completion(.failure(error))
+            }
+        }
+        
+    }
+    
+    func updateEvent(image: UIImage?, fileName: String = "imagen.jpg", event: EventEntity,
+                     completion: @escaping (Result<EventDto, Error>) -> Void) {
+        let url = EndPoint.updateEvent.url
+        
+        let parameters: [String: String] = [
+                "eventName": event.eventName ?? "",
+                "eventDesc": event.eventDesc ?? "",
+                "eventType": event.eventType ?? "",
+                "eventDateStart": event.eventDateStart ?? "",
+                "eventDateEnd": event.eventDateEnd ?? "",
+                "eventStreet": event.eventStreet ?? "",
+                "eventCity": event.eventCity ?? "",
+                "eventStatus": event.eventStatus ?? "",
+                "userId": String(event.userId),
+                "userIdScan": String(event.userIdScan)
+            ]
+
+        AF.upload(
+            multipartFormData: { multipartFormData in
+                for (key, value) in parameters {
+                    multipartFormData.append(Data(value.utf8), withName: key)
+                }
+                
+                if let image = image, let imageData = image.jpegData(compressionQuality: 0.8) {
+                    multipartFormData.append(
+                        imageData,
+                        withName: "eventImage",
+                        fileName: fileName,
+                        mimeType: "image/jpeg"
+                    )
+                }
+            },
+            to: url,
+            method: .post
+        )
+        .validate()
+        .responseDecodable(of: EventDto.self) { response in
+            switch response.result {
+            case .success(let event):
+                print("Éxito:")
+                completion(.success(event))
+                
+            case .failure(let error):
+                print("Error: \(error.localizedDescription)")
+                completion(.failure(error))
+            }
+        }
+        
+    }
+    
+    func getEvents(userId : Int, completion: @escaping (Result<[EventDto], Error>) -> Void){
+        let url = EndPoint.getEvent.url
+        
+        AF.request(url, method: .get, parameters: ["userId": userId], encoding: URLEncoding.default)
+        .validate(statusCode: 200..<300)
+        .responseDecodable(of: [EventDto].self) { response in
+            //debugPrint(response)
+            switch response.result {
+                case .success(let eventsApi):
+                    completion(.success(eventsApi))
+                case .failure(let error):
+                    let apiError = ErrorParser.parse(error)
+                    completion(.failure(error))
+                    print(apiError.localizedDescription)
+            }
+        }
+    }
+    
+    
     
     
     //MARK: Settings
-    func uploadImageWithAlamofire(image: UIImage, fileName: String = "imagen.jpg", userId : Int) {
+    func uploadProfileImage(image: UIImage, fileName: String = "imagen.jpg", userId : Int) {
         let url = EndPoint.profileUser.url
 
-        // 1. Convierte la imagen a JPEG o PNG
         guard let imageData = image.jpegData(compressionQuality: 0.8) else {
             print("No se pudo convertir la imagen a Data")
             return
@@ -296,7 +415,7 @@ class ServiceManager{
             "Content-type": "multipart/form-data"
         ]
 
-        // 3. Subida con Alamofire
+       
         AF.upload(
             multipartFormData: { multipartFormData in
                 multipartFormData.append(imageData, withName: "userProfile", fileName: fileName, mimeType: "image/jpeg")
