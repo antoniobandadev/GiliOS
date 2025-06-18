@@ -430,9 +430,30 @@ class NewEventViewController: KeyboardViewController, UITextFieldDelegate, UIIma
             ivImageEvent.image = imgEvent
             btnAddImage.setTitle("edit_image".localized(), for: .normal)
             btnDelImage.isHidden = false
-            let url = info[.imageURL] as? URL
+            /*let url = info[.imageURL] as? URL
             URLImage = url?.absoluteString
-            picker.dismiss(animated: true)
+            picker.dismiss(animated: true)*/
+            
+            if let data = imgEvent.jpegData(compressionQuality: 0.8) {
+               // Directorio temporal
+               let tempDir = FileManager.default.temporaryDirectory
+               let fileName = UUID().uuidString + ".jpg"
+               let fileURL = tempDir.appendingPathComponent(fileName)
+
+               do {
+                   try data.write(to: fileURL)
+    
+                   URLImage = fileURL.absoluteString
+                   picker.dismiss(animated: true)
+
+               } catch {
+                   picker.dismiss(animated: true)
+                  // print("❌ Error al guardar la imagen editada:", error)
+               }
+            }
+            
+            
+            
             //serviceManager.uploadImageWithAlamofire(image: imgProfile, fileName: "profileImge.jpg", userId: userId)
             // UIImageWriteToSavedPhotosAlbum(imgProfile, nil, nil, nil)
             /*picker.dismiss(animated: true){
@@ -447,7 +468,6 @@ class NewEventViewController: KeyboardViewController, UITextFieldDelegate, UIIma
     }
     
     // MARK: Save Contacts
-    
     
     func saveNewEvent() {
         let alertLoading = Utils.LoadigAlert.showAlert(on: self)
@@ -511,14 +531,13 @@ class NewEventViewController: KeyboardViewController, UITextFieldDelegate, UIIma
                             alertLoading.dismiss(animated: true){
                                 Utils.Snackbar.snackbarNoAction(message: "event_save_success".localized(), bgColor: Constants.Colors.green!, duration: 5.0)
                                 print("Evento guardado exitosamente.")
-                               // NotificationCenter.default.post(name: NSNotification.Name("ADD_CONTACT"), object:nil)
+                                NotificationCenter.default.post(name: NSNotification.Name("ADD_EVENT"), object:nil)
                                 self.clearData()
                             }
                         }else{
                             alertLoading.dismiss(animated: true){
                                 Utils.Snackbar.snackbarNoAction(message: "server_error".localized(), bgColor: Constants.Colors.green!, duration: 5.0)
                                 print("Evento no se pudo guardar.")
-                               // NotificationCenter.default.post(name: NSNotification.Name("ADD_CONTACT"), object:nil)
                             }
                             
                         }
@@ -533,14 +552,13 @@ class NewEventViewController: KeyboardViewController, UITextFieldDelegate, UIIma
                 alertLoading.dismiss(animated: true){
                     Utils.Snackbar.snackbarNoAction(message: "event_save_success".localized(), bgColor: Constants.Colors.green!, duration: 5.0)
                     print("Evento guardado exitosamente.")
-                   // NotificationCenter.default.post(name: NSNotification.Name("ADD_CONTACT"), object:nil)
+                    NotificationCenter.default.post(name: NSNotification.Name("ADD_EVENT"), object:nil)
                     self.clearData()
                 }
             }else{
                 alertLoading.dismiss(animated: true){
                     Utils.Snackbar.snackbarNoAction(message: "server_error".localized(), bgColor: Constants.Colors.green!, duration: 5.0)
                     print("Evento no se pudo guardar.")
-                   // NotificationCenter.default.post(name: NSNotification.Name("ADD_CONTACT"), object:nil)
                 }
             }
         }

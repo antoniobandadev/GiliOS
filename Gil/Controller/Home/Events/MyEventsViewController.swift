@@ -39,6 +39,7 @@ class MyEventsViewController: UIViewController, SkeletonTableViewDataSource, UIT
             self.initUI()
         }
         
+        NotificationCenter.default.addObserver(self, selector:#selector(initUI), name: NSNotification.Name("ADD_EVENT"), object:nil)
        
         
         
@@ -49,11 +50,14 @@ class MyEventsViewController: UIViewController, SkeletonTableViewDataSource, UIT
         
     }
     
-    func initUI(){
+    @objc func initUI(){
         if(isConnected){
             pendingEventsApi{
+                print("Eventos pendientes Listos")
                 self.updateEventsApi {
+                    print("Borrando y trayendo de nuevo")
                     self.getEvents()
+                        print("Mostrando los eventos")
                 }
             }
         }else{
@@ -65,17 +69,20 @@ class MyEventsViewController: UIViewController, SkeletonTableViewDataSource, UIT
     @objc
     func updateEventsApi(completion: @escaping () -> Void) {
         let userId = UserDefaults.standard.integer(forKey: "userId")
-        let currentLocale = Locale.current
-        let fromFormat = "yyyy-MM-dd HH:mm"
-        var toFormat = ""
+        //let currentLocale = Locale.current
+        //let fromFormat = "yyyy-MM-dd HH:mm"
+        //var toFormat = ""
         
-        if(currentLocale.identifier == "es_MX"){
-            toFormat = "dd/MM/yyyy" // HH:mm
+        /*if(currentLocale.identifier == "es_MX"){
+            toFormat = "dd/MM/yyyy HH:mm" // HH:mm
         }else{
-            toFormat = "MM/dd/yyyy" //HH:mm
-        }
+            toFormat = "MM/dd/yyyy HH:mm" //HH:mm
+        }*/
         
-        DataManager.shared.deleteAllEvents(context: self.context)
+        /*eventsApi.eventDateStart = Utils.dateFormatString(date: eventDto.eventDateStart!, fromFormat: fromFormat, toFormat: toFormat)
+        eventsApi.eventDateEnd = Utils.dateFormatString(date: eventDto.eventDateEnd!, fromFormat: fromFormat, toFormat: toFormat)*/
+        
+        
         
         serviceManager.getEvents(userId: userId) { result in
             DispatchQueue.main.async {
@@ -89,8 +96,8 @@ class MyEventsViewController: UIViewController, SkeletonTableViewDataSource, UIT
                         eventsApi.eventName = eventDto.eventName
                         eventsApi.eventDesc = eventDto.eventDesc
                         eventsApi.eventType = eventDto.eventType
-                        eventsApi.eventDateStart = Utils.dateFormatString(date: eventDto.eventDateStart!, fromFormat: fromFormat, toFormat: toFormat)
-                        eventsApi.eventDateEnd = Utils.dateFormatString(date: eventDto.eventDateEnd!, fromFormat: fromFormat, toFormat: toFormat)
+                        eventsApi.eventDateStart = eventDto.eventDateStart
+                        eventsApi.eventDateEnd = eventDto.eventDateEnd
                         eventsApi.eventStreet = eventDto.eventStreet
                         eventsApi.eventCity = eventDto.eventCity
                         eventsApi.eventStatus = eventDto.eventStatus
@@ -100,7 +107,7 @@ class MyEventsViewController: UIViewController, SkeletonTableViewDataSource, UIT
                         eventsApi.userIdScan = Int16(eventDto.userIdScan!)
                         eventsApiArray.append(eventsApi)
                         }
-                    
+                        DataManager.shared.deleteAllEvents(context: self.context)
                         DataManager.shared.insertEvents(eventsApiArray)
                     print("Eventos Actualizados")
                     case .failure(let error):
@@ -113,63 +120,102 @@ class MyEventsViewController: UIViewController, SkeletonTableViewDataSource, UIT
        
     }
     
-    
     @objc
     func pendingEventsApi(completion: @escaping () -> Void) {
         eventPendingApi = DataManager.shared.getEventsPending()
         if(!eventPendingApi.isEmpty){
+            let group = DispatchGroup()
+            
             for eventEntity in eventPendingApi {
+                group.enter()
                 
+                print(eventEntity.eventImg ?? "NoURL")
                 let _ = EventDto(entity: eventEntity)
-                if let image = UIImage(contentsOfFile: eventEntity.eventImg!) {
-                    eventImage = image
-                } else {
-                    eventImage = nil
-                }
                 
-                if(eventEntity.eventId == 0){
-                    
-                    serviceManager.uploadEvent(image: eventImage, fileName: "eventImage.jpg", event: eventEntity){ result in
+                 if let url = URL(string: eventEntity.eventImg ?? "") {
+                    KingfisherManager.shared.retrieveImage(with: url) { result in
+                        //print(result)
                         switch result {
-                        case .success(_):
-                            
-                            eventEntity.eventSync = 1
-                            
-                            do {
-                                try self.context.save()
-
-                            } catch {
-                                print("Error al guardar eventos pendientes: \(error)")
-                            }
-                            
-                        case .failure(let error):
-                            print("Error al enviar eventos pendientes: \(error)")
-                        }
-                    }
-                    
-                }else{
-                        
-                    serviceManager.updateEvent(image: eventImage, fileName: "eventImage.jpg", event: eventEntity) { result in
-                        switch result {
-                        case .success(_):
-                            
-                            eventEntity.eventSync = 1
+                        case .success(let value):
+                            self.eventImage = value.image
+                            print("Imagen cargada desde: \(value.cacheType)") // memory, disk, none
+                            // Puedes usar `image` como UIImage directamente
+                            if(eventEntity.eventId == 0){
                                 
-                            do {
-                                try self.context.save()
-
-                            } catch {
-                                print("Error al guardar contactos pendientes: \(error)")
+                                self.serviceManager.uploadEvent(image: self.eventImage, fileName: "eventImage.jpg", event: eventEntity){ result in
+                                    switch result {
+                                    case .success(_):
+                                        group.leave()
+                                        
+                                    case .failure(let error):
+                                        print("Error al actualizar eventos pendientes: \(error)")
+                                        group.leave()
+                                    }
+                                    
+                                }
+                                
+                            }else{
+                                    
+                                self.serviceManager.updateEvent(image: self.eventImage, fileName: "eventImage.jpg", event: eventEntity) { result in
+                                    switch result {
+                                    case .success(_):
+                                        group.leave()
+                                        
+                                    case .failure(let error):
+                                        print("Error al actualizar eventos pendientes: \(error)")
+                                        group.leave()
+                                       
+                                    }
+                                   
+                                }
                             }
-                            
                         case .failure(let error):
-                            print("Error al enviar contactos pendientes: \(error)")
+                            self.eventImage = nil
+                            print("Error al obtener la imagen:", error)
                         }
                     }
-                }
+                }else{
+                    self.eventImage = nil
+                    print("sin imagen")
+                    if(eventEntity.eventId == 0){
+                        
+                        self.serviceManager.uploadEvent(image: self.eventImage, fileName: "eventImage.jpg", event: eventEntity){ result in
+                            switch result {
+                            case .success(_):
+                                group.leave()
+                                
+                            case .failure(let error):
+                                print("Error al actualizar eventos pendientes: \(error)")
+                                group.leave()
+                            }
+                           
+                        }
+                        
+                    }else{
+                            
+                        self.serviceManager.updateEvent(image: self.eventImage, fileName: "eventImage.jpg", event: eventEntity) { result in
+                            switch result {
+                            case .success(_):
+                                group.leave()
+                                
+                            case .failure(let error):
+                                print("Error al actualizar eventos pendientes: \(error)")
+                                group.leave()
+                            }
+                           
+                        }
+                    }
+                }//Tiene imagen
+                
+               
+            }// For
+            
+            group.notify(queue: .main) {
+                completion()
             }
+        }else{
+            completion()
         }
-        completion()
     }
     
     
@@ -218,31 +264,43 @@ class MyEventsViewController: UIViewController, SkeletonTableViewDataSource, UIT
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cellEvent", for: indexPath) as! EventTableViewCell
-       
+        
+        
         let event = events[indexPath.row]
-        let dateStart = event.eventDateStart ?? ""
-        let dateEnd = event.eventDateEnd ?? ""
-        
-        cell.ivEventImage.image = nil
-        cell.lbEventTitle.text = event.eventName
-        cell.lbEventDesc.text = event.eventDesc
-        cell.lbEventDate.text = dateStart + " - " + dateEnd
-        
-        if let imageUrl = event.eventImg {
-           
-            let url = URL(string: imageUrl)
-            let placeholder = UIImage(named: "ic_event_img")
-
-            cell.ivEventImage.kf.setImage(
-                with: url,
-                placeholder: placeholder,
-                options: [
-                    .transition(.fade(0.3)),
-                    .cacheOriginalImage
-                ])
-        } else {
-            cell.ivEventImage.image = UIImage(named: "ic_event_img")
-        }
+       
+            let currentLocale = Locale.current
+            let fromFormat = "yyyy-MM-dd HH:mm"
+            var toFormat = ""
+            
+            if(currentLocale.identifier == "es_MX"){
+                toFormat = "dd/MM/yyyy"
+            }else{
+                toFormat = "MM/dd/yyyy"
+            }
+            
+            let dateStart = Utils.dateFormatString(date: event.eventDateStart ?? "", fromFormat: fromFormat, toFormat: toFormat)
+            let dateEnd = Utils.dateFormatString(date: event.eventDateEnd ?? "", fromFormat: fromFormat, toFormat: toFormat)
+            
+            cell.ivEventImage.image = nil
+            cell.lbEventTitle.text = event.eventName
+            cell.lbEventDesc.text = event.eventDesc
+            cell.lbEventDate.text = dateStart! + " - " + dateEnd!
+            
+           if let imageUrl = event.eventImg {
+                
+                let url = URL(string: imageUrl)
+                let placeholder = UIImage(named: "ic_event_img")
+                
+                cell.ivEventImage.kf.setImage(
+                    with: url,
+                    placeholder: placeholder,
+                    options: [
+                        .transition(.fade(0.3)),
+                        .cacheOriginalImage
+                    ])
+            } else {
+                cell.ivEventImage.image = UIImage(named: "ic_event_img")
+            }
         
        return cell
    }

@@ -793,7 +793,7 @@
                                                         <state key="normal" title="Button"/>
                                                         <buttonConfiguration key="configuration" style="plain" title="Add image">
                                                             <fontDescription key="titleFontDescription" name="Parkinsans-Medium" family="Parkinsans" pointSize="16"/>
-                                                            <color key="baseForegroundColor" name="greyDark"/>
+                                                            <color key="baseForegroundColor" name="grey"/>
                                                         </buttonConfiguration>
                                                         <connections>
                                                             <action selector="btnAddImage:" destination="cJv-42-Q6y" eventType="touchUpInside" id="ell-Bh-SUO"/>
@@ -809,7 +809,7 @@
                                                         </state>
                                                         <buttonConfiguration key="configuration" style="plain" title="Delete image">
                                                             <fontDescription key="titleFontDescription" name="Parkinsans-Medium" family="Parkinsans" pointSize="16"/>
-                                                            <color key="baseForegroundColor" name="greyDark"/>
+                                                            <color key="baseForegroundColor" name="grey"/>
                                                         </buttonConfiguration>
                                                         <connections>
                                                             <action selector="btnDelImageAction:" destination="cJv-42-Q6y" eventType="touchUpInside" id="gNK-CZ-E4n"/>
@@ -826,17 +826,17 @@
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="4Kn-Zg-9jI" customClass="MDCOutlinedTextField">
                                                 <rect key="frame" x="0.0" y="262.66666666666669" width="361" height="34"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <textInputTraits key="textInputTraits"/>
+                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                             </textField>
                                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="olq-jG-lcj" customClass="MDCOutlinedTextField">
                                                 <rect key="frame" x="0.0" y="311.66666666666669" width="361" height="34"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <textInputTraits key="textInputTraits"/>
+                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                             </textField>
                                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="PhC-er-d1Y" customClass="MDCOutlinedTextField">
                                                 <rect key="frame" x="0.0" y="360.66666666666669" width="361" height="34"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <textInputTraits key="textInputTraits"/>
+                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                             </textField>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bvL-Lf-kSW">
                                                 <rect key="frame" x="0.0" y="409.66666666666669" width="361" height="21"/>
@@ -863,12 +863,12 @@
                                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="uPR-Gu-wCx" customClass="MDCOutlinedTextField">
                                                 <rect key="frame" x="0.0" y="579.66666666666663" width="361" height="34"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <textInputTraits key="textInputTraits"/>
+                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                             </textField>
                                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="tzv-xn-zs5" customClass="MDCOutlinedTextField">
                                                 <rect key="frame" x="0.0" y="628.66666666666663" width="361" height="34"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <textInputTraits key="textInputTraits"/>
+                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                             </textField>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="QR Code Scanner (must be your friend)" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uEX-ms-1cb">
                                                 <rect key="frame" x="0.0" y="677.66666666666663" width="361" height="18.666666666666629"/>
