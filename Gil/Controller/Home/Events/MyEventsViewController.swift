@@ -39,7 +39,13 @@ class MyEventsViewController: UIViewController, SkeletonTableViewDataSource, UIT
             self.initUI()
         }
         
+        self.observeConnectionChanges { [weak self] isConnected in
+                self?.initUI()
+        }
+        
+        
         NotificationCenter.default.addObserver(self, selector:#selector(initUI), name: NSNotification.Name("ADD_EVENT"), object:nil)
+        NotificationCenter.default.addObserver(self, selector:#selector(initUI), name: NSNotification.Name("UPDATE_CONTACT"), object:nil)
        
         
         
@@ -47,21 +53,33 @@ class MyEventsViewController: UIViewController, SkeletonTableViewDataSource, UIT
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
+        /*DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+            self.initUI()
+        }*/
     }
     
     @objc func initUI(){
-        if(isConnected){
-            pendingEventsApi{
-                print("Eventos pendientes Listos")
-                self.updateEventsApi {
-                    print("Borrando y trayendo de nuevo")
-                    self.getEvents()
-                        print("Mostrando los eventos")
+        self.tvEvents.showAnimatedGradientSkeleton(usingGradient: skeletonColor, animation: fastShimmer, transition: .none)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+            if(self.isConnected){
+                self.pendingEventsApi{ pending in
+                    //if (pending){
+                        print("Eventos pendientes Listos")
+                        self.updateEventsApi {
+                            print("Borrando y trayendo de nuevo")
+                            self.getEvents()
+                            print("Mostrando los eventos")
+                        }
+                    /*}else{
+                        self.getEvents()
+                        print("Mostrando solo los eventos")
+                    }*/
                 }
+            }else{
+                self.getEvents()
+                print("Mostrando solo los eventos")
+                Utils.Snackbar.snackbarWithAction(message: "no_internet_connection".localized(), bgColor: Constants.Colors.red!, titleAction: "close".localized() , duration: 5.0)
             }
-        }else{
-            getEvents()
         }
     }
     
@@ -121,7 +139,7 @@ class MyEventsViewController: UIViewController, SkeletonTableViewDataSource, UIT
     }
     
     @objc
-    func pendingEventsApi(completion: @escaping () -> Void) {
+    func pendingEventsApi(completion: @escaping (Bool) -> Void){
         eventPendingApi = DataManager.shared.getEventsPending()
         if(!eventPendingApi.isEmpty){
             let group = DispatchGroup()
@@ -130,7 +148,7 @@ class MyEventsViewController: UIViewController, SkeletonTableViewDataSource, UIT
                 group.enter()
                 
                 print(eventEntity.eventImg ?? "NoURL")
-                let _ = EventDto(entity: eventEntity)
+                let myEventDto = EventDto(entity: eventEntity)
                 
                  if let url = URL(string: eventEntity.eventImg ?? "") {
                     KingfisherManager.shared.retrieveImage(with: url) { result in
@@ -156,7 +174,7 @@ class MyEventsViewController: UIViewController, SkeletonTableViewDataSource, UIT
                                 
                             }else{
                                     
-                                self.serviceManager.updateEvent(image: self.eventImage, fileName: "eventImage.jpg", event: eventEntity) { result in
+                                self.serviceManager.updateEvent(image: self.eventImage, fileName: "eventImage.jpg", event: myEventDto) { result in
                                     switch result {
                                     case .success(_):
                                         group.leave()
@@ -193,7 +211,7 @@ class MyEventsViewController: UIViewController, SkeletonTableViewDataSource, UIT
                         
                     }else{
                             
-                        self.serviceManager.updateEvent(image: self.eventImage, fileName: "eventImage.jpg", event: eventEntity) { result in
+                        self.serviceManager.updateEvent(image: self.eventImage, fileName: "eventImage.jpg", event: myEventDto) { result in
                             switch result {
                             case .success(_):
                                 group.leave()
@@ -211,10 +229,12 @@ class MyEventsViewController: UIViewController, SkeletonTableViewDataSource, UIT
             }// For
             
             group.notify(queue: .main) {
-                completion()
+                completion(true)
             }
+            
         }else{
-            completion()
+            completion(false)
+            
         }
     }
     
@@ -252,15 +272,22 @@ class MyEventsViewController: UIViewController, SkeletonTableViewDataSource, UIT
         //
         
    }
+    
+    var eventSelected : EventEntity?
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-       //performSegue(withIdentifier: menuOptions[indexPath.row].segue, sender: nil)
-       //if let cell = tableView.cellForRow(at: indexPath) as? CustomTableViewCell {
-       // let contact = searchContacts[indexPath.row]
-        //Utils.AlertCustomUtils.showEditCustomAlert(on: self, title: "update_contact".localized(), newContact:false, contact: contact)
-           // cell.lbName.textColor = Constants.Colors.secondary
-     //   }
+        eventSelected = events[indexPath.row]
+        performSegue(withIdentifier: "eventDetailSegue", sender: self)
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "eventDetailSegue" {
+            if let eventDestino = segue.destination as? EditEventViewController {
+                eventDestino.eventRecived = eventSelected
+            }
+        }
+    }
+    
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cellEvent", for: indexPath) as! EventTableViewCell

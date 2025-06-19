@@ -114,16 +114,52 @@ class DataManager : NSObject {
     
     func saveEventDB(event : EventEntity) -> Bool {
         let context = persistentContainer.viewContext
-        // Crear una nueva instancia de Events
-        _ = event
-
+        
         do {
-            try context.save()
-            print("Evento Guardado")
+            if context.hasChanges {
+                try context.save()
+                print("Evento Guardado")
+            }
             return true
            
         } catch {
             print("Error al guardar evento: \(error.localizedDescription)")
+            return false
+        }
+    }
+    
+    func updateEventDB(eventUpdate: EventDto) -> Bool {
+        let context = persistentContainer.viewContext
+
+        let fetchRequest: NSFetchRequest<EventEntity> = EventEntity.fetchRequest()
+        fetchRequest.predicate = NSPredicate(format: "eventId == %d", eventUpdate.eventId!)
+
+        do {
+            let results = try context.fetch(fetchRequest)
+            let event: EventEntity
+
+            if let existingEvent = results.first {
+                event = existingEvent
+                
+                event.eventName = eventUpdate.eventName
+                event.eventDesc = eventUpdate.eventDesc
+                event.eventType = eventUpdate.eventType
+                event.eventDateStart = eventUpdate.eventDateStart
+                event.eventDateEnd = eventUpdate.eventDateEnd
+                event.eventStreet = eventUpdate.eventStreet
+                event.eventCity = eventUpdate.eventCity
+                event.eventStatus = eventUpdate.eventStatus
+                event.eventImg = eventUpdate.eventImg
+                event.eventSync = Int16(eventUpdate.eventSync!)
+                event.userIdScan = Int16(eventUpdate.userIdScan!)
+            }
+
+            try context.save()
+            print("Evento actualizado")
+            return true
+
+        } catch {
+            print("Error al actualizar evento: \(error.localizedDescription)")
             return false
         }
     }

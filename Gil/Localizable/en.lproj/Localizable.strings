@@ -23,6 +23,7 @@
 "edit_event" = "Edit event";
 "send" = "Send";
 "open_settings" = "Settings";
+"done" = "Done";
 
 /* --- LogIn --- */
 "user" = "Username";

@@ -1,36 +1,43 @@
 //
-//  NewEventViewController.swift
+//  EditEventViewController.swift
 //  Gil
 //
-//  Created by Antonio Banda  on 14/06/25.
+//  Created by Antonio Banda  on 18/06/25.
 //
 
 import UIKit
 import MaterialComponents
-import AVFoundation
+import Kingfisher
 
-class NewEventViewController: KeyboardViewController, UITextFieldDelegate, UIImagePickerControllerDelegate & UINavigationControllerDelegate{
+class EditEventViewController: KeyboardViewController, UITextFieldDelegate, UIImagePickerControllerDelegate & UINavigationControllerDelegate {
+    
+    
+    var eventRecived : EventEntity?
     
     let context = DataManager.shared.persistentContainer.viewContext
     var URLImage : String?
     let userId = UserDefaults.standard.integer(forKey: "userId")
     var friendId = 0
+    var eventId = 0
     
     let attributes: [NSAttributedString.Key: Any] = [
         .font: Constants.Fonts.font16
         //.foregroundColor: UIColor.systemBlue
     ]
     
-    @IBOutlet weak var btnAddImage: UIButton!
+    @IBAction func btnClose(_ sender: UIButton) {
+        dismiss(animated: true)
+    }
     
-    @IBAction func btnAddImage(_ sender: UIButton) {
+    @IBOutlet weak var btnAddImage: UIButton!
+    @IBOutlet weak var btnDelImage: UIButton!
+    
+    @IBAction func btnAddImageAction(_ sender: UIButton) {
         imagePicker.delegate = self
         imagePicker.allowsEditing = true
         imagePicker.sourceType = .photoLibrary
         present(imagePicker, animated: true)
     }
-    
-    @IBOutlet weak var btnDelImage: UIButton!
     
     @IBAction func btnDelImageAction(_ sender: UIButton) {
         ivImageEvent.image = nil
@@ -41,6 +48,7 @@ class NewEventViewController: KeyboardViewController, UITextFieldDelegate, UIIma
     }
     
     @IBOutlet weak var ivImageEvent: UIImageView!
+    
     
     @IBOutlet weak var eventName: MDCOutlinedTextField!
     
@@ -59,6 +67,17 @@ class NewEventViewController: KeyboardViewController, UITextFieldDelegate, UIIma
     @IBOutlet weak var eventCity: MDCOutlinedTextField!
     
     @IBOutlet weak var eventScan: MDCOutlinedTextField!
+
+    @IBAction func btnUpdateAction(_ sender: UIButton) {
+        
+        if(validateInputs()){
+            updateEvent()
+        }
+    }
+    
+    @IBAction func btnAddGuestsAction(_ sender: UIButton) {
+        
+    }
     
     let categories = Utils.eventCategories
     let friends = DataManager.shared.getFriendsArray()
@@ -71,17 +90,8 @@ class NewEventViewController: KeyboardViewController, UITextFieldDelegate, UIIma
     var currentOptions: [String] = []
     var activeTextField: UITextField?
     
-    @IBAction func btnSaveEvent(_ sender: UIButton) {
-        if(validateInputs()){
-            saveNewEvent()
-        }
-        
-    }
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-
         // Do any additional setup after loading the view.
         [eventName, eventDesc, eventStreet, eventCity].forEach { $0?.clearTextFieldError() }
         
@@ -94,10 +104,12 @@ class NewEventViewController: KeyboardViewController, UITextFieldDelegate, UIIma
         eventCity.delegate = self
         eventScan.delegate = self
         
+        eventId = Int(eventRecived?.eventId ?? 0)
+        
         picker.delegate = self
         picker.dataSource = self
         initUI()
-       
+        initVals()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -111,7 +123,60 @@ class NewEventViewController: KeyboardViewController, UITextFieldDelegate, UIIma
     }
     
     
-    
+    func initVals(){
+        eventName.text = eventRecived?.eventName
+        eventDesc.text = eventRecived?.eventDesc
+        eventType.text = eventRecived?.eventType
+        
+        
+        let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: "en_US_POSIX")
+        
+        let currentLocale = Locale.current
+        let fromFormat = "yyyy-MM-dd HH:mm"
+        var toFormat = ""
+        
+        if(currentLocale.identifier == "es_MX"){
+            toFormat = "dd/MM/yyyy HH:mm"
+        }else{
+            toFormat = "MM/dd/yyyy HH:mm"
+        }
+       
+        eventDateStart.text =  Utils.dateFormatString(date: (eventRecived?.eventDateStart)!, fromFormat: fromFormat, toFormat: toFormat)
+        
+        eventDateEnd.text =  Utils.dateFormatString(date: (eventRecived?.eventDateEnd)!, fromFormat: fromFormat, toFormat: toFormat)
+        
+        eventStreet.text = eventRecived?.eventStreet
+        eventCity.text = eventRecived?.eventCity
+        
+        
+        if let found = friends.first(where: { $0.key == String(eventRecived?.userIdScan ?? 0) }) {
+            friendId = Int(found.key)!
+            eventScan.text = String(found.value)
+        }
+        
+        if let imageData = eventRecived?.eventImg{
+            ivImageEvent.isHidden = false
+            
+            let attributedTitle = NSAttributedString(string: "edit_image".localized(), attributes: attributes)
+            btnAddImage.setAttributedTitle(attributedTitle, for: .normal)
+            btnDelImage.isHidden = false
+        
+            //ivImageEvent.image = UIImage(data: imageData)
+            let url = URL(string: imageData)
+            let placeholder = UIImage(named: "ic_event_img")
+            
+            ivImageEvent.kf.setImage(
+                with: url,
+                placeholder: placeholder,
+                options: [
+                    .transition(.fade(0.3)),
+                    .cacheOriginalImage
+                ])
+        }
+        
+        
+    }
     
     
     func initUI(){
@@ -222,6 +287,12 @@ class NewEventViewController: KeyboardViewController, UITextFieldDelegate, UIIma
         datePickerStart?.datePickerMode = .dateAndTime
         datePickerStart?.preferredDatePickerStyle = .wheels
         datePickerStart?.addTarget(self, action: #selector(dateStartChanged(_:)), for: .valueChanged)
+        
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd HH:mm"
+        if let fecha = formatter.date(from: eventRecived?.eventDateStart ?? "") {
+            datePickerStart?.date = fecha
+        }
 
         let currentLocale = Locale.current
         datePickerStart?.locale = Locale(identifier: currentLocale.identifier)
@@ -254,11 +325,16 @@ class NewEventViewController: KeyboardViewController, UITextFieldDelegate, UIIma
     }
     
     func dateEnd(){
-       
         datePickerStart = UIDatePicker()
         datePickerStart?.datePickerMode = .dateAndTime
         datePickerStart?.preferredDatePickerStyle = .wheels
         datePickerStart?.addTarget(self, action: #selector(dateEndChanged(_:)), for: .valueChanged)
+        
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd HH:mm"
+        if let fecha = formatter.date(from: eventRecived?.eventDateEnd ?? "") {
+            datePickerStart?.date = fecha
+        }
 
         let currentLocale = Locale.current
         datePickerStart?.locale = Locale(identifier: currentLocale.identifier)
@@ -436,6 +512,7 @@ class NewEventViewController: KeyboardViewController, UITextFieldDelegate, UIIma
             ivImageEvent.image = imgEvent
             let attributedTitle = NSAttributedString(string: "edit_image".localized(), attributes: attributes)
             btnAddImage.setAttributedTitle(attributedTitle, for: .normal)
+            
             btnDelImage.isHidden = false
             /*let url = info[.imageURL] as? URL
             URLImage = url?.absoluteString
@@ -476,7 +553,7 @@ class NewEventViewController: KeyboardViewController, UITextFieldDelegate, UIIma
     
     // MARK: Save Contacts
     
-    func saveNewEvent() {
+    func updateEvent() {
         let alertLoading = Utils.LoadigAlert.showAlert(on: self)
         let formatter = DateFormatter()
         formatter.locale = Locale(identifier: "en_US_POSIX")
@@ -491,10 +568,7 @@ class NewEventViewController: KeyboardViewController, UITextFieldDelegate, UIIma
             fromFormat = "MM/dd/yyyy HH:mm" //HH:mm
         }
 
-        /*
-         let eventDateStartVal =  Utils.dateFormatString(date: eventDateStart.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? "", fromFormat: fromFormat, toFormat: toFormat)
-         let eventDateEndVal = Utils.dateFormatString(date: eventDateEnd.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? "", fromFormat: fromFormat, toFormat: toFormat)
-         */
+       
         let eventNameVal = eventName.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
         let eventDescVal = eventDesc.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
         let eventTypeVal = eventType.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
@@ -503,9 +577,29 @@ class NewEventViewController: KeyboardViewController, UITextFieldDelegate, UIIma
         let eventStreetVal = eventStreet.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
         let eventCityVal = eventCity.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
         let eventScanVal = friendId
+        let eventIdVal = eventId
         
-        let newEvent = EventEntity(context: context)
-            newEvent.eventId = 0
+        var newEvent = EventDto(
+            eventId : Int(eventIdVal),
+            eventName : eventNameVal,
+            eventDesc : eventDescVal,
+            eventType : eventTypeVal,
+            eventDateStart : Utils.dateFormatString(date: eventDateStartVal, fromFormat: fromFormat, toFormat: toFormat),
+            eventDateEnd : Utils.dateFormatString(date: eventDateEndVal, fromFormat: fromFormat, toFormat: toFormat),
+            eventStreet : eventStreetVal,
+            eventCity : eventCityVal,
+            eventStatus : "A",
+            eventImg : URLImage,
+            eventCreatedAt : "",
+            userId : Int(userId),
+            eventSync : 0,
+            userIdScan : Int(eventScanVal)
+        )
+        
+    
+        
+        /*let newEvent = EventEntity(context: context)
+            newEvent.eventId = Int16(eventIdVal)
             newEvent.eventName = eventNameVal
             newEvent.eventDesc = eventDescVal
             newEvent.eventType = eventTypeVal
@@ -518,11 +612,11 @@ class NewEventViewController: KeyboardViewController, UITextFieldDelegate, UIIma
             newEvent.eventCreatedAt = ""
             newEvent.userId = Int16(userId)
             newEvent.eventSync = 0
-            newEvent.userIdScan = Int16(eventScanVal)
+            newEvent.userIdScan = Int16(eventScanVal)*/
         
         if(isConnected){
             newEvent.eventSync = 1
-            serviceManager.uploadEvent(image: ivImageEvent?.image, fileName: "eventImge.jpg", event: newEvent){ result in
+            serviceManager.updateEvent(image: ivImageEvent?.image, fileName: "eventImge.jpg", event: newEvent){ result in
                 print(result)
                 switch result {
                     case .success(let event):
@@ -532,11 +626,9 @@ class NewEventViewController: KeyboardViewController, UITextFieldDelegate, UIIma
                         newEvent.eventImg = event.eventImg
                     }
                         
-                        newEvent.eventId = Int16(event.eventId!)
-                        
-                        if(DataManager.shared.saveEventDB(event: newEvent)){
+                        if(DataManager.shared.updateEventDB(eventUpdate: newEvent)){
                             alertLoading.dismiss(animated: true){
-                                Utils.Snackbar.snackbarNoAction(message: "event_save_success".localized(), bgColor: Constants.Colors.green!, duration: 5.0)
+                                Utils.Snackbar.snackbarNoAction(message: "event_update_success".localized(), bgColor: Constants.Colors.green!, duration: 5.0)
                                 print("Evento guardado exitosamente.")
                                 NotificationCenter.default.post(name: NSNotification.Name("ADD_EVENT"), object:nil)
                                 self.clearData()
@@ -555,9 +647,9 @@ class NewEventViewController: KeyboardViewController, UITextFieldDelegate, UIIma
             }
             
         }else{
-            if(DataManager.shared.saveEventDB(event: newEvent)){
+            if(DataManager.shared.updateEventDB(eventUpdate: newEvent)){
                 alertLoading.dismiss(animated: true){
-                    Utils.Snackbar.snackbarNoAction(message: "event_save_success".localized(), bgColor: Constants.Colors.green!, duration: 5.0)
+                    Utils.Snackbar.snackbarNoAction(message: "event_update_success".localized(), bgColor: Constants.Colors.green!, duration: 5.0)
                     print("Evento guardado exitosamente.")
                     NotificationCenter.default.post(name: NSNotification.Name("ADD_EVENT"), object:nil)
                     self.clearData()
@@ -592,7 +684,10 @@ class NewEventViewController: KeyboardViewController, UITextFieldDelegate, UIIma
         eventCity.text = ""
         eventScan.text = ""
         
-        tabBarController?.selectedIndex = 0
+        dismiss(animated: true){
+            Utils.Snackbar.snackbarNoAction(message: "event_update_success".localized(), bgColor: Constants.Colors.green!, duration: 5.0)
+        }
+        NotificationCenter.default.post(name: NSNotification.Name("UPDATE_CONTACT"), object:nil)
        
     }
     
@@ -617,7 +712,7 @@ class NewEventViewController: KeyboardViewController, UITextFieldDelegate, UIIma
 
 }
 
-extension NewEventViewController: UIPickerViewDataSource, UIPickerViewDelegate {
+extension EditEventViewController: UIPickerViewDataSource, UIPickerViewDelegate {
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
@@ -641,4 +736,5 @@ extension NewEventViewController: UIPickerViewDataSource, UIPickerViewDelegate {
     @objc func dismissPickers() {
         activeTextField?.resignFirstResponder()
     }
+
 }

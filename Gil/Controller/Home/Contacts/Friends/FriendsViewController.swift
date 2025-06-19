@@ -80,7 +80,6 @@ class FriendsViewController: KeyboardViewController , SkeletonTableViewDataSourc
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        //Observo los cambios de internet
         self.tvFriends.showAnimatedGradientSkeleton(usingGradient: skeletonColor,animation: fastShimmer, transition: .none)
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
             self.updateGetFriends()

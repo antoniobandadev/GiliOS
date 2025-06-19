@@ -7,20 +7,20 @@
 
 struct EventDto : Codable {
     
-    let eventId: Int?
-    let eventName: String?
-    let eventDesc: String?
-    let eventType: String?
-    let eventDateStart: String?
-    let eventDateEnd: String?
-    let eventStreet: String?
-    let eventCity: String?
-    let eventStatus: String?
-    let eventImg: String?
-    let eventCreatedAt: String?
-    let userId: Int?
-    let eventSync: Int?
-    let userIdScan: Int?
+    var eventId: Int?
+    var eventName: String?
+    var eventDesc: String?
+    var eventType: String?
+    var eventDateStart: String?
+    var eventDateEnd: String?
+    var eventStreet: String?
+    var eventCity: String?
+    var eventStatus: String?
+    var eventImg: String?
+    var eventCreatedAt: String?
+    var userId: Int?
+    var eventSync: Int?
+    var userIdScan: Int?
     
     init(eventId: Int?,
          eventName: String?,

@@ -329,11 +329,18 @@ class ServiceManager{
         
     }
     
-    func updateEvent(image: UIImage?, fileName: String = "imagen.jpg", event: EventEntity,
+    func updateEvent(image: UIImage?, fileName: String = "imagen.jpg", event: EventDto,
                      completion: @escaping (Result<EventDto, Error>) -> Void) {
         let url = EndPoint.updateEvent.url
+        let eventIdString = String(event.eventId!)
+        
+        var changeImage = "0"
+        if(image == nil){
+            changeImage = "1"
+        }
         
         let parameters: [String: String] = [
+                "eventId": eventIdString,
                 "eventName": event.eventName ?? "",
                 "eventDesc": event.eventDesc ?? "",
                 "eventType": event.eventType ?? "",
@@ -342,8 +349,9 @@ class ServiceManager{
                 "eventStreet": event.eventStreet ?? "",
                 "eventCity": event.eventCity ?? "",
                 "eventStatus": event.eventStatus ?? "",
-                "userId": String(event.userId),
-                "userIdScan": String(event.userIdScan)
+                "userId": String(event.userId!),
+                "userIdScan": String(event.userIdScan!),
+                "changeImage": changeImage
             ]
 
         AF.upload(

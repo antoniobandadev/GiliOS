@@ -3,6 +3,7 @@
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23506"/>
+        <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -728,6 +729,7 @@
                     </view>
                     <connections>
                         <outlet property="tvEvents" destination="TXM-Re-gqT" id="Db5-al-acf"/>
+                        <segue destination="7Lb-Ai-zG3" kind="presentation" identifier="eventDetailSegue" modalPresentationStyle="fullScreen" id="Vox-cY-0OV"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Q1o-Au-SeV" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -762,7 +764,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CX0-DY-Ogc" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="6271" y="-1432"/>
+            <point key="canvasLocation" x="5521" y="-2137"/>
         </scene>
         <!--New Event View Controller-->
         <scene sceneID="NVB-mC-SvW">
@@ -936,7 +938,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jCL-EN-J8R" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4777.8625954198469" y="1505.6338028169014"/>
+            <point key="canvasLocation" x="5170" y="1459"/>
         </scene>
         <!--Contacts View Controller-->
         <scene sceneID="ebs-nM-ezm">
@@ -2251,10 +2253,218 @@
             </objects>
             <point key="canvasLocation" x="5663" y="3008"/>
         </scene>
+        <!--Edit Event View Controller-->
+        <scene sceneID="DGW-Uk-DkM">
+            <objects>
+                <viewController id="7Lb-Ai-zG3" customClass="EditEventViewController" customModule="Gil" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Dfz-gz-GJP">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3eT-Uk-iSm">
+                                <rect key="frame" x="0.0" y="60" width="393" height="792"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="u0a-pc-4hf">
+                                        <rect key="frame" x="16" y="0.0" width="361" height="795.33333333333337"/>
+                                        <subviews>
+                                            <stackView opaque="NO" contentMode="scaleToFill" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="EC0-cn-Mk7">
+                                                <rect key="frame" x="0.0" y="0.0" width="361" height="32.666666666666664"/>
+                                                <subviews>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rqm-hP-Xav">
+                                                        <rect key="frame" x="0.0" y="0.0" width="170.66666666666666" height="32.666666666666664"/>
+                                                        <color key="tintColor" name="grey"/>
+                                                        <state key="normal" title="Button"/>
+                                                        <buttonConfiguration key="configuration" style="plain" title="Add image">
+                                                            <fontDescription key="titleFontDescription" name="Parkinsans-Medium" family="Parkinsans" pointSize="16"/>
+                                                            <color key="baseForegroundColor" name="grey"/>
+                                                        </buttonConfiguration>
+                                                        <connections>
+                                                            <action selector="btnAddImageAction:" destination="7Lb-Ai-zG3" eventType="touchUpInside" id="dtc-RC-0Ry"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JdI-EC-e4r">
+                                                        <rect key="frame" x="190.66666666666663" y="0.0" width="170.33333333333337" height="32.666666666666664"/>
+                                                        <fontDescription key="fontDescription" name="Parkinsans-Medium" family="Parkinsans" pointSize="16"/>
+                                                        <color key="tintColor" name="grey"/>
+                                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                        <state key="normal" title="Delete image">
+                                                            <color key="titleColor" name="grey"/>
+                                                        </state>
+                                                        <buttonConfiguration key="configuration" style="plain" title="Delete image">
+                                                            <fontDescription key="titleFontDescription" name="Parkinsans-Medium" family="Parkinsans" pointSize="16"/>
+                                                            <color key="baseForegroundColor" name="grey"/>
+                                                        </buttonConfiguration>
+                                                        <connections>
+                                                            <action selector="btnDelImageAction:" destination="7Lb-Ai-zG3" eventType="touchUpInside" id="rMZ-f6-soG"/>
+                                                        </connections>
+                                                    </button>
+                                                </subviews>
+                                            </stackView>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="yWq-M7-Soh">
+                                                <rect key="frame" x="0.0" y="47.666666666666686" width="361" height="200"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="200" id="ta1-dJ-qWx"/>
+                                                </constraints>
+                                            </imageView>
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Uul-60-bOa" customClass="MDCOutlinedTextField">
+                                                <rect key="frame" x="0.0" y="262.66666666666669" width="361" height="34"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                            </textField>
+                                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="YOO-pr-2zj" customClass="MDCOutlinedTextField">
+                                                <rect key="frame" x="0.0" y="311.66666666666669" width="361" height="34"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                            </textField>
+                                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="meX-jJ-TYz" customClass="MDCOutlinedTextField">
+                                                <rect key="frame" x="0.0" y="360.66666666666669" width="361" height="34"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                            </textField>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1vi-N9-KU4">
+                                                <rect key="frame" x="0.0" y="409.66666666666669" width="361" height="21"/>
+                                                <fontDescription key="fontDescription" name="Parkinsans-Medium" family="Parkinsans" pointSize="18"/>
+                                                <color key="textColor" name="accent"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="09h-uy-ogO" customClass="MDCOutlinedTextField">
+                                                <rect key="frame" x="0.0" y="445.66666666666669" width="361" height="34"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                            </textField>
+                                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fm9-rR-N4M" customClass="MDCOutlinedTextField">
+                                                <rect key="frame" x="0.0" y="494.66666666666663" width="361" height="34"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                            </textField>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Address" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mT0-X3-Egc">
+                                                <rect key="frame" x="0.0" y="543.66666666666663" width="361" height="21"/>
+                                                <fontDescription key="fontDescription" name="Parkinsans-Medium" family="Parkinsans" pointSize="18"/>
+                                                <color key="textColor" name="accent"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="mu1-8D-eNJ" customClass="MDCOutlinedTextField">
+                                                <rect key="frame" x="0.0" y="579.66666666666663" width="361" height="34"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                            </textField>
+                                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="F40-yO-oWq" customClass="MDCOutlinedTextField">
+                                                <rect key="frame" x="0.0" y="628.66666666666663" width="361" height="34"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                            </textField>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="QR Code Scanner (must be your friend)" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rpy-HG-Djp">
+                                                <rect key="frame" x="0.0" y="677.66666666666663" width="361" height="18.666666666666629"/>
+                                                <fontDescription key="fontDescription" name="Parkinsans-Medium" family="Parkinsans" pointSize="16"/>
+                                                <color key="textColor" name="accent"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="brV-hr-Zrh" customClass="MDCOutlinedTextField">
+                                                <rect key="frame" x="0.0" y="711.33333333333337" width="361" height="34"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                            </textField>
+                                            <stackView opaque="NO" contentMode="scaleToFill" spacing="21" translatesAutoresizingMaskIntoConstraints="NO" id="fj3-vZ-yWj">
+                                                <rect key="frame" x="0.0" y="760.33333333333337" width="361" height="35"/>
+                                                <subviews>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eed-NA-QgW">
+                                                        <rect key="frame" x="0.0" y="0.0" width="170" height="35"/>
+                                                        <color key="tintColor" name="primary"/>
+                                                        <state key="normal" title="Button"/>
+                                                        <buttonConfiguration key="configuration" style="gray" title="Update" cornerStyle="capsule">
+                                                            <fontDescription key="titleFontDescription" name="Parkinsans-Bold" family="Parkinsans" pointSize="17"/>
+                                                            <color key="baseBackgroundColor" name="secondary"/>
+                                                        </buttonConfiguration>
+                                                        <connections>
+                                                            <action selector="btnUpdateAction:" destination="7Lb-Ai-zG3" eventType="touchUpInside" id="Cyy-fs-GBu"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b9W-ra-e8x">
+                                                        <rect key="frame" x="191" y="0.0" width="170" height="35"/>
+                                                        <fontDescription key="fontDescription" name="Parkinsans-Medium" family="Parkinsans" pointSize="18"/>
+                                                        <color key="tintColor" name="accent"/>
+                                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                        <state key="normal" title="Button"/>
+                                                        <buttonConfiguration key="configuration" style="gray" title="Cancel" cornerStyle="capsule">
+                                                            <fontDescription key="titleFontDescription" name="Parkinsans-Medium" family="Parkinsans" pointSize="18"/>
+                                                            <color key="baseBackgroundColor" name="red"/>
+                                                        </buttonConfiguration>
+                                                    </button>
+                                                </subviews>
+                                            </stackView>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="u0a-pc-4hf" firstAttribute="bottom" secondItem="g9A-xe-Qvx" secondAttribute="bottom" id="6W6-3C-64s"/>
+                                    <constraint firstItem="u0a-pc-4hf" firstAttribute="leading" secondItem="I4r-Kr-vYh" secondAttribute="leading" constant="16" id="Kbx-KN-XNx"/>
+                                    <constraint firstItem="u0a-pc-4hf" firstAttribute="top" secondItem="g9A-xe-Qvx" secondAttribute="top" id="Qz7-3G-j1z"/>
+                                    <constraint firstItem="I4r-Kr-vYh" firstAttribute="trailing" secondItem="u0a-pc-4hf" secondAttribute="trailing" constant="16" id="fC0-Hs-vPl"/>
+                                </constraints>
+                                <viewLayoutGuide key="contentLayoutGuide" id="g9A-xe-Qvx"/>
+                                <viewLayoutGuide key="frameLayoutGuide" id="I4r-Kr-vYh"/>
+                            </scrollView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ocV-aZ-88E">
+                                <rect key="frame" x="5" y="0.0" width="78.666666666666671" height="34.333333333333336"/>
+                                <color key="tintColor" name="secondary"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title=" Back">
+                                    <imageReference key="image" image="chevron.left" catalog="system" symbolScale="medium"/>
+                                </buttonConfiguration>
+                                <connections>
+                                    <action selector="btnClose:" destination="7Lb-Ai-zG3" eventType="touchUpInside" id="y6g-jB-I0J"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kuK-E9-reu">
+                                <rect key="frame" x="289.66666666666669" y="0.0" width="98.333333333333314" height="32.666666666666664"/>
+                                <color key="tintColor" name="gray"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="My guests">
+                                    <fontDescription key="titleFontDescription" name="Parkinsans-Medium" family="Parkinsans" pointSize="16"/>
+                                </buttonConfiguration>
+                                <connections>
+                                    <action selector="btnAddGuestsAction:" destination="7Lb-Ai-zG3" eventType="touchUpInside" id="a11-Lr-tjo"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="7YP-6a-3NI"/>
+                        <color key="backgroundColor" name="primary"/>
+                        <constraints>
+                            <constraint firstItem="3eT-Uk-iSm" firstAttribute="trailing" secondItem="7YP-6a-3NI" secondAttribute="trailing" id="9ib-Yd-A48"/>
+                            <constraint firstItem="7YP-6a-3NI" firstAttribute="trailing" secondItem="kuK-E9-reu" secondAttribute="trailing" constant="5" id="Coh-zu-22D"/>
+                            <constraint firstItem="ocV-aZ-88E" firstAttribute="leading" secondItem="7YP-6a-3NI" secondAttribute="leading" constant="5" id="OYX-ne-EE3"/>
+                            <constraint firstItem="3eT-Uk-iSm" firstAttribute="leading" secondItem="7YP-6a-3NI" secondAttribute="leading" id="XGf-Bk-bpc"/>
+                            <constraint firstItem="7YP-6a-3NI" firstAttribute="bottom" secondItem="3eT-Uk-iSm" secondAttribute="bottom" id="hDH-yw-tfd"/>
+                            <constraint firstItem="3eT-Uk-iSm" firstAttribute="top" secondItem="7YP-6a-3NI" secondAttribute="top" constant="60" id="hQu-g8-HPQ"/>
+                            <constraint firstItem="ocV-aZ-88E" firstAttribute="top" secondItem="7YP-6a-3NI" secondAttribute="top" id="zc6-If-ssI"/>
+                            <constraint firstItem="kuK-E9-reu" firstAttribute="top" secondItem="7YP-6a-3NI" secondAttribute="top" id="zxi-Qz-x0o"/>
+                        </constraints>
+                    </view>
+                    <tabBarItem key="tabBarItem" tag="2" title="" image="plus.circle.fill" catalog="system" id="X5M-uF-58e"/>
+                    <navigationItem key="navigationItem" id="quJ-Wv-nQj"/>
+                    <connections>
+                        <outlet property="btnAddImage" destination="rqm-hP-Xav" id="4Na-8k-1Yc"/>
+                        <outlet property="btnDelImage" destination="JdI-EC-e4r" id="WNY-ty-Uwg"/>
+                        <outlet property="eventCity" destination="F40-yO-oWq" id="8iU-fO-VDs"/>
+                        <outlet property="eventDateEnd" destination="fm9-rR-N4M" id="cgv-hg-vVW"/>
+                        <outlet property="eventDateStart" destination="09h-uy-ogO" id="2IC-4Q-FQV"/>
+                        <outlet property="eventDesc" destination="YOO-pr-2zj" id="mtU-9N-m5C"/>
+                        <outlet property="eventName" destination="Uul-60-bOa" id="QVt-BS-3Je"/>
+                        <outlet property="eventScan" destination="brV-hr-Zrh" id="GQL-IL-eKb"/>
+                        <outlet property="eventStreet" destination="mu1-8D-eNJ" id="ApB-ZE-Zu6"/>
+                        <outlet property="eventType" destination="meX-jJ-TYz" id="tCD-bd-ULg"/>
+                        <outlet property="ivImageEvent" destination="yWq-M7-Soh" id="4EN-Up-gmU"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="MFZ-wJ-90c" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="6271" y="-1432"/>
+        </scene>
     </scenes>
     <resources>
         <image name="calendar" catalog="system" width="128" height="107"/>
         <image name="checkmark.circle.fill" catalog="system" width="128" height="123"/>
+        <image name="chevron.left" catalog="system" width="97" height="128"/>
         <image name="gearshape.fill" catalog="system" width="128" height="123"/>
         <image name="ic_add_img" width="512" height="512"/>
         <image name="ic_edit" width="512" height="512"/>
@@ -2271,6 +2481,9 @@
         </namedColor>
         <namedColor name="accent">
             <color red="0.99607843137254903" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="gray">
+            <color red="0.78431372549019607" green="0.78431372549019607" blue="0.78823529411764703" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="green">
             <color red="0.0" green="0.23529411764705882" blue="0.019607843137254902" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
