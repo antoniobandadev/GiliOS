@@ -71,6 +71,7 @@ class AlertSettingsViewController:  KeyboardViewController, UITextFieldDelegate 
         
         tfUserName.delegate = self
         tfUserName.clearTextFieldError()
+        view.backgroundColor = UIColor.black.withAlphaComponent(0.5)
 
         // Do any additional setup after loading the view.
         

@@ -114,11 +114,6 @@ class AlertFriendViewController: KeyboardViewController, UITextFieldDelegate {
     }
     
     
-    
-    
-    
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -207,6 +202,27 @@ class AlertFriendViewController: KeyboardViewController, UITextFieldDelegate {
              btnNegative.isHidden = false
              btnNegative.setTitle(cancelButtonTitle, for: .normal)
         }
+        
+        if let currentPositiveTitle = btnPositive.title(for: .normal) {
+            let attributedTitle = NSAttributedString(
+                string: currentPositiveTitle,
+                attributes: [
+                    .font: Constants.Fonts.font16
+                ]
+            )
+            btnPositive.setAttributedTitle(attributedTitle, for: .normal)
+        }
+        
+        if let currentNegativeTitle = btnNegative.title(for: .normal) {
+            let attributedTitle = NSAttributedString(
+                string: currentNegativeTitle,
+                attributes: [
+                    .font: Constants.Fonts.font16
+                ]
+            )
+            btnNegative.setAttributedTitle(attributedTitle, for: .normal)
+        }
+        
         
     }
     

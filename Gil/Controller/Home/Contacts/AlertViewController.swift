@@ -12,6 +12,8 @@ class AlertViewController: KeyboardViewController, UITextFieldDelegate {
     
     let serviceManager = ServiceManager.shared
     let context = DataManager.shared.persistentContainer.viewContext
+    let attributes: [NSAttributedString.Key: Any] = [.font: Constants.Fonts.font16]
+    
     var alertTitle: String?
     var confirmButtonTitle: String?
     var cancelButtonTitle: String? = nil
@@ -47,6 +49,28 @@ class AlertViewController: KeyboardViewController, UITextFieldDelegate {
     
     @IBAction func btnOnCancel(_ sender: UIButton) {
         self.onCancel?()
+        
+        if let currentPositiveTitle = btnPositive.title(for: .normal) {
+            let attributedTitle = NSAttributedString(
+                string: currentPositiveTitle,
+                attributes: [
+                    .font: Constants.Fonts.font16
+                ]
+            )
+            btnPositive.setAttributedTitle(attributedTitle, for: .normal)
+        }
+        
+        if let currentNegativeTitle = btnNegative.title(for: .normal) {
+            let attributedTitle = NSAttributedString(
+                string: currentNegativeTitle,
+                attributes: [
+                    .font: Constants.Fonts.font16
+                ]
+            )
+            btnNegative.setAttributedTitle(attributedTitle, for: .normal)
+        }
+        
+        
         
         if(confirmCancel){
             
@@ -108,7 +132,9 @@ class AlertViewController: KeyboardViewController, UITextFieldDelegate {
         etValue2.text = myContact?.contactEmail
 
         // Configurar botón Confirmar
-        btnPositive.setTitle(confirmButtonTitle, for: .normal)
+        let attributedTitle = NSAttributedString(string: confirmButtonTitle!, attributes: attributes)
+        btnPositive.setAttributedTitle(attributedTitle, for: .normal)
+        //btnPositive.setTitle(confirmButtonTitle, for: .normal)
         btnPositive.setTitleColor(.white, for: .normal)
         //btnPositive.backgroundColor = confirmButtonColor
         btnPositive.layer.cornerRadius = 8
@@ -125,7 +151,9 @@ class AlertViewController: KeyboardViewController, UITextFieldDelegate {
 
         // Configurar botón Cancelar
         if let cancelTitle = cancelButtonTitle {
-            btnNegative.setTitle(cancelTitle, for: .normal)
+            let attributedTitle = NSAttributedString(string: cancelTitle, attributes: attributes)
+            btnNegative.setAttributedTitle(attributedTitle, for: .normal)
+            //btnNegative.setTitle(cancelTitle, for: .normal)
             btnNegative.setTitleColor(.white, for: .normal)
             btnNegative.layer.cornerRadius = 8
             btnNegative.isHidden = false

@@ -405,6 +405,49 @@ class ServiceManager{
         }
     }
     
+    func deleteEvent(event : EventDto, completion: @escaping (Result<EventDto, Error>) -> Void) {
+        let url = EndPoint.deleteEvent.url
+        
+        AF.request(url, method: .post, parameters: event, encoder: JSONParameterEncoder.default)
+            .validate(statusCode: 200..<300)
+            .responseDecodable(of: EventDto.self) { response in
+                debugPrint(response)
+                print(response.result)
+                   switch response.result {
+                   case .success(let user):
+                       print(user)
+                       completion(.success(user))
+                   case .failure(let error):
+                       let apiError = ErrorParser.parse(error)
+                       completion(.failure(error))
+                       print(apiError.localizedDescription)
+                   }
+            }
+    }
+    
+    func getInvites(userId : Int, completion: @escaping (Result<[EventDto], Error>) -> Void){
+        let url = EndPoint.getInvites.url
+        
+        AF.request(url, method: .get, parameters: ["userId": userId], encoding: URLEncoding.default)
+        .validate(statusCode: 200..<500)
+        .responseDecodable(of: [EventDto].self) { response in
+            //debugPrint(response)
+            if let statusCode = response.response?.statusCode, statusCode == 404 {
+                let notFoundError = APIError.notFound
+                completion(.failure(notFoundError))
+            }else{
+                switch response.result {
+                case .success(let eventsApi):
+                    completion(.success(eventsApi))
+                case .failure(let error):
+                    let apiError = ErrorParser.parse(error)
+                    completion(.failure(error))
+                    print(apiError.localizedDescription)
+                }
+            }
+        }
+    }
+    
     
     
     

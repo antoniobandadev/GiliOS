@@ -24,6 +24,7 @@ struct Constants {
         static let font16 = UIFont(name: "parkinsans", size: 16)!
         static let fontMini = UIFont(name: "parkinsans", size: 13)!
         static let fontBold = UIFont(name: "parkinsans-bold", size: 17)!
+        static let fontBold18 = UIFont(name: "parkinsans-bold", size: 18)!
         static let fontTitle = UIFont(name: "parkinsans", size: 24)!
         static let fontTitleBold = UIFont(name: "parkinsans-bold", size: 24)!
        

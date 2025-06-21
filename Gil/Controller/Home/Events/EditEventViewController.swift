@@ -22,7 +22,6 @@ class EditEventViewController: KeyboardViewController, UITextFieldDelegate, UIIm
     
     let attributes: [NSAttributedString.Key: Any] = [
         .font: Constants.Fonts.font16
-        //.foregroundColor: UIColor.systemBlue
     ]
     
     @IBAction func btnClose(_ sender: UIButton) {
@@ -74,6 +73,27 @@ class EditEventViewController: KeyboardViewController, UITextFieldDelegate, UIIm
             updateEvent()
         }
     }
+    
+    @IBAction func btnDeleteAction(_ sender: UIButton) {
+        let deleteAlert = AlertCustomViewController(title: "delete_event".localized(), message: "confirm_delete_event".localized())
+        deleteAlert.modalPresentationStyle = .overFullScreen
+        
+        deleteAlert.addAction(title: "no".localized(), style: .filled(), color: Constants.Colors.red!){
+           // deleteAlert.dismissAlert()
+            deleteAlert.dismiss(animated: true)
+        }
+        
+        deleteAlert.addAction(title: "yes".localized(), style: .filled(), color: Constants.Colors.green!){
+           // print("Ok pressed")
+            deleteAlert.dismiss(animated: true)
+            let alertLoading = Utils.LoadigAlert.showAlert(on: self)
+            self.deleteEvent()
+        }
+        
+        present(deleteAlert, animated: true)
+        
+    }
+    
     
     @IBAction func btnAddGuestsAction(_ sender: UIButton) {
         
@@ -532,7 +552,7 @@ class EditEventViewController: KeyboardViewController, UITextFieldDelegate, UIIm
 
                } catch {
                    picker.dismiss(animated: true)
-                  // print("❌ Error al guardar la imagen editada:", error)
+                  // print(" Error al guardar la imagen editada:", error)
                }
             }
             
@@ -617,7 +637,7 @@ class EditEventViewController: KeyboardViewController, UITextFieldDelegate, UIIm
         if(isConnected){
             newEvent.eventSync = 1
             serviceManager.updateEvent(image: ivImageEvent?.image, fileName: "eventImge.jpg", event: newEvent){ result in
-                print(result)
+                //print(result)
                 switch result {
                     case .success(let event):
                     if event.eventImg != nil{
@@ -642,7 +662,12 @@ class EditEventViewController: KeyboardViewController, UITextFieldDelegate, UIIm
                         }
                     
                     case .failure(let error):
-                        print("\(error.localizedDescription)")
+                        alertLoading.dismiss(animated: true){
+                            Utils.Snackbar.snackbarNoAction(message: "server_error".localized(), bgColor: Constants.Colors.green!, duration: 5.0)
+                            print("Evento no se pudo guardar.")
+                            print("\(error.localizedDescription)")
+                        }
+                       
                 }
             }
             
@@ -661,10 +686,127 @@ class EditEventViewController: KeyboardViewController, UITextFieldDelegate, UIIm
                 }
             }
         }
-        
-        
-        
     }
+    // MARK: Delete Event
+    
+    func deleteEvent() {
+        let alertLoading = Utils.LoadigAlert.showAlert(on: self)
+        let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: "en_US_POSIX")
+        
+        let currentLocale = Locale.current
+        let toFormat = "yyyy-MM-dd HH:mm"
+        var fromFormat = ""
+        
+        if(currentLocale.identifier == "es_MX"){
+            fromFormat = "dd/MM/yyyy HH:mm" // HH:mm
+        }else{
+            fromFormat = "MM/dd/yyyy HH:mm" //HH:mm
+        }
+
+       
+        let eventNameVal = eventName.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+        let eventDescVal = eventDesc.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+        let eventTypeVal = eventType.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+        let eventDateStartVal = eventDateStart.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+        let eventDateEndVal = eventDateEnd.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+        let eventStreetVal = eventStreet.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+        let eventCityVal = eventCity.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+        let eventScanVal = friendId
+        let eventIdVal = eventId
+        
+        var newEvent = EventDto(
+            eventId : Int(eventIdVal),
+            eventName : eventNameVal,
+            eventDesc : eventDescVal,
+            eventType : eventTypeVal,
+            eventDateStart : Utils.dateFormatString(date: eventDateStartVal, fromFormat: fromFormat, toFormat: toFormat),
+            eventDateEnd : Utils.dateFormatString(date: eventDateEndVal, fromFormat: fromFormat, toFormat: toFormat),
+            eventStreet : eventStreetVal,
+            eventCity : eventCityVal,
+            eventStatus : "C",
+            eventImg : URLImage,
+            eventCreatedAt : "",
+            userId : Int(userId),
+            eventSync : 0,
+            userIdScan : Int(eventScanVal)
+        )
+        
+        if(isConnected){
+            newEvent.eventSync = 1
+            serviceManager.deleteEvent(event: newEvent){ result in
+                //print(result)
+                switch result {
+                    case .success(_):
+                        if(DataManager.shared.deleteEventDB(eventUpdate: newEvent)){
+                            alertLoading.dismiss(animated: true){
+                                self.dismiss(animated: true){
+                                    self.dismiss(animated: true){
+                                        self.dismiss(animated: true){
+                                            Utils.Snackbar.snackbarNoAction(message: "event_deleted_success".localized(), bgColor: Constants.Colors.green!, duration: 5.0)
+                                            print("Evento eliminado exitosamente.")
+                                            NotificationCenter.default.post(name: NSNotification.Name("ADD_EVENT"), object:nil)
+                                        }
+                                    }
+                                }
+                            }
+                        }else{
+                            alertLoading.dismiss(animated: true){
+                                self.dismiss(animated: true){
+                                    self.dismiss(animated: true){
+                                        self.dismiss(animated: true){
+                                            Utils.Snackbar.snackbarNoAction(message: "server_error".localized(), bgColor: Constants.Colors.green!, duration: 5.0)
+                                            print("Evento no se pudo eliminar.")
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    
+                    case .failure(let error):
+                        alertLoading.dismiss(animated: true){
+                            self.dismiss(animated: true){
+                                self.dismiss(animated: true){
+                                    self.dismiss(animated: true){
+                                        Utils.Snackbar.snackbarNoAction(message: "server_error".localized(), bgColor: Constants.Colors.green!, duration: 5.0)
+                                        print("Evento no se pudo eliminar.")
+                                        print("\(error.localizedDescription)")
+                                    }
+                                }
+                            }
+                        }
+                }
+            }
+            
+        }else{
+            if(DataManager.shared.deleteEventDB(eventUpdate: newEvent)){
+                alertLoading.dismiss(animated: true){
+                    self.dismiss(animated: true){
+                        self.dismiss(animated: true){
+                            self.dismiss(animated: true){
+                                Utils.Snackbar.snackbarNoAction(message: "event_deleted_success".localized(), bgColor: Constants.Colors.green!, duration: 5.0)
+                                print("Evento eliminado exitosamente.")
+                                NotificationCenter.default.post(name: NSNotification.Name("ADD_EVENT"), object:nil)
+                            }
+                        }
+                    }
+                }
+            }else{
+                alertLoading.dismiss(animated: true){
+                    self.dismiss(animated: true){
+                        self.dismiss(animated: true){
+                            self.dismiss(animated: true){
+                                Utils.Snackbar.snackbarNoAction(message: "server_error".localized(), bgColor: Constants.Colors.green!, duration: 5.0)
+                                print("Evento no se pudo eliminar.")
+                            }
+                        }
+                    }
+                   
+                }
+            }
+        }
+    }
+    
     
     // MARK: Clear info
     

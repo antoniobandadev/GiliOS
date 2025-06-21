@@ -25,6 +25,21 @@ class MyEventsViewController: UIViewController, SkeletonTableViewDataSource, UIT
 
     @IBOutlet weak var tvEvents: UITableView!
     
+    let eventsLabel: UILabel = {
+        let label = UILabel()
+        label.text = "no_events_found".localized()
+        label.textAlignment = .center
+        label.textColor = .gray
+        label.font = Constants.Fonts.fontBold
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.isHidden = true
+        return label
+    }()
+    
+    
+    
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -35,7 +50,7 @@ class MyEventsViewController: UIViewController, SkeletonTableViewDataSource, UIT
         tvEvents.isSkeletonable = true
         
         self.tvEvents.showAnimatedGradientSkeleton(usingGradient: skeletonColor, animation: fastShimmer, transition: .none)
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             self.initUI()
         }
         
@@ -53,54 +68,40 @@ class MyEventsViewController: UIViewController, SkeletonTableViewDataSource, UIT
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        self.eventsLabel.isHidden = true
         /*DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
             self.initUI()
         }*/
     }
     
     @objc func initUI(){
+        self.eventsLabel.isHidden = true
         self.tvEvents.showAnimatedGradientSkeleton(usingGradient: skeletonColor, animation: fastShimmer, transition: .none)
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             if(self.isConnected){
                 self.pendingEventsApi{ pending in
-                    //if (pending){
-                        print("Eventos pendientes Listos")
-                        self.updateEventsApi {
-                            print("Borrando y trayendo de nuevo")
-                            self.getEvents()
-                            print("Mostrando los eventos")
-                        }
-                    /*}else{
+                    self.updateEventsApi {
                         self.getEvents()
-                        print("Mostrando solo los eventos")
-                    }*/
+                    }
                 }
             }else{
                 self.getEvents()
-                print("Mostrando solo los eventos")
                 Utils.Snackbar.snackbarWithAction(message: "no_internet_connection".localized(), bgColor: Constants.Colors.red!, titleAction: "close".localized() , duration: 5.0)
             }
         }
+        
+        view.addSubview(eventsLabel)
+
+        NSLayoutConstraint.activate([
+            eventsLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            eventsLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+        ])
     }
     
     
     @objc
     func updateEventsApi(completion: @escaping () -> Void) {
         let userId = UserDefaults.standard.integer(forKey: "userId")
-        //let currentLocale = Locale.current
-        //let fromFormat = "yyyy-MM-dd HH:mm"
-        //var toFormat = ""
-        
-        /*if(currentLocale.identifier == "es_MX"){
-            toFormat = "dd/MM/yyyy HH:mm" // HH:mm
-        }else{
-            toFormat = "MM/dd/yyyy HH:mm" //HH:mm
-        }*/
-        
-        /*eventsApi.eventDateStart = Utils.dateFormatString(date: eventDto.eventDateStart!, fromFormat: fromFormat, toFormat: toFormat)
-        eventsApi.eventDateEnd = Utils.dateFormatString(date: eventDto.eventDateEnd!, fromFormat: fromFormat, toFormat: toFormat)*/
-        
-        
         
         serviceManager.getEvents(userId: userId) { result in
             DispatchQueue.main.async {
@@ -127,7 +128,7 @@ class MyEventsViewController: UIViewController, SkeletonTableViewDataSource, UIT
                         }
                         DataManager.shared.deleteAllEvents(context: self.context)
                         DataManager.shared.insertEvents(eventsApiArray)
-                    print("Eventos Actualizados")
+                   // print("Eventos Actualizados")
                     case .failure(let error):
                     print("Error al actualizar eventos desde el api : \(error)")
                 }
@@ -243,13 +244,17 @@ class MyEventsViewController: UIViewController, SkeletonTableViewDataSource, UIT
     
     func getEvents(){
         DispatchQueue.main.async{
-            print("cargandoEventos")
             self.events = DataManager.shared.getAllEvents()
-            print("pintandoEventos")
+            
             self.tvEvents.reloadData()
-            print("quitando skeleton")
             self.tvEvents.stopSkeletonAnimation()
             self.tvEvents.hideSkeleton()
+            
+            if(self.events.count > 0){
+                self.eventsLabel.isHidden = true
+            }else{
+                self.eventsLabel.isHidden = false
+            }
         }
     }
     

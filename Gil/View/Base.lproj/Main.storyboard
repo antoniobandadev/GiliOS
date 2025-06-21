@@ -673,7 +673,7 @@
                                                             <color key="textColor" name="greyDark"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="v3j-GS-rtX">
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="v3j-GS-rtX">
                                                             <rect key="frame" x="114" y="28.999999999999996" width="269" height="44.666666666666657"/>
                                                             <fontDescription key="fontDescription" name="Parkinsans-Medium" family="Parkinsans" pointSize="14"/>
                                                             <color key="textColor" name="accent"/>
@@ -736,35 +736,228 @@
             </objects>
             <point key="canvasLocation" x="5521.3740458015263" y="-1432.3943661971832"/>
         </scene>
-        <!--My Invites View Controller-->
+        <!--Invite Det View Controller-->
         <scene sceneID="mJY-GN-YhB">
             <objects>
-                <viewController storyboardIdentifier="MyInvites" id="khP-Np-1eu" customClass="MyInvitesViewController" customModule="Gil" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="khP-Np-1eu" customClass="InviteDetViewController" customModule="Gil" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="SPM-iD-UFn">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="My Invites" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="54y-Fy-UtK">
-                                <rect key="frame" x="158" y="59" width="77" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" name="secondary"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="54y-Fy-UtK">
+                                <rect key="frame" x="16" y="30" width="361" height="21"/>
+                                <attributedString key="attributedText">
+                                    <fragment content="My Invites">
+                                        <attributes>
+                                            <color key="NSColor" name="secondary"/>
+                                            <font key="NSFont" size="18" name="Parkinsans-Medium"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <stackView opaque="NO" contentMode="scaleAspectFit" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="j5t-K4-uu3">
+                                <rect key="frame" x="15" y="61" width="363" height="781"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_contacts" translatesAutoresizingMaskIntoConstraints="NO" id="Xbh-Xb-KNl">
+                                        <rect key="frame" x="0.0" y="0.0" width="363" height="280"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="280" id="iB9-06-nTO"/>
+                                        </constraints>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="249" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kOB-B4-veP">
+                                        <rect key="frame" x="0.0" y="285" width="363" height="131.33333333333337"/>
+                                        <fontDescription key="fontDescription" name="Parkinsans-Medium" family="Parkinsans" pointSize="18"/>
+                                        <color key="textColor" name="secondary"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Description" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="krr-Ce-vM8">
+                                        <rect key="frame" x="0.0" y="421.33333333333331" width="363" height="18.666666666666686"/>
+                                        <fontDescription key="fontDescription" name="Parkinsans-Medium" family="Parkinsans" pointSize="16"/>
+                                        <color key="textColor" name="secondary"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="jyv-is-MNM">
+                                        <rect key="frame" x="0.0" y="445" width="363" height="40"/>
+                                        <subviews>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_event_desc" translatesAutoresizingMaskIntoConstraints="NO" id="ENN-FC-vnB">
+                                                <rect key="frame" x="0.0" y="0.0" width="50" height="40"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="50" id="azL-iO-uRd"/>
+                                                    <constraint firstAttribute="height" constant="40" id="qMY-eP-hiM"/>
+                                                </constraints>
+                                            </imageView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="V5x-t1-1mo">
+                                                <rect key="frame" x="60" y="0.0" width="303" height="40"/>
+                                                <fontDescription key="fontDescription" name="Parkinsans-Medium" family="Parkinsans" pointSize="16"/>
+                                                <color key="textColor" name="accent"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                    </stackView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Type" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pqt-N3-1NE">
+                                        <rect key="frame" x="0.0" y="490" width="363" height="18.666666666666686"/>
+                                        <fontDescription key="fontDescription" name="Parkinsans-Medium" family="Parkinsans" pointSize="16"/>
+                                        <color key="textColor" name="secondary"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="ozX-xI-6OL">
+                                        <rect key="frame" x="0.0" y="513.66666666666663" width="363" height="40"/>
+                                        <subviews>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_event_type" translatesAutoresizingMaskIntoConstraints="NO" id="upM-AX-pug">
+                                                <rect key="frame" x="0.0" y="0.0" width="50" height="40"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="40" id="91w-q6-BIs"/>
+                                                    <constraint firstAttribute="width" constant="50" id="OEp-s3-ktF"/>
+                                                </constraints>
+                                            </imageView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wnn-cN-SCT">
+                                                <rect key="frame" x="60" y="0.0" width="303" height="40"/>
+                                                <fontDescription key="fontDescription" name="Parkinsans-Medium" family="Parkinsans" pointSize="16"/>
+                                                <color key="textColor" name="accent"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                    </stackView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="e1c-bQ-eSk">
+                                        <rect key="frame" x="0.0" y="558.66666666666663" width="363" height="18.666666666666629"/>
+                                        <fontDescription key="fontDescription" name="Parkinsans-Medium" family="Parkinsans" pointSize="16"/>
+                                        <color key="textColor" name="secondary"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Txh-b8-TQ5">
+                                        <rect key="frame" x="0.0" y="582.33333333333337" width="363" height="40"/>
+                                        <subviews>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_calendar" translatesAutoresizingMaskIntoConstraints="NO" id="8pf-hZ-8ke">
+                                                <rect key="frame" x="0.0" y="0.0" width="50" height="40"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="40" id="SMW-xg-VJZ"/>
+                                                    <constraint firstAttribute="width" constant="50" id="URg-iX-DHz"/>
+                                                </constraints>
+                                            </imageView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vxh-4C-DfN">
+                                                <rect key="frame" x="60" y="0.0" width="303" height="40"/>
+                                                <fontDescription key="fontDescription" name="Parkinsans-Medium" family="Parkinsans" pointSize="16"/>
+                                                <color key="textColor" name="accent"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="hXi-7t-EXy">
+                                        <rect key="frame" x="0.0" y="627.33333333333337" width="363" height="40"/>
+                                        <subviews>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_calendar" translatesAutoresizingMaskIntoConstraints="NO" id="xqO-9Z-SWf">
+                                                <rect key="frame" x="0.0" y="0.0" width="50" height="40"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="40" id="8WT-OG-Tdq"/>
+                                                    <constraint firstAttribute="width" constant="50" id="R1y-uF-aOn"/>
+                                                </constraints>
+                                            </imageView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FHu-CO-PJc">
+                                                <rect key="frame" x="60" y="0.0" width="303" height="40"/>
+                                                <fontDescription key="fontDescription" name="Parkinsans-Medium" family="Parkinsans" pointSize="16"/>
+                                                <color key="textColor" name="accent"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                    </stackView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Adress" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kU4-sZ-E4K">
+                                        <rect key="frame" x="0.0" y="672.33333333333337" width="363" height="18.666666666666629"/>
+                                        <fontDescription key="fontDescription" name="Parkinsans-Medium" family="Parkinsans" pointSize="16"/>
+                                        <color key="textColor" name="secondary"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="lnf-Yz-7NW">
+                                        <rect key="frame" x="0.0" y="696" width="363" height="40"/>
+                                        <subviews>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_event_street" translatesAutoresizingMaskIntoConstraints="NO" id="BMc-Lv-f91">
+                                                <rect key="frame" x="0.0" y="0.0" width="50" height="40"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="50" id="LEl-Fw-y9L"/>
+                                                    <constraint firstAttribute="height" constant="40" id="jFS-ew-dUn"/>
+                                                </constraints>
+                                            </imageView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="98M-XH-jua">
+                                                <rect key="frame" x="60" y="0.0" width="303" height="40"/>
+                                                <fontDescription key="fontDescription" name="Parkinsans-Medium" family="Parkinsans" pointSize="16"/>
+                                                <color key="textColor" name="accent"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="zoS-Kp-yQP">
+                                        <rect key="frame" x="0.0" y="741" width="363" height="40"/>
+                                        <subviews>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_event_city" translatesAutoresizingMaskIntoConstraints="NO" id="qWY-UJ-90g">
+                                                <rect key="frame" x="0.0" y="0.0" width="50" height="40"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="50" id="f0T-pg-K8S"/>
+                                                    <constraint firstAttribute="height" constant="40" id="wMo-Xg-Evb"/>
+                                                </constraints>
+                                            </imageView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2ZY-Oz-TeP">
+                                                <rect key="frame" x="60" y="0.0" width="303" height="40"/>
+                                                <fontDescription key="fontDescription" name="Parkinsans-Medium" family="Parkinsans" pointSize="16"/>
+                                                <color key="textColor" name="accent"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                            </stackView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qyw-od-cGc">
+                                <rect key="frame" x="5" y="0.0" width="77.666666666666671" height="34.333333333333336"/>
+                                <color key="tintColor" name="secondary"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title=" Back">
+                                    <imageReference key="image" image="chevron.left" catalog="system" symbolScale="medium"/>
+                                    <fontDescription key="titleFontDescription" name="Parkinsans-Medium" family="Parkinsans" pointSize="16"/>
+                                </buttonConfiguration>
+                                <connections>
+                                    <action selector="btnCloseAction:" destination="khP-Np-1eu" eventType="touchUpInside" id="7Ci-cB-HSU"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="jwE-jH-Kg6"/>
                         <color key="backgroundColor" name="primary"/>
                         <constraints>
-                            <constraint firstItem="54y-Fy-UtK" firstAttribute="top" secondItem="jwE-jH-Kg6" secondAttribute="top" id="cJP-bY-0tJ"/>
-                            <constraint firstItem="54y-Fy-UtK" firstAttribute="centerX" secondItem="jwE-jH-Kg6" secondAttribute="centerX" id="ucc-k9-mkl"/>
+                            <constraint firstItem="54y-Fy-UtK" firstAttribute="top" secondItem="jwE-jH-Kg6" secondAttribute="top" constant="30" id="2J7-yF-31v"/>
+                            <constraint firstItem="j5t-K4-uu3" firstAttribute="leading" secondItem="jwE-jH-Kg6" secondAttribute="leading" constant="15" id="4rz-rp-9UZ"/>
+                            <constraint firstItem="jwE-jH-Kg6" firstAttribute="trailing" secondItem="54y-Fy-UtK" secondAttribute="trailing" constant="16" id="7No-cQ-Kf4"/>
+                            <constraint firstItem="Qyw-od-cGc" firstAttribute="leading" secondItem="jwE-jH-Kg6" secondAttribute="leading" constant="5" id="E6o-4x-KfQ"/>
+                            <constraint firstItem="Qyw-od-cGc" firstAttribute="top" secondItem="jwE-jH-Kg6" secondAttribute="top" id="FKt-GY-Vtd"/>
+                            <constraint firstItem="j5t-K4-uu3" firstAttribute="top" secondItem="54y-Fy-UtK" secondAttribute="bottom" constant="10" id="YvF-Es-oGc"/>
+                            <constraint firstItem="jwE-jH-Kg6" firstAttribute="trailing" secondItem="j5t-K4-uu3" secondAttribute="trailing" constant="15" id="ZHy-KM-2I3"/>
+                            <constraint firstItem="jwE-jH-Kg6" firstAttribute="bottom" secondItem="j5t-K4-uu3" secondAttribute="bottom" constant="10" id="gbp-UC-F2y"/>
+                            <constraint firstItem="54y-Fy-UtK" firstAttribute="leading" secondItem="jwE-jH-Kg6" secondAttribute="leading" constant="16" id="leH-SG-Blt"/>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="lbTitle" destination="54y-Fy-UtK" id="v9d-Z8-MlZ"/>
+                        <outlet property="ivCity" destination="qWY-UJ-90g" id="nTI-T2-gT6"/>
+                        <outlet property="ivDateEnd" destination="xqO-9Z-SWf" id="ef1-nR-c64"/>
+                        <outlet property="ivDateStart" destination="8pf-hZ-8ke" id="QOM-2b-HLs"/>
+                        <outlet property="ivDesc" destination="ENN-FC-vnB" id="9tx-Zn-Oi5"/>
+                        <outlet property="ivQR" destination="Xbh-Xb-KNl" id="uUn-ox-jI5"/>
+                        <outlet property="ivStreet" destination="BMc-Lv-f91" id="tIS-jE-SnF"/>
+                        <outlet property="ivType" destination="upM-AX-pug" id="jb3-Re-YPd"/>
+                        <outlet property="lbEventCity" destination="2ZY-Oz-TeP" id="8tl-ln-U97"/>
+                        <outlet property="lbEventDateEnd" destination="FHu-CO-PJc" id="0zr-xY-ftm"/>
+                        <outlet property="lbEventDateStart" destination="Vxh-4C-DfN" id="Qgv-ae-AFZ"/>
+                        <outlet property="lbEventDesc" destination="V5x-t1-1mo" id="f8r-Fo-cwU"/>
+                        <outlet property="lbEventName" destination="kOB-B4-veP" id="eKB-6O-sPX"/>
+                        <outlet property="lbEventStreet" destination="98M-XH-jua" id="CDA-LC-Ldz"/>
+                        <outlet property="lbEventType" destination="wnn-cN-SCT" id="OCl-D3-Eai"/>
+                        <outlet property="lbTitle" destination="54y-Fy-UtK" id="2HC-0t-GNc"/>
+                        <outlet property="lbTitleAdress" destination="kU4-sZ-E4K" id="Xow-NP-SQd"/>
+                        <outlet property="lbTitleDate" destination="e1c-bQ-eSk" id="d88-3J-ulk"/>
+                        <outlet property="lbTitleDesc" destination="krr-Ce-vM8" id="FbV-3U-Lg4"/>
+                        <outlet property="lbTitleType" destination="Pqt-N3-1NE" id="C4P-YM-Ab7"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CX0-DY-Ogc" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5521" y="-2137"/>
+            <point key="canvasLocation" x="6252.6717557251905" y="-2131.6901408450703"/>
         </scene>
         <!--New Event View Controller-->
         <scene sceneID="NVB-mC-SvW">
@@ -1807,20 +2000,24 @@
                                     <stackView opaque="NO" contentMode="center" distribution="fillEqually" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="Byx-TL-Fcp">
                                         <rect key="frame" x="8" y="121" width="313" height="71"/>
                                         <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hl6-u4-uWP">
-                                                <rect key="frame" x="0.0" y="18.333333333333318" width="152.66666666666666" height="34.333333333333343"/>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hl6-u4-uWP">
+                                                <rect key="frame" x="0.0" y="19.333333333333311" width="152.66666666666666" height="32.666666666666657"/>
                                                 <color key="tintColor" name="red"/>
                                                 <state key="normal" title="Button"/>
-                                                <buttonConfiguration key="configuration" style="filled" title="Cancel" cornerStyle="capsule"/>
+                                                <buttonConfiguration key="configuration" style="filled" title="Cancel" cornerStyle="capsule">
+                                                    <fontDescription key="titleFontDescription" name="Parkinsans-Medium" family="Parkinsans" pointSize="16"/>
+                                                </buttonConfiguration>
                                                 <connections>
                                                     <action selector="btnCancelAction:" destination="uz9-Y7-A8k" eventType="touchUpInside" id="h3C-BL-IVn"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uHR-gQ-RTX">
-                                                <rect key="frame" x="160.66666666666663" y="18.333333333333318" width="152.33333333333337" height="34.333333333333343"/>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uHR-gQ-RTX">
+                                                <rect key="frame" x="160.66666666666663" y="19.333333333333311" width="152.33333333333337" height="32.666666666666657"/>
                                                 <color key="tintColor" name="green"/>
                                                 <state key="normal" title="Button"/>
-                                                <buttonConfiguration key="configuration" style="filled" title="Acept" cornerStyle="capsule"/>
+                                                <buttonConfiguration key="configuration" style="filled" title="Acept" cornerStyle="capsule">
+                                                    <fontDescription key="titleFontDescription" name="Parkinsans-Medium" family="Parkinsans" pointSize="16"/>
+                                                </buttonConfiguration>
                                                 <connections>
                                                     <action selector="btnConfirmAction:" destination="uz9-Y7-A8k" eventType="touchUpInside" id="2TT-xD-IZ1"/>
                                                 </connections>
@@ -1912,10 +2109,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6fp-QH-2Fw">
-                                <rect key="frame" x="16" y="291" width="361" height="270.33333333333326"/>
+                                <rect key="frame" x="16" y="291.66666666666663" width="361" height="268.66666666666663"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="eJr-wp-XKA">
-                                        <rect key="frame" x="10" y="10.000000000000014" width="341" height="250.33333333333337"/>
+                                        <rect key="frame" x="10" y="9.9999999999999858" width="341" height="248.66666666666663"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ei7-eR-H2G">
                                                 <rect key="frame" x="0.0" y="0.0" width="341" height="34.333333333333336"/>
@@ -1931,17 +2128,10 @@
                                                 <color key="textColor" name="secondary"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="R0O-i5-qGy">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="R0O-i5-qGy">
                                                 <rect key="frame" x="0.0" y="85.333333333333314" width="341" height="17.666666666666671"/>
-                                                <attributedString key="attributedText">
-                                                    <fragment content="Label">
-                                                        <attributes>
-                                                            <color key="NSColor" name="accent"/>
-                                                            <font key="NSFont" size="15" name="Parkinsans-Medium"/>
-                                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
-                                                        </attributes>
-                                                    </fragment>
-                                                </attributedString>
+                                                <fontDescription key="fontDescription" name="Parkinsans-Medium" family="Parkinsans" pointSize="15"/>
+                                                <color key="textColor" name="accent"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="HKT-Zn-ihQ" customClass="MDCOutlinedTextField">
@@ -1955,13 +2145,14 @@
                                                 <textInputTraits key="textInputTraits" keyboardType="emailAddress"/>
                                             </textField>
                                             <stackView opaque="NO" contentMode="center" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="uuz-fx-MSB">
-                                                <rect key="frame" x="0.0" y="216" width="341" height="34.333333333333343"/>
+                                                <rect key="frame" x="0.0" y="215.99999999999994" width="341" height="32.666666666666657"/>
                                                 <subviews>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6he-St-cFH">
-                                                        <rect key="frame" x="0.0" y="0.0" width="166.66666666666666" height="34.333333333333336"/>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6he-St-cFH">
+                                                        <rect key="frame" x="0.0" y="0.0" width="166.66666666666666" height="32.666666666666664"/>
                                                         <color key="tintColor" name="red"/>
                                                         <state key="normal" title="Button"/>
                                                         <buttonConfiguration key="configuration" style="gray" title="Delete" cornerStyle="capsule">
+                                                            <fontDescription key="titleFontDescription" name="Parkinsans-Medium" family="Parkinsans" pointSize="16"/>
                                                             <color key="baseForegroundColor" name="accent"/>
                                                             <color key="baseBackgroundColor" name="red"/>
                                                         </buttonConfiguration>
@@ -1970,11 +2161,12 @@
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fsd-Cz-g6n">
-                                                        <rect key="frame" x="174.66666666666663" y="0.0" width="166.33333333333337" height="34.333333333333336"/>
+                                                        <rect key="frame" x="174.66666666666663" y="0.0" width="166.33333333333337" height="32.666666666666664"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <color key="tintColor" name="green"/>
                                                         <state key="normal" title="Button"/>
                                                         <buttonConfiguration key="configuration" style="gray" title="Add" cornerStyle="capsule">
+                                                            <fontDescription key="titleFontDescription" name="Parkinsans-Medium" family="Parkinsans" pointSize="16"/>
                                                             <color key="baseForegroundColor" name="accent"/>
                                                             <color key="baseBackgroundColor" name="green"/>
                                                         </buttonConfiguration>
@@ -2035,10 +2227,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EnM-ZQ-SZI">
-                                <rect key="frame" x="16" y="291" width="361" height="270.33333333333326"/>
+                                <rect key="frame" x="16" y="291.66666666666663" width="361" height="268.66666666666663"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="RUQ-iI-4Cy">
-                                        <rect key="frame" x="10" y="10.000000000000014" width="341" height="250.33333333333337"/>
+                                        <rect key="frame" x="10" y="9.9999999999999858" width="341" height="248.66666666666663"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gm3-e5-lDV">
                                                 <rect key="frame" x="0.0" y="0.0" width="341" height="34.333333333333336"/>
@@ -2054,17 +2246,10 @@
                                                 <color key="textColor" name="secondary"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="834-N2-bGh">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="834-N2-bGh">
                                                 <rect key="frame" x="0.0" y="85.333333333333314" width="341" height="17.666666666666671"/>
-                                                <attributedString key="attributedText">
-                                                    <fragment content="Label">
-                                                        <attributes>
-                                                            <color key="NSColor" name="accent"/>
-                                                            <font key="NSFont" size="15" name="Parkinsans-Medium"/>
-                                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
-                                                        </attributes>
-                                                    </fragment>
-                                                </attributedString>
+                                                <fontDescription key="fontDescription" name="Parkinsans-Medium" family="Parkinsans" pointSize="15"/>
+                                                <color key="textColor" name="accent"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="JcJ-jG-FW7" customClass="MDCOutlinedTextField">
@@ -2078,13 +2263,14 @@
                                                 <textInputTraits key="textInputTraits" keyboardType="emailAddress"/>
                                             </textField>
                                             <stackView opaque="NO" contentMode="center" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="Rbg-xM-b15">
-                                                <rect key="frame" x="0.0" y="216" width="341" height="34.333333333333343"/>
+                                                <rect key="frame" x="0.0" y="215.99999999999994" width="341" height="32.666666666666657"/>
                                                 <subviews>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yxl-qf-XFJ">
-                                                        <rect key="frame" x="0.0" y="0.0" width="166.66666666666666" height="34.333333333333336"/>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yxl-qf-XFJ">
+                                                        <rect key="frame" x="0.0" y="0.0" width="166.66666666666666" height="32.666666666666664"/>
                                                         <color key="tintColor" name="red"/>
                                                         <state key="normal" title="Button"/>
                                                         <buttonConfiguration key="configuration" style="gray" title="Delete" cornerStyle="capsule">
+                                                            <fontDescription key="titleFontDescription" name="Parkinsans-Medium" family="Parkinsans" pointSize="16"/>
                                                             <color key="baseForegroundColor" name="accent"/>
                                                             <color key="baseBackgroundColor" name="red"/>
                                                         </buttonConfiguration>
@@ -2093,7 +2279,7 @@
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WNY-nU-LGz">
-                                                        <rect key="frame" x="174.66666666666663" y="0.0" width="166.33333333333337" height="34.333333333333336"/>
+                                                        <rect key="frame" x="174.66666666666663" y="0.0" width="166.33333333333337" height="32.666666666666664"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
@@ -2101,6 +2287,7 @@
                                                             <color key="titleColor" name="accent"/>
                                                         </state>
                                                         <buttonConfiguration key="configuration" style="plain" title="Add" cornerStyle="capsule">
+                                                            <fontDescription key="titleFontDescription" name="Parkinsans-Medium" family="Parkinsans" pointSize="16"/>
                                                             <color key="baseForegroundColor" name="accent"/>
                                                         </buttonConfiguration>
                                                         <connections>
@@ -2160,10 +2347,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1cT-pz-4YH">
-                                <rect key="frame" x="16" y="334.66666666666669" width="361" height="182.66666666666669"/>
+                                <rect key="frame" x="16" y="335.66666666666669" width="361" height="181.00000000000006"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" spacing="13" translatesAutoresizingMaskIntoConstraints="NO" id="vy3-4s-aDI">
-                                        <rect key="frame" x="10" y="10" width="341" height="162.66666666666666"/>
+                                        <rect key="frame" x="10" y="10" width="341" height="161"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RBH-Vt-cJF">
                                                 <rect key="frame" x="0.0" y="0.0" width="341" height="34.333333333333336"/>
@@ -2185,13 +2372,14 @@
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="words"/>
                                             </textField>
                                             <stackView opaque="NO" contentMode="center" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="VAO-ht-vdq">
-                                                <rect key="frame" x="0.0" y="128.33333333333331" width="341" height="34.333333333333343"/>
+                                                <rect key="frame" x="0.0" y="128.33333333333331" width="341" height="32.666666666666657"/>
                                                 <subviews>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Ox-do-R97">
-                                                        <rect key="frame" x="0.0" y="0.0" width="166.66666666666666" height="34.333333333333336"/>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Ox-do-R97">
+                                                        <rect key="frame" x="0.0" y="0.0" width="166.66666666666666" height="32.666666666666664"/>
                                                         <color key="tintColor" name="red"/>
                                                         <state key="normal" title="Button"/>
                                                         <buttonConfiguration key="configuration" style="gray" title="Cancel" cornerStyle="capsule">
+                                                            <fontDescription key="titleFontDescription" name="Parkinsans-Medium" family="Parkinsans" pointSize="16"/>
                                                             <color key="baseForegroundColor" name="accent"/>
                                                             <color key="baseBackgroundColor" name="red"/>
                                                         </buttonConfiguration>
@@ -2200,7 +2388,7 @@
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="f3Y-ux-jUn">
-                                                        <rect key="frame" x="174.66666666666663" y="0.0" width="166.33333333333337" height="34.333333333333336"/>
+                                                        <rect key="frame" x="174.66666666666663" y="0.0" width="166.33333333333337" height="32.666666666666664"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
@@ -2208,6 +2396,7 @@
                                                             <color key="titleColor" name="accent"/>
                                                         </state>
                                                         <buttonConfiguration key="configuration" style="gray" title="Update" cornerStyle="capsule">
+                                                            <fontDescription key="titleFontDescription" name="Parkinsans-Medium" family="Parkinsans" pointSize="16"/>
                                                             <color key="baseForegroundColor" name="accent"/>
                                                             <color key="baseBackgroundColor" name="green"/>
                                                         </buttonConfiguration>
@@ -2385,10 +2574,13 @@
                                                         <color key="tintColor" name="accent"/>
                                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                         <state key="normal" title="Button"/>
-                                                        <buttonConfiguration key="configuration" style="gray" title="Cancel" cornerStyle="capsule">
+                                                        <buttonConfiguration key="configuration" style="gray" title="Delete" cornerStyle="capsule">
                                                             <fontDescription key="titleFontDescription" name="Parkinsans-Medium" family="Parkinsans" pointSize="18"/>
                                                             <color key="baseBackgroundColor" name="red"/>
                                                         </buttonConfiguration>
+                                                        <connections>
+                                                            <action selector="btnDeleteAction:" destination="7Lb-Ai-zG3" eventType="touchUpInside" id="T1b-J3-K9k"/>
+                                                        </connections>
                                                     </button>
                                                 </subviews>
                                             </stackView>
@@ -2460,17 +2652,129 @@
             </objects>
             <point key="canvasLocation" x="6271" y="-1432"/>
         </scene>
+        <!--My Invites View Controller-->
+        <scene sceneID="t5F-6L-4Ze">
+            <objects>
+                <viewController storyboardIdentifier="MyInvites" id="VtJ-rI-fxb" customClass="MyInvitesViewController" customModule="Gil" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="YVr-Og-vuT">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="ooF-NX-XFu">
+                                <rect key="frame" x="0.0" y="59" width="393" height="759"/>
+                                <color key="backgroundColor" name="primary"/>
+                                <color key="sectionIndexBackgroundColor" name="primary"/>
+                                <color key="sectionIndexTrackingBackgroundColor" name="primary"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="cellEvent" rowHeight="106" id="V67-IA-f50" customClass="EventTableViewCell" customModule="Gil" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="50" width="393" height="106"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="V67-IA-f50" id="Vq7-Ld-PZK">
+                                            <rect key="frame" x="0.0" y="0.0" width="393" height="106"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kL2-DX-N35">
+                                                    <rect key="frame" x="0.0" y="4" width="393" height="98"/>
+                                                    <subviews>
+                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_event_img" translatesAutoresizingMaskIntoConstraints="NO" id="h27-cA-A1o">
+                                                            <rect key="frame" x="8" y="4" width="100" height="90"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" constant="100" id="Ely-dX-izk"/>
+                                                                <constraint firstAttribute="height" constant="90" id="LoE-FD-kb1"/>
+                                                            </constraints>
+                                                        </imageView>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fig-5J-jHo">
+                                                            <rect key="frame" x="114" y="4" width="269" height="21"/>
+                                                            <fontDescription key="fontDescription" name="Parkinsans-Medium" family="Parkinsans" pointSize="18"/>
+                                                            <color key="textColor" name="secondary"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TWb-cQ-RWt">
+                                                            <rect key="frame" x="114" y="77.666666666666671" width="269" height="16.333333333333329"/>
+                                                            <fontDescription key="fontDescription" name="Parkinsans-Medium" family="Parkinsans" pointSize="14"/>
+                                                            <color key="textColor" name="greyDark"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="tIS-0r-T1K">
+                                                            <rect key="frame" x="114" y="28.999999999999996" width="269" height="44.666666666666657"/>
+                                                            <fontDescription key="fontDescription" name="Parkinsans-Medium" family="Parkinsans" pointSize="14"/>
+                                                            <color key="textColor" name="accent"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                    <color key="backgroundColor" name="primary"/>
+                                                    <constraints>
+                                                        <constraint firstItem="h27-cA-A1o" firstAttribute="leading" secondItem="kL2-DX-N35" secondAttribute="leading" constant="8" id="32C-zn-iiK"/>
+                                                        <constraint firstAttribute="trailing" secondItem="tIS-0r-T1K" secondAttribute="trailing" constant="10" id="D6W-lB-nCQ"/>
+                                                        <constraint firstItem="tIS-0r-T1K" firstAttribute="top" secondItem="Fig-5J-jHo" secondAttribute="bottom" constant="4" id="Lzg-Ft-lU5"/>
+                                                        <constraint firstItem="tIS-0r-T1K" firstAttribute="leading" secondItem="h27-cA-A1o" secondAttribute="trailing" constant="6" id="M3T-O7-zcg"/>
+                                                        <constraint firstItem="Fig-5J-jHo" firstAttribute="leading" secondItem="h27-cA-A1o" secondAttribute="trailing" constant="6" id="SNR-jd-w9M"/>
+                                                        <constraint firstAttribute="bottom" secondItem="h27-cA-A1o" secondAttribute="bottom" constant="4" id="ZAZ-hY-wuT"/>
+                                                        <constraint firstItem="TWb-cQ-RWt" firstAttribute="leading" secondItem="h27-cA-A1o" secondAttribute="trailing" constant="6" id="ZRd-rj-EJB"/>
+                                                        <constraint firstItem="h27-cA-A1o" firstAttribute="top" secondItem="kL2-DX-N35" secondAttribute="top" constant="4" id="g6K-li-bet"/>
+                                                        <constraint firstAttribute="bottom" secondItem="TWb-cQ-RWt" secondAttribute="bottom" constant="4" id="gQg-jQ-y3R"/>
+                                                        <constraint firstAttribute="trailing" secondItem="Fig-5J-jHo" secondAttribute="trailing" constant="10" id="kjc-UV-tJl"/>
+                                                        <constraint firstItem="Fig-5J-jHo" firstAttribute="top" secondItem="kL2-DX-N35" secondAttribute="top" constant="4" id="llf-ic-4M1"/>
+                                                        <constraint firstItem="TWb-cQ-RWt" firstAttribute="top" secondItem="tIS-0r-T1K" secondAttribute="bottom" constant="4" id="vyh-zW-xsX"/>
+                                                        <constraint firstAttribute="trailing" secondItem="TWb-cQ-RWt" secondAttribute="trailing" constant="10" id="wPS-CN-JGE"/>
+                                                    </constraints>
+                                                </view>
+                                            </subviews>
+                                            <color key="backgroundColor" name="primary"/>
+                                            <constraints>
+                                                <constraint firstItem="kL2-DX-N35" firstAttribute="leading" secondItem="Vq7-Ld-PZK" secondAttribute="leading" id="GQT-rX-HbF"/>
+                                                <constraint firstItem="kL2-DX-N35" firstAttribute="top" secondItem="Vq7-Ld-PZK" secondAttribute="top" constant="4" id="GlU-Rc-z8f"/>
+                                                <constraint firstAttribute="bottom" secondItem="kL2-DX-N35" secondAttribute="bottom" constant="4" id="LOA-wr-unJ"/>
+                                                <constraint firstAttribute="trailing" secondItem="kL2-DX-N35" secondAttribute="trailing" id="jcO-UT-45O"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" name="primary"/>
+                                        <connections>
+                                            <outlet property="eventCardView" destination="kL2-DX-N35" id="Iod-ja-sU9"/>
+                                            <outlet property="ivEventImage" destination="h27-cA-A1o" id="XfO-fg-5pr"/>
+                                            <outlet property="lbEventDate" destination="TWb-cQ-RWt" id="9sF-bq-UQa"/>
+                                            <outlet property="lbEventDesc" destination="tIS-0r-T1K" id="AYn-VB-gMA"/>
+                                            <outlet property="lbEventTitle" destination="Fig-5J-jHo" id="JHr-On-hqh"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="DQ5-Ja-H40"/>
+                        <color key="backgroundColor" name="primary"/>
+                        <constraints>
+                            <constraint firstItem="ooF-NX-XFu" firstAttribute="trailing" secondItem="DQ5-Ja-H40" secondAttribute="trailing" id="Bym-ay-JPu"/>
+                            <constraint firstItem="ooF-NX-XFu" firstAttribute="top" secondItem="DQ5-Ja-H40" secondAttribute="top" id="ODi-OU-Ctr"/>
+                            <constraint firstItem="ooF-NX-XFu" firstAttribute="bottom" secondItem="DQ5-Ja-H40" secondAttribute="bottom" id="boo-c3-D9J"/>
+                            <constraint firstItem="ooF-NX-XFu" firstAttribute="leading" secondItem="DQ5-Ja-H40" secondAttribute="leading" id="mhf-kb-5r1"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="tvInvites" destination="ooF-NX-XFu" id="hfa-KK-e8m"/>
+                        <segue destination="khP-Np-1eu" kind="presentation" identifier="inviteSegue" modalPresentationStyle="fullScreen" id="eei-4s-5j0"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="BlE-si-CoD" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5521" y="-2137"/>
+        </scene>
     </scenes>
     <resources>
         <image name="calendar" catalog="system" width="128" height="107"/>
         <image name="checkmark.circle.fill" catalog="system" width="128" height="123"/>
         <image name="chevron.left" catalog="system" width="97" height="128"/>
         <image name="gearshape.fill" catalog="system" width="128" height="123"/>
-        <image name="ic_add_img" width="512" height="512"/>
-        <image name="ic_edit" width="512" height="512"/>
-        <image name="ic_event_img" width="512" height="512"/>
-        <image name="ic_no_photo" width="436" height="436"/>
-        <image name="img_logo" width="1024" height="1024"/>
+        <image name="ic_add_img" width="170.66667175292969" height="170.66667175292969"/>
+        <image name="ic_calendar" width="42.666667938232422" height="42.666667938232422"/>
+        <image name="ic_contacts" width="42.666667938232422" height="42.666667938232422"/>
+        <image name="ic_edit" width="170.66667175292969" height="170.66667175292969"/>
+        <image name="ic_event_city" width="42.666667938232422" height="42.666667938232422"/>
+        <image name="ic_event_desc" width="42.666667938232422" height="42.666667938232422"/>
+        <image name="ic_event_img" width="170.66667175292969" height="170.66667175292969"/>
+        <image name="ic_event_street" width="42.666667938232422" height="42.666667938232422"/>
+        <image name="ic_event_type" width="42.666667938232422" height="42.666667938232422"/>
+        <image name="ic_no_photo" width="145.33332824707031" height="145.33332824707031"/>
+        <image name="img_logo" width="341.33334350585938" height="341.33334350585938"/>
         <image name="person.2.fill" catalog="system" width="128" height="86"/>
         <image name="plus.circle.fill" catalog="system" width="128" height="123"/>
         <image name="qrcode.viewfinder" catalog="system" width="128" height="115"/>

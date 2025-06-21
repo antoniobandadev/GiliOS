@@ -104,7 +104,7 @@ class DataManager : NSObject {
         do {
             try context.execute(deleteRequest)
             try context.save()
-            print("Todos los contactos han sido eliminados.")
+            //print("Todos los contactos han sido eliminados.")
         } catch {
             print("Error al eliminar contactos: \(error)")
         }
@@ -118,7 +118,7 @@ class DataManager : NSObject {
         do {
             if context.hasChanges {
                 try context.save()
-                print("Evento Guardado")
+                //print("Evento Guardado")
             }
             return true
            
@@ -155,7 +155,7 @@ class DataManager : NSObject {
             }
 
             try context.save()
-            print("Evento actualizado")
+            //print("Evento actualizado")
             return true
 
         } catch {
@@ -187,7 +187,7 @@ class DataManager : NSObject {
         do {
             try context.execute(deleteRequest)
             try context.save()
-            print("Todos los eventos han sido eliminados.")
+            //print("Todos los eventos han sido eliminados.")
         } catch {
             print("Error al eliminar contactos: \(error)")
         }
@@ -216,6 +216,42 @@ class DataManager : NSObject {
         }
         
         return sortedArray
+    }
+    
+    func deleteEventDB(eventUpdate: EventDto) -> Bool {
+        let context = persistentContainer.viewContext
+
+        let fetchRequest: NSFetchRequest<EventEntity> = EventEntity.fetchRequest()
+        fetchRequest.predicate = NSPredicate(format: "eventId == %d", eventUpdate.eventId!)
+
+        do {
+            let results = try context.fetch(fetchRequest)
+            let event: EventEntity
+
+            if let existingEvent = results.first {
+                event = existingEvent
+                
+                event.eventName = eventUpdate.eventName
+                event.eventDesc = eventUpdate.eventDesc
+                event.eventType = eventUpdate.eventType
+                event.eventDateStart = eventUpdate.eventDateStart
+                event.eventDateEnd = eventUpdate.eventDateEnd
+                event.eventStreet = eventUpdate.eventStreet
+                event.eventCity = eventUpdate.eventCity
+                event.eventStatus = eventUpdate.eventStatus
+                event.eventImg = eventUpdate.eventImg
+                event.eventSync = Int16(eventUpdate.eventSync!)
+                event.userIdScan = Int16(eventUpdate.userIdScan!)
+            }
+
+            try context.save()
+            //print("Evento actualizado")
+            return true
+
+        } catch {
+            print("Error al actualizar evento: \(error.localizedDescription)")
+            return false
+        }
     }
     
     
