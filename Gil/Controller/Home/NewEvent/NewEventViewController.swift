@@ -49,6 +49,7 @@ class NewEventViewController: KeyboardViewController, UITextFieldDelegate, UIIma
     @IBOutlet weak var eventType: MDCOutlinedTextField!
     
     private var datePickerStart: UIDatePicker?
+    private var datePickerEnd: UIDatePicker?
     
     @IBOutlet weak var eventDateStart: MDCOutlinedTextField!
     
@@ -223,8 +224,10 @@ class NewEventViewController: KeyboardViewController, UITextFieldDelegate, UIIma
         datePickerStart?.preferredDatePickerStyle = .wheels
         datePickerStart?.addTarget(self, action: #selector(dateStartChanged(_:)), for: .valueChanged)
 
-        let currentLocale = Locale.current
-        datePickerStart?.locale = Locale(identifier: currentLocale.identifier)
+        if let languageCode = Locale.preferredLanguages.first {
+            datePickerStart?.locale = Locale(identifier: languageCode)
+        }
+        
         eventDateStart.inputView = datePickerStart
 
         let doneButton = UIBarButtonItem(title: "done".localized(), style: .plain, target: self, action: #selector(dismissPicker))
@@ -245,7 +248,7 @@ class NewEventViewController: KeyboardViewController, UITextFieldDelegate, UIIma
         let currentLocale = Locale.current
         let formatter = DateFormatter()
         
-        if(currentLocale.identifier == "es_MX"){
+        if(currentLocale.identifier == "en_MX"){
             formatter.dateFormat = "dd/MM/yyyy HH:mm"
         }else{
             formatter.dateFormat = "MM/dd/yyyy HH:mm"
@@ -255,14 +258,17 @@ class NewEventViewController: KeyboardViewController, UITextFieldDelegate, UIIma
     
     func dateEnd(){
        
-        datePickerStart = UIDatePicker()
-        datePickerStart?.datePickerMode = .dateAndTime
-        datePickerStart?.preferredDatePickerStyle = .wheels
-        datePickerStart?.addTarget(self, action: #selector(dateEndChanged(_:)), for: .valueChanged)
-
-        let currentLocale = Locale.current
-        datePickerStart?.locale = Locale(identifier: currentLocale.identifier)
-        eventDateEnd.inputView = datePickerStart
+        datePickerEnd = UIDatePicker()
+        datePickerEnd?.datePickerMode = .dateAndTime
+        datePickerEnd?.preferredDatePickerStyle = .wheels
+        datePickerEnd?.addTarget(self, action: #selector(dateEndChanged(_:)), for: .valueChanged)
+        
+        if let languageCode = Locale.preferredLanguages.first {
+            datePickerEnd?.locale = Locale(identifier: languageCode)
+        }
+        
+        eventDateEnd.inputView = datePickerEnd
+        
 
         let doneButton = UIBarButtonItem(title: "done".localized(), style: .plain, target: self, action: #selector(dismissPicker))
         doneButton.tintColor = Constants.Colors.secondary
@@ -281,8 +287,8 @@ class NewEventViewController: KeyboardViewController, UITextFieldDelegate, UIIma
         eventDateEnd.clearTextFieldError()
         let currentLocale = Locale.current
         let formatter = DateFormatter()
-        
-        if(currentLocale.identifier == "es_MX"){
+        //print(currentLocale.identifier)
+        if(currentLocale.identifier == "en_MX"){
             formatter.dateFormat = "dd/MM/yyyy HH:mm"
         }else{
             formatter.dateFormat = "MM/dd/yyyy HH:mm"
@@ -295,7 +301,7 @@ class NewEventViewController: KeyboardViewController, UITextFieldDelegate, UIIma
         let formatter = DateFormatter()
         formatter.locale = Locale(identifier: "en_US_POSIX")
         
-        if(currentLocale.identifier == "es_MX"){
+        if(currentLocale.identifier == "en_MX"){
             formatter.dateFormat = "dd/MM/yyyy HH:mm"
         }else{
             formatter.dateFormat = "MM/dd/yyyy HH:mm"
@@ -455,7 +461,7 @@ class NewEventViewController: KeyboardViewController, UITextFieldDelegate, UIIma
 
                } catch {
                    picker.dismiss(animated: true)
-                  // print("❌ Error al guardar la imagen editada:", error)
+                  // print("Error al guardar la imagen editada:", error)
                }
             }
             
@@ -485,7 +491,7 @@ class NewEventViewController: KeyboardViewController, UITextFieldDelegate, UIIma
         let toFormat = "yyyy-MM-dd HH:mm"
         var fromFormat = ""
         
-        if(currentLocale.identifier == "es_MX"){
+        if(currentLocale.identifier == "en_MX"){
             fromFormat = "dd/MM/yyyy HH:mm" // HH:mm
         }else{
             fromFormat = "MM/dd/yyyy HH:mm" //HH:mm

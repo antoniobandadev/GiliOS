@@ -37,7 +37,7 @@ class Utils {
                     let button = UIButton(type: .custom)
                     button.setImage(image, for: .normal)
                     button.tintColor = Constants.Colors.accent!
-                    button.frame = CGRect(x: 0, y: 0, width: 24, height: 24)
+                    button.frame = CGRect(x: 0, y: 0, width: 34, height: 34)
                     
                     // Config to password secure textfields
                     if password {
@@ -57,7 +57,7 @@ class Utils {
                     let iconView = UIImageView(image: image)
                     iconView.tintColor = Constants.Colors.accent!
                     // Configurar tamaño del icono
-                    iconView.frame = CGRect(x: 0, y: 0, width: 24, height: 24) // Ajusta el tamaño según necesites
+                    iconView.frame = CGRect(x: 0, y: 0, width: 34, height: 34) // Ajusta el tamaño según necesites
                     iconView.contentMode = .scaleAspectFit
                     textField.leadingView = iconView
                     textField.leadingViewMode = .always

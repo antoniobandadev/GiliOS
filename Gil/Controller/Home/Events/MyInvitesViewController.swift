@@ -169,17 +169,17 @@ class MyInvitesViewController: UIViewController, SkeletonTableViewDataSource, UI
     var eventSelected : EventDto?
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        //eventSelected = events[indexPath.row]
+        eventSelected = events[indexPath.row]
         performSegue(withIdentifier: "inviteSegue", sender: self)
     }
     
-   /* override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "inviteSegue" {
-            if let eventDestino = segue.destination as? EditEventViewController {
-               // eventDestino.eventRecived = eventSelected
+            if let eventDestino = segue.destination as? InviteDetViewController {
+                eventDestino.eventRecived = eventSelected
             }
         }
-    }*/
+    }
     
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -192,7 +192,7 @@ class MyInvitesViewController: UIViewController, SkeletonTableViewDataSource, UI
             let fromFormat = "yyyy-MM-dd HH:mm"
             var toFormat = ""
             
-            if(currentLocale.identifier == "es_MX"){
+            if(currentLocale.identifier == "en_MX"){
                 toFormat = "dd/MM/yyyy"
             }else{
                 toFormat = "MM/dd/yyyy"

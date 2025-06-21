@@ -304,7 +304,7 @@ class MyEventsViewController: UIViewController, SkeletonTableViewDataSource, UIT
             let fromFormat = "yyyy-MM-dd HH:mm"
             var toFormat = ""
             
-            if(currentLocale.identifier == "es_MX"){
+            if(currentLocale.identifier == "en_MX"){
                 toFormat = "dd/MM/yyyy"
             }else{
                 toFormat = "MM/dd/yyyy"

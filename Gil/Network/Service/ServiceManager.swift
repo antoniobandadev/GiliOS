@@ -448,6 +448,24 @@ class ServiceManager{
         }
     }
     
+    func getGuest(userId : Int, eventId : Int, completion: @escaping (Result<[EventGuestDto], Error>) -> Void){
+        let url = EndPoint.getGuests.url
+        
+        AF.request(url, method: .get, parameters: ["userId": userId, "eventId": eventId], encoding: URLEncoding.default)
+        .validate(statusCode: 200..<500)
+        .responseDecodable(of: [EventGuestDto].self) { response in
+            debugPrint(response)
+            switch response.result {
+            case .success(let eventGuest):
+                completion(.success(eventGuest))
+            case .failure(let error):
+                let apiError = ErrorParser.parse(error)
+                completion(.failure(error))
+                print(apiError.localizedDescription)
+            }
+        }
+    }
+    
     
     
     
