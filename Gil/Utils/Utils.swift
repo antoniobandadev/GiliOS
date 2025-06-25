@@ -424,7 +424,34 @@ class Utils {
         }
     }
     
+    class AlertGuestsUtils {
+        static func showAlert(
+            on viewController: UIViewController,
+            title: String,
+            friend: FriendDto,
+            eventId: Int,
+            onConfirm: (() -> Void)? = nil,
+            onCancel: (() -> Void)? = nil
+        ) {
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            if let alertVC = storyboard.instantiateViewController(withIdentifier: "AlertGuestViewController") as? AlertGuestViewController{
+                alertVC.modalPresentationStyle = .overFullScreen
+                alertVC.modalTransitionStyle = .crossDissolve
+                alertVC.alertTitle = title
+                alertVC.myFriend = friend
+                alertVC.eventId = eventId
+                alertVC.onConfirm = onConfirm
+                alertVC.onCancel = onCancel
+                viewController.present(alertVC, animated: true)
+            }
+        }
+    }
+    
     static let eventCategories = ["event_category_social".localized(), "event_category_corporate".localized(), "event_category_academic".localized(), "event_category_other".localized()]
+    
+    static func filterCategory(by prefix: String) -> String? {
+        return Utils.eventCategories.first { $0.lowercased().hasPrefix(prefix.lowercased()) }
+    }
     
     
     static func dateFormatString(date: String, fromFormat: String, toFormat: String) -> String? {

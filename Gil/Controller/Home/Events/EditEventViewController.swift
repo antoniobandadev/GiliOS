@@ -20,6 +20,8 @@ class EditEventViewController: KeyboardViewController, UITextFieldDelegate, UIIm
     var friendId = 0
     var eventId = 0
     
+   
+    
     let attributes: [NSAttributedString.Key: Any] = [
         .font: Constants.Fonts.font16
     ]
@@ -87,7 +89,7 @@ class EditEventViewController: KeyboardViewController, UITextFieldDelegate, UIIm
         deleteAlert.addAction(title: "yes".localized(), style: .filled(), color: Constants.Colors.green!){
            // print("Ok pressed")
             deleteAlert.dismiss(animated: true)
-            let alertLoading = Utils.LoadigAlert.showAlert(on: self)
+            _ = Utils.LoadigAlert.showAlert(on: self)
             self.deleteEvent()
         }
         
@@ -97,7 +99,15 @@ class EditEventViewController: KeyboardViewController, UITextFieldDelegate, UIIm
     
     
     @IBAction func btnAddGuestsAction(_ sender: UIButton) {
-        
+        performSegue(withIdentifier: "myGuestSegue", sender: self)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "myGuestSegue" {
+            if let eventDestino = segue.destination as? TabGuestViewController {
+                eventDestino.eventRecived = eventRecived
+            }
+        }
     }
     
     let categories = Utils.eventCategories
@@ -147,7 +157,11 @@ class EditEventViewController: KeyboardViewController, UITextFieldDelegate, UIIm
     func initVals(){
         eventName.text = eventRecived?.eventName
         eventDesc.text = eventRecived?.eventDesc
-        eventType.text = eventRecived?.eventType
+        
+        let eventTypePrefix = String(eventRecived?.eventType?.prefix(2) ?? "")
+        let eventTypeVal = Utils.filterCategory(by: eventTypePrefix)
+        
+        eventType.text = eventTypeVal
         
         
         let formatter = DateFormatter()
@@ -480,6 +494,9 @@ class EditEventViewController: KeyboardViewController, UITextFieldDelegate, UIIm
         } else if textField == eventType {
             eventType.clearTextFieldError()
             currentOptions = categories
+            
+            /*let eventTypePrefix = String(textField.text?.prefix(2) ?? "")
+            let eventType = Utils.filterCategory(by: eventTypePrefix)*/
             
             if let selected = textField.text, let index = currentOptions.firstIndex(of: selected) {
                 picker.selectRow(index, inComponent: 0, animated: false)

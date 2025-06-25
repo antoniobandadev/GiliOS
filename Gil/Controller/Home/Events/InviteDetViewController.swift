@@ -159,7 +159,10 @@ class InviteDetViewController: UIViewController {
             self.lbEventName.text = self.myGuest?.first?.eventName
             self.lbEventDesc.text = self.myGuest?.first?.eventDesc
             
-            self.lbEventType.text = self.myGuest?.first?.eventType
+            let eventTypePrefix = String(self.myGuest?.first?.eventType?.prefix(2) ?? "")
+            let eventType = Utils.filterCategory(by: eventTypePrefix)
+            
+            self.lbEventType.text = eventType
             
             let currentLocale = Locale.current
             let fromFormat = "yyyy-MM-dd HH:mm"

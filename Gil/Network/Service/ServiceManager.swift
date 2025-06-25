@@ -26,7 +26,7 @@ class ServiceManager{
             .responseDecodable(of: UserDto.self) { response in
                 if let statusCode = response.response?.statusCode, statusCode == 409 {
                     let unauthorizedError = APIError.unauthorized
-                    print("Email ya existe")
+                    //print("Email ya existe")
                     completion(.failure(unauthorizedError))
                     //return
                 }else{
@@ -51,7 +51,7 @@ class ServiceManager{
                 print(response.result)
                if let statusCode = response.response?.statusCode, statusCode == 401 {
                    let unauthorizedError = APIError.unauthorized
-                   print("No se encontro el usuario")
+                   //print("No se encontro el usuario")
                    completion(.failure(unauthorizedError))
                    //return
                }else{
@@ -454,7 +454,7 @@ class ServiceManager{
         AF.request(url, method: .get, parameters: ["userId": userId, "eventId": eventId], encoding: URLEncoding.default)
         .validate(statusCode: 200..<500)
         .responseDecodable(of: [EventGuestDto].self) { response in
-            debugPrint(response)
+            //debugPrint(response)
             switch response.result {
             case .success(let eventGuest):
                 completion(.success(eventGuest))
@@ -526,6 +526,110 @@ class ServiceManager{
             }
         }
     }
+    
+    func getGuestContacts(userId : Int, eventId : Int, completion: @escaping (Result<[ContactDto], Error>) -> Void){
+        let url = EndPoint.getGuestsContacts.url
+        
+        AF.request(url, method: .get, parameters: ["userId": userId, "eventId": eventId], encoding: URLEncoding.default)
+        .validate(statusCode: 200..<300)
+        .responseDecodable(of: [ContactDto].self) { response in
+            
+            switch response.result {
+                case .success(let contactsApi):
+                    completion(.success(contactsApi))
+                case .failure(let error):
+                    let apiError = ErrorParser.parse(error)
+                    completion(.failure(error))
+                    print(apiError.localizedDescription)
+            }
+        }
+    }
+    
+    func getGuestFriends(userId : Int, eventId : Int, completion: @escaping (Result<[FriendDto], Error>) -> Void){
+        let url = EndPoint.getGuestsFriends.url
+        
+        AF.request(url, method: .get, parameters: ["userId": userId, "eventId": eventId], encoding: URLEncoding.default)
+        .validate(statusCode: 200..<500)
+        .responseDecodable(of: [FriendDto].self) { response in
+            
+            if let statusCode = response.response?.statusCode, statusCode == 404 {
+                let notFoundError = APIError.notFound
+                completion(.failure(notFoundError))
+            }else{
+                
+                switch response.result {
+                case .success(let friendsApi):
+                    completion(.success(friendsApi))
+                case .failure(let error):
+                    let apiError = ErrorParser.parse(error)
+                    completion(.failure(error))
+                    print(apiError.localizedDescription)
+                }
+            }
+        }
+    }
+    
+    func getAllGuest(eventId : Int, completion: @escaping (Result<[GuestDto], Error>) -> Void){
+        let url = EndPoint.getAllGuests.url
+        
+        AF.request(url, method: .get, parameters: ["eventId": eventId], encoding: URLEncoding.default)
+        .validate(statusCode: 200..<300)
+        .responseDecodable(of: [GuestDto].self) { response in
+            debugPrint(response)
+            switch response.result {
+                case .success(let friendsApi):
+                    completion(.success(friendsApi))
+                case .failure(let error):
+                    let apiError = ErrorParser.parse(error)
+                    completion(.failure(error))
+                    print(apiError.localizedDescription)
+            }
+        }
+    }
+    
+    
+    func newGuest(invite: InviteDto, completion: @escaping (Result<Int, Error>) -> Void){
+        let url = EndPoint.newGuest.url
+        
+        AF.request(url, method: .post, parameters: invite, encoder: JSONParameterEncoder.default)
+        .validate(statusCode: 200..<300)
+        .response{ response in
+            if let statusCode = response.response?.statusCode {
+                switch statusCode {
+                case 200:
+                    completion(.success(statusCode))
+                default:
+                    let error = NSError(domain: "", code: statusCode, userInfo: [NSLocalizedDescriptionKey: "StatusCode: \(statusCode)"])
+                    completion(.failure(error))
+                }
+            }else if let error = response.error {
+                completion(.failure(error))
+            }else {
+                let unknownError = NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey: "Error desconocido"])
+                completion(.failure(unknownError))
+            }
+        }
+    }
+    
+    
+    
+    /*func getGuestContacts(userId : Int, eventId : Int, completion: @escaping (Result<[ContactDto], Error>) -> Void){
+        let url = EndPoint.getGuestsContacts.url
+        
+        AF.request(url, method: .get, parameters: ["userId": userId, "eventId": eventId], encoding: URLEncoding.default)
+        .validate(statusCode: 200..<300)
+        .responseDecodable(of: [ContactDto].self) { response in
+            
+            switch response.result {
+                case .success(let contactsApi):
+                    completion(.success(contactsApi))
+                case .failure(let error):
+                    let apiError = ErrorParser.parse(error)
+                    completion(.failure(error))
+                    print(apiError.localizedDescription)
+            }
+        }
+    }*/
     
     
     
