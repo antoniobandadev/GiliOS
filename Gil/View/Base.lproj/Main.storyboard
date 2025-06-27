@@ -577,11 +577,27 @@
                     <tabBarItem key="tabBarItem" tag="3" title="" image="qrcode.viewfinder" catalog="system" id="jIn-Qh-bJM"/>
                     <connections>
                         <outlet property="tvInvites" destination="0rS-gN-VaQ" id="IbP-WS-Ggc"/>
+                        <segue destination="eZ7-iC-fiv" kind="presentation" identifier="scanSegue" id="gmJ-GY-Xok"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5Zk-yL-hqU" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="4777.8625954198469" y="2284.5070422535214"/>
+        </scene>
+        <!--ScannerQR View Controller-->
+        <scene sceneID="YOi-LG-99H">
+            <objects>
+                <viewController id="eZ7-iC-fiv" customClass="ScannerQRViewController" customModule="Gil" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="t7Y-eK-d2U">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="842"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="jnu-gL-fDb"/>
+                        <color key="backgroundColor" name="primary"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ngP-eP-mGu" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5662" y="2285"/>
         </scene>
         <!--Settings View Controller-->
         <scene sceneID="Bct-L7-WuA">

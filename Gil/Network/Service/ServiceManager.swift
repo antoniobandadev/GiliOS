@@ -393,7 +393,7 @@ class ServiceManager{
         AF.request(url, method: .get, parameters: ["userId": userId], encoding: URLEncoding.default)
         .validate(statusCode: 200..<300)
         .responseDecodable(of: [EventDto].self) { response in
-            debugPrint(response)
+           // debugPrint(response)
             switch response.result {
                 case .success(let eventsApi):
                     completion(.success(eventsApi))
@@ -411,7 +411,7 @@ class ServiceManager{
         AF.request(url, method: .post, parameters: event, encoder: JSONParameterEncoder.default)
             .validate(statusCode: 200..<300)
             .responseDecodable(of: EventDto.self) { response in
-                debugPrint(response)
+               // debugPrint(response)
                 print(response.result)
                    switch response.result {
                    case .success(let user):
@@ -575,7 +575,7 @@ class ServiceManager{
         AF.request(url, method: .get, parameters: ["eventId": eventId], encoding: URLEncoding.default)
         .validate(statusCode: 200..<300)
         .responseDecodable(of: [GuestDto].self) { response in
-            debugPrint(response)
+            //debugPrint(response)
             switch response.result {
                 case .success(let friendsApi):
                     completion(.success(friendsApi))
@@ -625,6 +625,30 @@ class ServiceManager{
                 switch response.result {
                 case .success(let eventsApi):
                     completion(.success(eventsApi))
+                case .failure(let error):
+                    let apiError = ErrorParser.parse(error)
+                    completion(.failure(error))
+                    print(apiError.localizedDescription)
+                }
+            }
+        }
+    }
+    
+    
+    func checkMyGuest(guestId : String, eventId: Int,  completion: @escaping (Result<GuestRespDto, Error>) -> Void){
+        let url = EndPoint.checkMyGuest.url
+        
+        AF.request(url, method: .post, parameters: ["guestId": guestId, "eventId": eventId], encoding: URLEncoding.default)
+        .validate(statusCode: 200..<500)
+        .responseDecodable(of: GuestRespDto.self) { response in
+            debugPrint(response)
+            if let statusCode = response.response?.statusCode, statusCode == 404 {
+                let notFoundError = APIError.notFound
+                completion(.failure(notFoundError))
+            }else{
+                switch response.result {
+                case .success(let guestsApi):
+                    completion(.success(guestsApi))
                 case .failure(let error):
                     let apiError = ErrorParser.parse(error)
                     completion(.failure(error))

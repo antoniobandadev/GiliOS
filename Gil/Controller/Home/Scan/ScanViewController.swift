@@ -169,12 +169,12 @@ class ScanViewController: UIViewController , SkeletonTableViewDataSource, UITabl
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         eventSelected = events[indexPath.row]
-        performSegue(withIdentifier: "inviteSegue", sender: self)
+        performSegue(withIdentifier: "scanSegue", sender: self)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "inviteSegue" {
-            if let eventDestino = segue.destination as? InviteDetViewController {
+        if segue.identifier == "scanSegue" {
+            if let eventDestino = segue.destination as? ScannerQRViewController {
                 eventDestino.eventRecived = eventSelected
             }
         }

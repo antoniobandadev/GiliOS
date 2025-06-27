@@ -171,3 +171,11 @@
 /* --- Contacts Menu --- */
 "my_guests" = "My guests";
 "friends" = "Friends";
+
+
+/* --- Scan --- */
+
+"valid_scan" = "Validating...";
+"valid_code_scan" = "Valid code";
+"invalid_code_scan" = "Invalid code";
+"code_scan_before" = "The code has already been scanned";

@@ -214,6 +214,160 @@ class Utils {
         
     }//LoadingAlert
     
+    
+    
+    class ValidatingAlert{
+        static func showAlert(on viewController: UIViewController) -> UIAlertController {
+            let alert = UIAlertController(title: "", message: "", preferredStyle: .alert)
+
+          
+            if let backgroundView = alert.view.subviews.first?.subviews.first?.subviews.first {
+                backgroundView.backgroundColor = Constants.Colors.secondary
+                backgroundView.layer.cornerRadius = 12
+            }
+
+           
+            let widthConstraint = NSLayoutConstraint(item: alert.view!,
+                                                     attribute: .width,
+                                                     relatedBy: .equal,
+                                                     toItem: nil,
+                                                     attribute: .notAnAttribute,
+                                                     multiplier: 1,
+                                                     constant: 300)
+
+            let heightConstraint = NSLayoutConstraint(item: alert.view!,
+                                                      attribute: .height,
+                                                      relatedBy: .equal,
+                                                      toItem: nil,
+                                                      attribute: .notAnAttribute,
+                                                      multiplier: 1,
+                                                      constant: 100)
+
+            alert.view.addConstraint(widthConstraint)
+            alert.view.addConstraint(heightConstraint)
+
+            
+            let loadingIndicator = UIActivityIndicatorView(style: .large)
+            loadingIndicator.translatesAutoresizingMaskIntoConstraints = false
+            loadingIndicator.color = .white
+            loadingIndicator.tag = 999
+            loadingIndicator.startAnimating()
+            alert.view.addSubview(loadingIndicator)
+
+           
+            let messageLabel = UILabel()
+            messageLabel.text = "loading".localized()
+            messageLabel.textColor = .white
+            messageLabel.font = Constants.Fonts.font
+            messageLabel.textAlignment = .center
+            messageLabel.translatesAutoresizingMaskIntoConstraints = false
+            messageLabel.numberOfLines = 0
+            messageLabel.tag = 998
+            alert.view.addSubview(messageLabel)
+            
+            NSLayoutConstraint.activate([
+                loadingIndicator.centerXAnchor.constraint(equalTo: alert.view.centerXAnchor),
+                loadingIndicator.topAnchor.constraint(equalTo: alert.view.topAnchor, constant: 30),
+
+                messageLabel.topAnchor.constraint(equalTo: loadingIndicator.bottomAnchor, constant: 15),
+                messageLabel.leadingAnchor.constraint(equalTo: alert.view.leadingAnchor, constant: 16),
+                messageLabel.trailingAnchor.constraint(equalTo: alert.view.trailingAnchor, constant: -16),
+                messageLabel.bottomAnchor.constraint(lessThanOrEqualTo: alert.view.bottomAnchor, constant: -20)
+            ])
+
+            viewController.present(alert, animated: true)
+            return alert
+        }
+        
+        static func replaceLoadingWithImageOk(in alert: UIAlertController, image: UIImage) {
+               
+                if let loadingIndicator = alert.view.viewWithTag(999) as? UIActivityIndicatorView {
+                    loadingIndicator.stopAnimating()
+                    loadingIndicator.removeFromSuperview()
+                }
+            
+                if let messageLabel = alert.view.viewWithTag(998) as? UILabel {
+                    messageLabel.text = "valid_code_scan".localized()
+                    messageLabel.font = Constants.Fonts.font
+                }
+
+                let imageView = UIImageView(image: image)
+                imageView.translatesAutoresizingMaskIntoConstraints = false
+                imageView.contentMode = .scaleAspectFit
+                imageView.tintColor = Constants.Colors.greenLigth
+                alert.view.addSubview(imageView)
+
+                NSLayoutConstraint.activate([
+                    imageView.centerXAnchor.constraint(equalTo: alert.view.centerXAnchor),
+                    imageView.topAnchor.constraint(equalTo: alert.view.topAnchor, constant: 13),
+                    imageView.widthAnchor.constraint(equalToConstant: 40),
+                    imageView.heightAnchor.constraint(equalToConstant: 40)
+                ])
+            }
+        
+        static func replaceLoadingWithImageScanB(in alert: UIAlertController, image: UIImage) {
+               
+                if let loadingIndicator = alert.view.viewWithTag(999) as? UIActivityIndicatorView {
+                    loadingIndicator.stopAnimating()
+                    loadingIndicator.removeFromSuperview()
+                }
+            
+                if let messageLabel = alert.view.viewWithTag(998) as? UILabel {
+                    messageLabel.text = "code_scan_before".localized()
+                    messageLabel.font = Constants.Fonts.fontMini
+                }
+
+                let imageView = UIImageView(image: image)
+                imageView.translatesAutoresizingMaskIntoConstraints = false
+                imageView.contentMode = .scaleAspectFit
+                imageView.tintColor = Constants.Colors.red
+                alert.view.addSubview(imageView)
+
+                NSLayoutConstraint.activate([
+                    imageView.centerXAnchor.constraint(equalTo: alert.view.centerXAnchor),
+                    imageView.topAnchor.constraint(equalTo: alert.view.topAnchor, constant: 13),
+                    imageView.widthAnchor.constraint(equalToConstant: 40),
+                    imageView.heightAnchor.constraint(equalToConstant: 40)
+                ])
+            }
+        
+        static func replaceLoadingWithImageError(in alert: UIAlertController, image: UIImage) {
+               
+                if let loadingIndicator = alert.view.viewWithTag(999) as? UIActivityIndicatorView {
+                    loadingIndicator.stopAnimating()
+                    loadingIndicator.removeFromSuperview()
+                }
+            
+                if let messageLabel = alert.view.viewWithTag(998) as? UILabel {
+                    messageLabel.text = "invalid_code_scan".localized()
+                    messageLabel.font = Constants.Fonts.font
+                }
+
+                let imageView = UIImageView(image: image)
+                imageView.translatesAutoresizingMaskIntoConstraints = false
+                imageView.contentMode = .scaleAspectFit
+                imageView.tintColor = Constants.Colors.red
+                alert.view.addSubview(imageView)
+
+                NSLayoutConstraint.activate([
+                    imageView.centerXAnchor.constraint(equalTo: alert.view.centerXAnchor),
+                    imageView.topAnchor.constraint(equalTo: alert.view.topAnchor, constant: 13),
+                    imageView.widthAnchor.constraint(equalToConstant: 40),
+                    imageView.heightAnchor.constraint(equalToConstant: 40)
+                ])
+            }
+        
+        static func dismissAlert(_ alert: UIAlertController) {
+            alert.dismiss(animated: true)
+        }
+        
+    }//LoadingAlert
+    
+    
+    
+    
+    
+    
     class AlertConfirmUtils {
         static func showCustomAlert(
                 on viewController: UIViewController,
