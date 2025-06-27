@@ -18,6 +18,7 @@ class SettingsViewController: KeyboardViewController, UITextFieldDelegate, UIIma
     let userProfile = UserDefaults.standard.string(forKey: "userProfile")
     let imagePicker = UIImagePickerController()
     let serviceManager = ServiceManager.shared
+    let context = DataManager.shared.persistentContainer.viewContext
     
     @IBOutlet weak var ivPhoto: UIImageView!
     
@@ -46,20 +47,41 @@ class SettingsViewController: KeyboardViewController, UITextFieldDelegate, UIIma
     
     
     @IBAction func closeSession(_ sender: UIButton) {
-        UserDefaults.standard.removeObject(forKey: "isLogged")
         
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let loginVC = storyboard.instantiateViewController(withIdentifier: "LoginNavigationController")
-
+        let deleteAlert = AlertCustomViewController(title: "logOut".localized(), message: "logout_message".localized())
+        deleteAlert.modalPresentationStyle = .overFullScreen
         
-        if let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate,
-           let window = sceneDelegate.window {
-            
-            UIView.transition(with: window, duration: 0.3, options: .transitionFlipFromLeft, animations: {
-                window.rootViewController = loginVC
-            }, completion: nil)
+        deleteAlert.addAction(title: "no".localized(), style: .filled(), color: Constants.Colors.red!){
+           // deleteAlert.dismissAlert()
+            deleteAlert.dismiss(animated: true)
         }
+        
+        deleteAlert.addAction(title: "yes".localized(), style: .filled(), color: Constants.Colors.green!){
+            deleteAlert.dismiss(animated: true)
+            _ = Utils.LoadigAlert.showAlert(on: self)
+            
+            UserDefaults.standard.removeObject(forKey: "isLogged")
+            DataManager.shared.deleteAllEvents(context: self.context)
+            DataManager.shared.deleteAllContacts(context: self.context)
+            
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let loginVC = storyboard.instantiateViewController(withIdentifier: "LoginNavigationController")
+
+            
+            if let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate,
+               let window = sceneDelegate.window {
+                
+                UIView.transition(with: window, duration: 0.3, options: .transitionFlipFromLeft, animations: {
+                    window.rootViewController = loginVC
+                }, completion: nil)
+            }
+        }
+        
+        present(deleteAlert, animated: true)
+        
     }
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -70,7 +92,7 @@ class SettingsViewController: KeyboardViewController, UITextFieldDelegate, UIIma
         initUI()
         
         NotificationCenter.default.addObserver(self, selector:#selector(updateName), name: NSNotification.Name("UPDATE_NAME"), object:nil)
-        // Do any additional setup after loading the view.
+       
     }
     
     func initUI(){
@@ -88,20 +110,20 @@ class SettingsViewController: KeyboardViewController, UITextFieldDelegate, UIIma
         Utils.TextField.config(tfUserName, label: NSLocalizedString("name".localized(), comment: ""), icon: "ic_user", iconTrailing: "xmark.circle.fill")
         Utils.TextField.config(tfUserEmail, label: NSLocalizedString("email".localized(), comment: ""), icon: "ic_email", iconTrailing: "xmark.circle.fill")
        
-        if(userProfile!.count > 0){
-            let url = URL(string: userProfile!)
-            let placeholder = UIImage(named: "ic_no_photo")
-
-            ivPhoto.kf.setImage(
-                with: url,
-                placeholder: placeholder,
-                options: [
-                    .transition(.fade(0.3)),
-                    .cacheOriginalImage
-                ])
-            
+        if userProfile != nil{
+            if(userProfile?.count ?? 0 > 0){
+                let url = URL(string: userProfile!)
+                let placeholder = UIImage(named: "ic_no_photo")
+                
+                ivPhoto.kf.setImage(
+                    with: url,
+                    placeholder: placeholder,
+                    options: [
+                        .transition(.fade(0.3)),
+                        .cacheOriginalImage
+                    ])
+            }
         }
-
         
         /*if(userProfile!.count > 0){
             let sess = URLSession(configuration: .default)

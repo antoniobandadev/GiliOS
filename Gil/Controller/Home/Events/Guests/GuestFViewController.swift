@@ -99,7 +99,7 @@ class GuestFViewController: KeyboardViewController , SkeletonTableViewDataSource
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let friend = searchFriends[indexPath.row]
-        Utils.AlertGuestsUtils.showAlert(on: self, title: "add_guest".localized(), friend: friend, eventId: eventId!)
+        Utils.AlertGuestsUtils.showAlert(on: self, title: "add_guest".localized(), friend: friend, contact: nil, guestsType:1, eventId: eventId!)
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

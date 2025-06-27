@@ -160,6 +160,8 @@
 
 /* --- Settings --- */
 "logOut" = "Log Out";
+"logout_message" = "Are you sure you want to log out?";
+"logout_success" = "You have been logged out successfully.";
 "save" = "Save";
 "image_updated_success" = "The image was successfully updated.";
 "edit_name" = "Edit name";

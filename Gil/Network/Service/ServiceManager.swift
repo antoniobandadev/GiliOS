@@ -393,7 +393,7 @@ class ServiceManager{
         AF.request(url, method: .get, parameters: ["userId": userId], encoding: URLEncoding.default)
         .validate(statusCode: 200..<300)
         .responseDecodable(of: [EventDto].self) { response in
-            //debugPrint(response)
+            debugPrint(response)
             switch response.result {
                 case .success(let eventsApi):
                     completion(.success(eventsApi))
@@ -607,6 +607,29 @@ class ServiceManager{
             }else {
                 let unknownError = NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey: "Error desconocido"])
                 completion(.failure(unknownError))
+            }
+        }
+    }
+    
+    func getGuestScanner(userId : Int, completion: @escaping (Result<[EventDto], Error>) -> Void){
+        let url = EndPoint.getGuestScanner.url
+        
+        AF.request(url, method: .get, parameters: ["userId": userId], encoding: URLEncoding.default)
+        .validate(statusCode: 200..<500)
+        .responseDecodable(of: [EventDto].self) { response in
+            //debugPrint(response)
+            if let statusCode = response.response?.statusCode, statusCode == 404 {
+                let notFoundError = APIError.notFound
+                completion(.failure(notFoundError))
+            }else{
+                switch response.result {
+                case .success(let eventsApi):
+                    completion(.success(eventsApi))
+                case .failure(let error):
+                    let apiError = ErrorParser.parse(error)
+                    completion(.failure(error))
+                    print(apiError.localizedDescription)
+                }
             }
         }
     }

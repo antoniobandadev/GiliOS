@@ -428,7 +428,9 @@ class Utils {
         static func showAlert(
             on viewController: UIViewController,
             title: String,
-            friend: FriendDto,
+            friend: FriendDto?,
+            contact: ContactDto?,
+            guestsType: Int,
             eventId: Int,
             onConfirm: (() -> Void)? = nil,
             onCancel: (() -> Void)? = nil
@@ -439,6 +441,8 @@ class Utils {
                 alertVC.modalTransitionStyle = .crossDissolve
                 alertVC.alertTitle = title
                 alertVC.myFriend = friend
+                alertVC.myContact = contact
+                alertVC.guestsType = guestsType
                 alertVC.eventId = eventId
                 alertVC.onConfirm = onConfirm
                 alertVC.onCancel = onCancel

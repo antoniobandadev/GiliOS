@@ -17,6 +17,8 @@ class AlertGuestViewController: KeyboardViewController, UITextFieldDelegate {
     var onConfirm: (() -> Void)?
     var onCancel: (() -> Void)?
     var myFriend: FriendDto?
+    var myContact: ContactDto?
+    var guestsType: Int?
     var eventId: Int?
     
     @IBOutlet weak var lbFriendTitle: UILabel!
@@ -57,13 +59,17 @@ class AlertGuestViewController: KeyboardViewController, UITextFieldDelegate {
         tfFriendEmail.delegate = self
         tfInviteName.delegate = self
 
-        initUI()
+        if guestsType == 0{
+            initUIC()
+        }else{
+            initUIF()
+        }
                 
         // Do any additional setup after loading the view.
     }
     
     
-    func initUI(){
+    func initUIF(){
         
         view.backgroundColor = UIColor.black.withAlphaComponent(0.5)
         alertContainer.layer.cornerRadius = 16
@@ -98,6 +104,41 @@ class AlertGuestViewController: KeyboardViewController, UITextFieldDelegate {
         
     }
     
+    func initUIC(){
+        
+        view.backgroundColor = UIColor.black.withAlphaComponent(0.5)
+        alertContainer.layer.cornerRadius = 16
+        alertContainer.clipsToBounds = true
+        
+        lbFriendTitle.text = alertTitle
+        tfInviteName.text = myContact?.contactName
+        tfFriendName.text = myContact?.contactName
+        tfFriendEmail.text = myContact?.contactEmail
+        
+        tfFriendName.isEnabled = false
+        tfFriendEmail.isEnabled = false
+       
+        Utils.TextField.config(tfInviteName, label: NSLocalizedString("invitation_name_label".localized(), comment: ""), icon: "ic_invitation_qr", iconTrailing: "xmark.circle.fill")
+        tfInviteName.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+        
+        Utils.TextField.config(tfFriendName, label: NSLocalizedString("name".localized(), comment: ""), icon: "ic_user", iconTrailing: "xmark.circle.fill")
+        tfFriendName.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+        
+        Utils.TextField.config(tfFriendEmail, label: NSLocalizedString("email".localized(), comment: ""), icon: "ic_email", iconTrailing: "xmark.circle.fill")
+        tfFriendEmail.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+        
+        if let currentPositiveTitle = btnPositive.title(for: .normal) {
+            let attributedTitle = NSAttributedString(
+                string: currentPositiveTitle,
+                attributes: [
+                    .font: Constants.Fonts.font16
+                ]
+            )
+            btnPositive.setAttributedTitle(attributedTitle, for: .normal)
+        }
+        
+    }
+    
     func sendInvite(completion: @escaping () -> Void){
         let alert = Utils.LoadigAlert.showAlert(on: self)
         let userId = UserDefaults.standard.integer(forKey: "userId")
@@ -106,8 +147,13 @@ class AlertGuestViewController: KeyboardViewController, UITextFieldDelegate {
         let idioma = Locale.current.language.languageCode?.identifier
         let userLanguage = (idioma == "es") ? "es" : "en"
         
-        let myInvite: InviteDto = InviteDto(eventId: eventId!, guestInvName: guestInvNameVal , guestsType: 1, contactId: nil, userId: myFriend?.contactId , userSendId: userId, userLanguage: userLanguage)
+        let myInvite: InviteDto
         
+        if guestsType == 1 {
+             myInvite = InviteDto(eventId: eventId!, guestInvName: guestInvNameVal , guestsType: 1, contactId: nil, userId: myFriend?.contactId , userSendId: userId, userLanguage: userLanguage)
+        }else{
+            myInvite = InviteDto(eventId: eventId!, guestInvName: guestInvNameVal , guestsType: 0, contactId: myContact?.contactId, userId: nil , userSendId: userId, userLanguage: userLanguage)
+        }
        
         serviceManager.newGuest(invite: myInvite){ result in
            

@@ -33,6 +33,7 @@ enum EndPoint {
     case getGuestsFriends
     case getAllGuests
     case newGuest
+    case getGuestScanner
     
     var url : URL {
         
@@ -81,6 +82,8 @@ enum EndPoint {
             return URL(string: "\(EndPoint.baseURL)/guests/myGuestCF")!
         case.newGuest:
             return URL(string: "\(EndPoint.baseURL)/guests/newGuest")!
+        case.getGuestScanner:
+            return URL(string: "\(EndPoint.baseURL)/events/myScanEvents")!
         }
         
     }

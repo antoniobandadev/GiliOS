@@ -103,7 +103,7 @@ class GuestCViewController: KeyboardViewController , SkeletonTableViewDataSource
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let contact = searchContacts[indexPath.row]
-       // Utils.AlertCustomUtils.showEditCustomAlert(on: self, title: "update_contact".localized(), newContact:false, contact: contact)
+        Utils.AlertGuestsUtils.showAlert(on: self, title: "add_guest".localized(), friend: nil,  contact: contact, guestsType:0, eventId: eventId!)
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
