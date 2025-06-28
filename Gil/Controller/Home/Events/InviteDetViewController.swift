@@ -168,7 +168,7 @@ class InviteDetViewController: UIViewController {
             let fromFormat = "yyyy-MM-dd HH:mm"
             var toFormat = ""
             
-            if(currentLocale.identifier == "en_MX"){
+            if(currentLocale.identifier == "es_MX"){
                 toFormat = "dd/MM/yyyy HH:mm"
             }else{
                 toFormat = "MM/dd/yyyy HH:mm"

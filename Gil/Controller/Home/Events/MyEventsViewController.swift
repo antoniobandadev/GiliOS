@@ -62,7 +62,7 @@ class MyEventsViewController: UIViewController, SkeletonTableViewDataSource, UIT
         NotificationCenter.default.addObserver(self, selector:#selector(initUI), name: NSNotification.Name("ADD_EVENT"), object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(initUI), name: NSNotification.Name("UPDATE_CONTACT"), object:nil)
        
-        
+        updateContactsApi{}
         
     }
     
@@ -258,6 +258,41 @@ class MyEventsViewController: UIViewController, SkeletonTableViewDataSource, UIT
         }
     }
     
+    func updateContactsApi(completion: @escaping () -> Void) {
+        let userId = UserDefaults.standard.integer(forKey: "userId")
+        
+        DataManager.shared.deleteAllContacts(context: self.context)
+        
+        serviceManager.getContacts(userId: userId) { result in
+            DispatchQueue.main.async {
+                switch result {
+                    case .success(let contacts):
+                    var contactsApiArray: [ContactEntity] = []
+                    
+                        for contactDto in contacts {
+                            let contactsApi = ContactEntity(context: self.context)
+                            contactsApi.contactId = contactDto.contactId
+                            contactsApi.userId = Int16(contactDto.userId!)
+                            contactsApi.contactName = contactDto.contactName
+                            contactsApi.contactEmail = contactDto.contactEmail
+                            contactsApi.contactStatus = contactDto.contactStatus
+                            contactsApi.contactType = contactDto.contactType
+                            contactsApi.contactSync = 1
+                            contactsApiArray.append(contactsApi)
+                        }
+                    
+                        DataManager.shared.insertContacts(contactsApiArray)
+                    print("Amigos Actualizados")
+                    case .failure(let error):
+                    print("Error al actualizar desde el api : \(error)")
+                }
+                completion()
+            }
+            
+        }
+       
+    }
+    
     
     
     
@@ -303,8 +338,8 @@ class MyEventsViewController: UIViewController, SkeletonTableViewDataSource, UIT
             let currentLocale = Locale.current
             let fromFormat = "yyyy-MM-dd HH:mm"
             var toFormat = ""
-            
-            if(currentLocale.identifier == "en_MX"){
+            //print(currentLocale.identifier)
+            if(currentLocale.identifier == "es_MX"){
                 toFormat = "dd/MM/yyyy"
             }else{
                 toFormat = "MM/dd/yyyy"

@@ -1,0 +1,390 @@
+
+/* Class = "UIButton"; configuration.title = "Cancel"; ObjectID = "0Ox-do-R97"; */
+"0Ox-do-R97.configuration.title" = "Cancelar";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "0Ox-do-R97"; */
+"0Ox-do-R97.normalTitle" = "Botón";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "0k6-hz-Q9e"; */
+"0k6-hz-Q9e.normalTitle" = "Botón";
+
+/* Class = "UILabel"; text = "Terms and Conditions"; ObjectID = "1Bm-sr-Kn8"; */
+"1Bm-sr-Kn8.text" = "Términos y Condiciones";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "1X2-FC-pXM"; */
+"1X2-FC-pXM.normalTitle" = "Botón";
+
+/* Class = "UILabel"; text = "Date"; ObjectID = "1vi-N9-KU4"; */
+"1vi-N9-KU4.text" = "Fecha";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "2ZY-Oz-TeP"; */
+"2ZY-Oz-TeP.text" = "Etiqueta";
+
+/* Class = "UIButton"; configuration.title = "Delete image"; ObjectID = "6Cz-ob-Gzj"; */
+"6Cz-ob-Gzj.configuration.title" = "Eliminar imagen";
+
+/* Class = "UIButton"; normalTitle = "Delete image"; ObjectID = "6Cz-ob-Gzj"; */
+"6Cz-ob-Gzj.normalTitle" = "Eliminar imagen";
+
+/* Class = "UIButton"; configuration.title = "Delete"; ObjectID = "6he-St-cFH"; */
+"6he-St-cFH.configuration.title" = "Eliminar";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "6he-St-cFH"; */
+"6he-St-cFH.normalTitle" = "Botón";
+
+/* Class = "UILabel"; text = "Address"; ObjectID = "6lf-uu-u4x"; */
+"6lf-uu-u4x.text" = "Dirección";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "6tE-NI-mcr"; */
+"6tE-NI-mcr.text" = "Etiqueta";
+
+/* Class = "UIButton"; configuration.title = "Button"; ObjectID = "72Z-Vn-9Hu"; */
+"72Z-Vn-9Hu.configuration.title" = "Botón";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "72Z-Vn-9Hu"; */
+"72Z-Vn-9Hu.normalTitle" = "Botón";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "834-N2-bGh"; */
+"834-N2-bGh.text" = "Etiqueta";
+
+/* Class = "UIButton"; configuration.title = "Registrar"; ObjectID = "8DM-2Y-QXm"; */
+"8DM-2Y-QXm.configuration.title" = "Registrar";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "8DM-2Y-QXm"; */
+"8DM-2Y-QXm.normalTitle" = "Botón";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "98M-XH-jua"; */
+"98M-XH-jua.text" = "Etiqueta";
+
+/* Class = "UILabel"; text = "Title"; ObjectID = "AAb-90-LnZ"; */
+"AAb-90-LnZ.text" = "Título";
+
+/* Class = "UILabel"; text = "My guests"; ObjectID = "AbL-zY-YRG"; */
+"AbL-zY-YRG.text" = "Mis invitados";
+
+/* Class = "UIButton"; configuration.title = "Login"; ObjectID = "CQT-hC-axg"; */
+"CQT-hC-axg.configuration.title" = "Iniciar sesión";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "CQT-hC-axg"; */
+"CQT-hC-axg.normalTitle" = "Botón";
+
+/* Class = "UIButton"; configuration.title = "Forgot your password?"; ObjectID = "D0r-j2-4Gn"; */
+"D0r-j2-4Gn.configuration.title" = "¿Olvidaste tu contraseña?";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "D0r-j2-4Gn"; */
+"D0r-j2-4Gn.normalTitle" = "Botón";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "Ei7-eR-H2G"; */
+"Ei7-eR-H2G.normalTitle" = "Botón";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "FHu-CO-PJc"; */
+"FHu-CO-PJc.text" = "Etiqueta";
+
+/* Class = "UILabel"; text = "Title"; ObjectID = "Fig-5J-jHo"; */
+"Fig-5J-jHo.text" = "Título";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "Gm3-e5-lDV"; */
+"Gm3-e5-lDV.normalTitle" = "Botón";
+
+/* Class = "UILabel"; text = "Title"; ObjectID = "Iml-E8-0xe"; */
+"Iml-E8-0xe.text" = "Título";
+
+/* Class = "UIButton"; configuration.title = "Delete image"; ObjectID = "JdI-EC-e4r"; */
+"JdI-EC-e4r.configuration.title" = "Eliminar imagen";
+
+/* Class = "UIButton"; normalTitle = "Delete image"; ObjectID = "JdI-EC-e4r"; */
+"JdI-EC-e4r.normalTitle" = "Eliminar imagen";
+
+/* Class = "UILabel"; text = "Settings"; ObjectID = "JyE-tU-4fr"; */
+"JyE-tU-4fr.text" = "Ajustes";
+
+/* Class = "UILabel"; text = "Guest Identity Link"; ObjectID = "MB5-t1-Tyc"; */
+"MB5-t1-Tyc.text" = "Guest Identity Link";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "MfO-8r-VgQ"; */
+"MfO-8r-VgQ.normalTitle" = "Botón";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "OHY-AZ-e0Q"; */
+"OHY-AZ-e0Q.text" = "Etiqueta";
+
+/* Class = "UIButton"; configuration.title = "Terms and Conditions"; ObjectID = "OqR-FE-jEV"; */
+"OqR-FE-jEV.configuration.title" = "Términos y Condiciones";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "OqR-FE-jEV"; */
+"OqR-FE-jEV.normalTitle" = "Botón";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "Oux-qt-vh2"; */
+"Oux-qt-vh2.text" = "Etiqueta";
+
+/* Class = "UILabel"; text = "GIL"; ObjectID = "PJN-2A-oER"; */
+"PJN-2A-oER.text" = "GIL";
+
+/* Class = "UILabel"; text = "Type"; ObjectID = "Pqt-N3-1NE"; */
+"Pqt-N3-1NE.text" = "Tipo";
+
+/* Class = "UILabel"; text = "CellOption"; ObjectID = "QFs-PW-4Or"; */
+"QFs-PW-4Or.text" = "Opción de Celda";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "QNl-Cv-5jF"; */
+"QNl-Cv-5jF.normalTitle" = "Botón";
+
+/* Class = "UIButton"; configuration.title = " Back"; ObjectID = "Qyw-od-cGc"; */
+"Qyw-od-cGc.configuration.title" = " Atrás";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "Qyw-od-cGc"; */
+"Qyw-od-cGc.normalTitle" = "Botón";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "R0O-i5-qGy"; */
+"R0O-i5-qGy.text" = "Etiqueta";
+
+/* Class = "UILabel"; text = "Title"; ObjectID = "R3w-7c-QX4"; */
+"R3w-7c-QX4.text" = "Título";
+
+/* Class = "UIButton"; configuration.title = "Iniciar sesión"; ObjectID = "R5V-EF-bgy"; */
+"R5V-EF-bgy.configuration.title" = "Iniciar sesión";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "R5V-EF-bgy"; */
+"R5V-EF-bgy.normalTitle" = "Botón";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "RBH-Vt-cJF"; */
+"RBH-Vt-cJF.normalTitle" = "Botón";
+
+/* Class = "UILabel"; text = "Authorized person to scan QR"; ObjectID = "Rpy-HG-Djp"; */
+"Rpy-HG-Djp.text" = "Persona autorizada para escanear QR";
+
+/* Class = "UIButton"; configuration.title = "Close"; ObjectID = "Rzh-nC-xyB"; */
+"Rzh-nC-xyB.configuration.title" = "Cerrar";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "Rzh-nC-xyB"; */
+"Rzh-nC-xyB.normalTitle" = "Botón";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "S9J-6v-E5G"; */
+"S9J-6v-E5G.text" = "Etiqueta";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "TWb-cQ-RWt"; */
+"TWb-cQ-RWt.text" = "Etiqueta";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "TmH-Qf-0iu"; */
+"TmH-Qf-0iu.text" = "Etiqueta";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "V5x-t1-1mo"; */
+"V5x-t1-1mo.text" = "Etiqueta";
+
+/* Class = "UIButton"; configuration.title = "Send invitation"; ObjectID = "VXV-3d-ctd"; */
+"VXV-3d-ctd.configuration.title" = "Enviar invitación";
+
+/* Class = "UIButton"; normalTitle = "Add"; ObjectID = "VXV-3d-ctd"; */
+"VXV-3d-ctd.normalTitle" = "Agregar";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "Vxh-4C-DfN"; */
+"Vxh-4C-DfN.text" = "Etiqueta";
+
+/* Class = "UIButton"; configuration.title = "Add"; ObjectID = "WNY-nU-LGz"; */
+"WNY-nU-LGz.configuration.title" = "Agregar";
+
+/* Class = "UIButton"; normalTitle = "Add"; ObjectID = "WNY-nU-LGz"; */
+"WNY-nU-LGz.normalTitle" = "Agregar";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "Xxp-fX-v1I"; */
+"Xxp-fX-v1I.text" = "Etiqueta";
+
+/* Class = "UILabel"; text = "New event"; ObjectID = "XzA-Ty-l4h"; */
+"XzA-Ty-l4h.text" = "Nuevo evento";
+
+/* Class = "UIButton"; normalTitle = "Don´t have an account yet? \\nClick here to sign up."; ObjectID = "YDs-Qx-s0p"; */
+"YDs-Qx-s0p.normalTitle" = "¿No tienes una cuenta todavía? \\nHaz clic aquí para registrarte.";
+
+/* Class = "UIButton"; configuration.title = "Delete"; ObjectID = "b9W-ra-e8x"; */
+"b9W-ra-e8x.configuration.title" = "Eliminar";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "b9W-ra-e8x"; */
+"b9W-ra-e8x.normalTitle" = "Botón";
+
+/* Class = "UIButton"; configuration.title = "Add image"; ObjectID = "bll-bO-BNm"; */
+"bll-bO-BNm.configuration.title" = "Agregar imagen";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "bll-bO-BNm"; */
+"bll-bO-BNm.normalTitle" = "Botón";
+
+/* Class = "UILabel"; text = "Date"; ObjectID = "bvL-Lf-kSW"; */
+"bvL-Lf-kSW.text" = "Fecha";
+
+/* Class = "UIButton"; configuration.title = "Log Out"; ObjectID = "cVE-rL-eHw"; */
+"cVE-rL-eHw.configuration.title" = "Cerrar sesión";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "cVE-rL-eHw"; */
+"cVE-rL-eHw.normalTitle" = "Botón";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "ch2-Y4-6xS"; */
+"ch2-Y4-6xS.text" = "Etiqueta";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "cpL-yU-Bp0"; */
+"cpL-yU-Bp0.text" = "Etiqueta";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "dJZ-S8-8dg"; */
+"dJZ-S8-8dg.text" = "Etiqueta";
+
+/* Class = "UILabel"; text = "Date"; ObjectID = "e1c-bQ-eSk"; */
+"e1c-bQ-eSk.text" = "Fecha";
+
+/* Class = "UIButton"; configuration.title = "Update"; ObjectID = "eed-NA-QgW"; */
+"eed-NA-QgW.configuration.title" = "Actualizar";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "eed-NA-QgW"; */
+"eed-NA-QgW.normalTitle" = "Botón";
+
+/* Class = "UIButton"; configuration.title = "Update"; ObjectID = "f3Y-ux-jUn"; */
+"f3Y-ux-jUn.configuration.title" = "Actualizar";
+
+/* Class = "UIButton"; normalTitle = "Add"; ObjectID = "f3Y-ux-jUn"; */
+"f3Y-ux-jUn.normalTitle" = "Agregar";
+
+/* Class = "UIButton"; configuration.title = "Add"; ObjectID = "fsd-Cz-g6n"; */
+"fsd-Cz-g6n.configuration.title" = "Agregar";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "fsd-Cz-g6n"; */
+"fsd-Cz-g6n.normalTitle" = "Botón";
+
+/* Class = "UIButton"; configuration.title = "Sign Up"; ObjectID = "hM8-As-Kre"; */
+"hM8-As-Kre.configuration.title" = "Registrarse";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "hM8-As-Kre"; */
+"hM8-As-Kre.normalTitle" = "Botón";
+
+/* Class = "UIButton"; configuration.title = "Cancel"; ObjectID = "hl6-u4-uWP"; */
+"hl6-u4-uWP.configuration.title" = "Cancelar";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "hl6-u4-uWP"; */
+"hl6-u4-uWP.normalTitle" = "Botón";
+
+/* Class = "UIButton"; configuration.title = "Continue"; ObjectID = "hoY-v6-Rqm"; */
+"hoY-v6-Rqm.configuration.title" = "Continuar";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "hoY-v6-Rqm"; */
+"hoY-v6-Rqm.normalTitle" = "Botón";
+
+/* Class = "UILabel"; text = "Message"; ObjectID = "ihI-lH-JtA"; */
+"ihI-lH-JtA.text" = "Mensaje";
+
+/* Class = "UILabel"; text = "GIL"; ObjectID = "ikX-Oj-GP9"; */
+"ikX-Oj-GP9.text" = "GIL";
+
+/* Class = "UIButton"; configuration.title = "I accept the Terms and Conditions"; ObjectID = "jQV-rp-Jj5"; */
+"jQV-rp-Jj5.configuration.title" = "Acepto los Términos y Condiciones";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "jQV-rp-Jj5"; */
+"jQV-rp-Jj5.normalTitle" = "Botón";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "kOB-B4-veP"; */
+"kOB-B4-veP.text" = "Etiqueta";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "kRS-Ql-Ge2"; */
+"kRS-Ql-Ge2.normalTitle" = "Botón";
+
+/* Class = "UILabel"; text = "Adress"; ObjectID = "kU4-sZ-E4K"; */
+"kU4-sZ-E4K.text" = "Dirección";
+
+/* Class = "UILabel"; text = "Description"; ObjectID = "krr-Ce-vM8"; */
+"krr-Ce-vM8.text" = "Descripción";
+
+/* Class = "UIButton"; configuration.title = "My guests"; ObjectID = "kuK-E9-reu"; */
+"kuK-E9-reu.configuration.title" = "Mis invitados";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "kuK-E9-reu"; */
+"kuK-E9-reu.normalTitle" = "Botón";
+
+/* Class = "UILabel"; text = "Contacts"; ObjectID = "loH-bP-8vF"; */
+"loH-bP-8vF.text" = "Contactos";
+
+/* Class = "UILabel"; text = "Friends"; ObjectID = "ltk-I7-mjs"; */
+"ltk-I7-mjs.text" = "Amigos";
+
+/* Class = "UILabel"; text = "Title"; ObjectID = "mFT-YE-Ppe"; */
+"mFT-YE-Ppe.text" = "Título";
+
+/* Class = "UILabel"; text = "Address"; ObjectID = "mT0-X3-Egc"; */
+"mT0-X3-Egc.text" = "Dirección";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "mYc-kG-e8c"; */
+"mYc-kG-e8c.text" = "Etiqueta";
+
+/* Class = "UIButton"; configuration.title = " Back"; ObjectID = "ocV-aZ-88E"; */
+"ocV-aZ-88E.configuration.title" = " Atrás";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "ocV-aZ-88E"; */
+"ocV-aZ-88E.normalTitle" = "Botón";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "qA5-CE-euu"; */
+"qA5-CE-euu.normalTitle" = "Botón";
+
+/* Class = "UIButton"; configuration.title = " Back"; ObjectID = "qPS-Lw-aFC"; */
+"qPS-Lw-aFC.configuration.title" = " Atrás";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "qPS-Lw-aFC"; */
+"qPS-Lw-aFC.normalTitle" = "Botón";
+
+/* Class = "UILabel"; text = "Events"; ObjectID = "qqu-UK-LDS"; */
+"qqu-UK-LDS.text" = "Eventos";
+
+/* Class = "UILabel"; text = "Scanner"; ObjectID = "rYv-fH-4qf"; */
+"rYv-fH-4qf.text" = "Escáner";
+
+/* Class = "UIButton"; configuration.title = "Add image"; ObjectID = "rqm-hP-Xav"; */
+"rqm-hP-Xav.configuration.title" = "Agregar imagen";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "rqm-hP-Xav"; */
+"rqm-hP-Xav.normalTitle" = "Botón";
+
+/* Class = "UILabel"; text = "Update password"; ObjectID = "t2p-qM-jlW"; */
+"t2p-qM-jlW.text" = "Actualizar contraseña";
+
+/* Class = "UILabel"; text = "Sign Up"; ObjectID = "tDg-tn-g0K"; */
+"tDg-tn-g0K.text" = "Registrarse";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "tIS-0r-T1K"; */
+"tIS-0r-T1K.text" = "Etiqueta";
+
+/* Class = "UILabel"; text = "Title"; ObjectID = "tOX-Pg-i7H"; */
+"tOX-Pg-i7H.text" = "Título";
+
+/* Class = "UILabel"; text = "Title"; ObjectID = "uAc-4G-j9Y"; */
+"uAc-4G-j9Y.text" = "Título";
+
+/* Class = "UILabel"; text = "Authorized person to scan QR"; ObjectID = "uEX-ms-1cb"; */
+"uEX-ms-1cb.text" = "Persona autorizada para escanear QR";
+
+/* Class = "UIButton"; configuration.title = "Acept"; ObjectID = "uHR-gQ-RTX"; */
+"uHR-gQ-RTX.configuration.title" = "Aceptar";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "uHR-gQ-RTX"; */
+"uHR-gQ-RTX.normalTitle" = "Botón";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "v3j-GS-rtX"; */
+"v3j-GS-rtX.text" = "Etiqueta";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "wnn-cN-SCT"; */
+"wnn-cN-SCT.text" = "Etiqueta";
+
+/* Class = "UILabel"; text = "My Guests"; ObjectID = "xCE-wZ-1ue"; */
+"xCE-wZ-1ue.text" = "Mis invitados";
+
+/* Class = "UILabel"; text = "Registrar"; ObjectID = "xEd-g3-yvr"; */
+"xEd-g3-yvr.text" = "Registrar";
+
+/* Class = "UILabel"; text = "Guest Identity Link"; ObjectID = "yQH-Up-0yK"; */
+"yQH-Up-0yK.text" = "Enlace de identidad del invitado";
+
+/* Class = "UIButton"; configuration.title = "Save"; ObjectID = "yuv-DV-2Vg"; */
+"yuv-DV-2Vg.configuration.title" = "Guardar";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "yuv-DV-2Vg"; */
+"yuv-DV-2Vg.normalTitle" = "Botón";
+
+/* Class = "UIButton"; configuration.title = "Delete"; ObjectID = "yxl-qf-XFJ"; */
+"yxl-qf-XFJ.configuration.title" = "Eliminar";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "yxl-qf-XFJ"; */
+"yxl-qf-XFJ.normalTitle" = "Botón";
+
+/* Class = "UILabel"; text = "Title"; ObjectID = "zB4-Mn-sfc"; */
+"zB4-Mn-sfc.text" = "Título";

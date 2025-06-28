@@ -90,7 +90,7 @@ class SettingsViewController: KeyboardViewController, UITextFieldDelegate, UIIma
         
         
         initUI()
-        
+        print(userProfile ?? "No Profile")
         NotificationCenter.default.addObserver(self, selector:#selector(updateName), name: NSNotification.Name("UPDATE_NAME"), object:nil)
        
     }
@@ -150,17 +150,29 @@ class SettingsViewController: KeyboardViewController, UITextFieldDelegate, UIIma
         if(isConnected){
             if let imgProfile = info[.editedImage] as? UIImage{
                 ivPhoto.image = imgProfile
-                serviceManager.uploadProfileImage(image: imgProfile, fileName: "profileImge.jpg", userId: userId)
-                // UIImageWriteToSavedPhotosAlbum(imgProfile, nil, nil, nil)
-                picker.dismiss(animated: true){
-                    Utils.Snackbar.snackbarNoAction(message: "image_updated_success".localized(), bgColor: Constants.Colors.green!, duration: 3.0)
+                serviceManager.uploadProfileImage(image: imgProfile, fileName: "profileImge.jpg", userId: userId){ result in
+                    
+                    switch result {
+                        case .success(let userApi):
+                            picker.dismiss(animated: true){
+                                UserDefaults.standard.set(userApi.userProfile, forKey: "userProfile")
+                                Utils.Snackbar.snackbarNoAction(message: "image_updated_success".localized(), bgColor: Constants.Colors.green!, duration: 3.0)
+                                print("Nuevo URL: \(self.userProfile ?? "-")")
+                            }
+                        default:
+                            picker.dismiss(animated: true){
+                                Utils.Snackbar.snackbarNoAction(message: "server_error".localized(), bgColor: Constants.Colors.red!, duration: 5.0)
+                            }
+                    }
+                    
                 }
+                //userProfile UIImageWriteToSavedPhotosAlbum(imgProfile, nil, nil, nil)
+                
             }
         }else{
             picker.dismiss(animated: true){
                 Utils.Snackbar.snackbarWithAction(message: "no_internet_connection".localized(), bgColor: Constants.Colors.red!, titleAction: "close".localized() , duration: 5.0)
             }
-            
         }
         
         
@@ -170,6 +182,7 @@ class SettingsViewController: KeyboardViewController, UITextFieldDelegate, UIIma
         //UserDefaults.standard.set(URL, forKey: "userProfile")
         
     }
+    
     @objc func updateName(){
         tfUserName.text = UserDefaults.standard.string(forKey: "userName")
         userName = UserDefaults.standard.string(forKey: "userName")

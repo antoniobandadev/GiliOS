@@ -29,18 +29,28 @@ class HomeTabBarController: UITabBarController {
         //homeTabBar.tintColor = .systemBlue // Ícono y texto seleccionado
         //homeTabBar.unselectedItemTintColor = .white// Íconos no seleccionados
 
-       // if #available(iOS 15.0, *) {
         let appearance = UITabBarAppearance()
         appearance.configureWithOpaqueBackground()
         appearance.backgroundColor = Constants.Colors.secondary
         
         // Configurar colores de íconos y texto
         appearance.stackedLayoutAppearance.selected.iconColor = Constants.Colors.primary
-        
         appearance.stackedLayoutAppearance.normal.iconColor = Constants.Colors.accent
-
+        
         homeTabBar.standardAppearance = appearance
         homeTabBar.scrollEdgeAppearance = appearance
+        
+        let appearanceButton = UINavigationBarAppearance()
+        appearanceButton.configureWithOpaqueBackground()
+
+        appearanceButton.backButtonAppearance.normal.titleTextAttributes = [
+            .foregroundColor: Constants.Colors.secondary ?? UIColor.white,
+            .font: Constants.Fonts.font16
+        ]
+        UINavigationBar.appearance().standardAppearance = appearanceButton
+        UINavigationBar.appearance().scrollEdgeAppearance = appearanceButton
+
+       
      //   }
         
         

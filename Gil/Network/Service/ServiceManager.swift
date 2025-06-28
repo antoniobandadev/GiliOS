@@ -470,7 +470,7 @@ class ServiceManager{
     
     
     //MARK: Settings
-    func uploadProfileImage(image: UIImage, fileName: String = "imagen.jpg", userId : Int) {
+    func uploadProfileImage(image: UIImage, fileName: String = "imagen.jpg", userId : Int, completion: @escaping (Result<UserImgDto, Error>) -> Void)  {
         let url = EndPoint.profileUser.url
 
         guard let imageData = image.jpegData(compressionQuality: 0.8) else {
@@ -478,12 +478,10 @@ class ServiceManager{
             return
         }
 
-        // 2. Encabezados opcionales
         let headers: HTTPHeaders = [
             "Authorization": "Bearer tu_token_si_aplica",
             "Content-type": "multipart/form-data"
         ]
-
        
         AF.upload(
             multipartFormData: { multipartFormData in
@@ -494,12 +492,16 @@ class ServiceManager{
             method: .post,
             headers: headers
         )
-        .response { response in
+        .responseDecodable(of: UserImgDto.self) { response in
+        //.response { response in
+            //debugPrint(response)
             switch response.result {
-            case .success:
-                print("Imagen subida con éxito")
+            case .success(let userApi):
+                 completion(.success(userApi))
+                 print("Imagen subida con éxito")
             case .failure(let error):
-                print("Error al subir imagen: \(error.localizedDescription)")
+                 completion(.failure(error))
+                 print("Error al subir imagen: \(error.localizedDescription)")
             }
         }
     }
@@ -641,7 +643,7 @@ class ServiceManager{
         AF.request(url, method: .post, parameters: ["guestId": guestId, "eventId": eventId], encoding: URLEncoding.default)
         .validate(statusCode: 200..<500)
         .responseDecodable(of: GuestRespDto.self) { response in
-            debugPrint(response)
+            //debugPrint(response)
             if let statusCode = response.response?.statusCode, statusCode == 404 {
                 let notFoundError = APIError.notFound
                 completion(.failure(notFoundError))

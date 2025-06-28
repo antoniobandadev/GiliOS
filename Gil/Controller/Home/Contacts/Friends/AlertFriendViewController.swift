@@ -194,7 +194,7 @@ class AlertFriendViewController: KeyboardViewController, UITextFieldDelegate {
              successVal = "friend_request_rejected_success".localized()
              titleVal = "reject_friend".localized()
              messageVal = "confirm_reject_friend".localized()
-             buttonVal = "acept".localized()
+             buttonVal = "accept".localized()
              cancelButtonTitle = "reject".localized()
              btnPositive.setTitle(buttonVal, for: .normal)
              btnPositive.layer.cornerRadius = 16

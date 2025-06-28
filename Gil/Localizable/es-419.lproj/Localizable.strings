@@ -1,0 +1,166 @@
+/* --- General --- */
+"close" = "Cerrar";
+"ok" = "OK";
+"loading" = "Cargando...";
+"no_internet_connection" = "No se detectó conexión a internet. Por favor, verifica tu red e inténtalo de nuevo.";
+"server_error" = "Ocurrió un error inesperado. Por favor, inténtalo más tarde.";
+"back" = "Atrás";
+"cancel" = "Cancelar";
+"search" = "Buscar";
+"add" = "Agregar";
+"delete" = "Eliminar";
+"update" = "Actualizar";
+"yes" = "Sí";
+"no" = "No";
+"reject" = "Rechazar";
+"accept" = "Aceptar";
+"_continue" = "Continuar";
+"change" = "Cambiar";
+"required_field" = "Campo requerido *";
+"add_image" = "Agregar imagen";
+"delete_image" = "Eliminar imagen";
+"edit_image" = "Editar imagen";
+"edit_event" = "Editar evento";
+"send" = "Enviar";
+"open_settings" = "Configuración";
+"done" = "Listo";
+
+/* --- LogIn --- */
+"user" = "Usuario";
+"password" = "Contraseña";
+"login" = "Iniciar sesión";
+"sign_up_now" = "¿Aún no tienes una cuenta? \nHaz clic aquí para registrarte.";
+"empty_email" = "Por favor, ingresa tu correo electrónico.";
+"empty_password" = "Por favor, ingresa tu contraseña.";
+"invalid_data" = "¡Ups! El correo o la contraseña no coinciden. Verifica tus datos e inténtalo de nuevo.";
+"login_success" = "Inicio de sesión exitoso. Bienvenido.";
+"forgot_password" = "¿Olvidaste tu contraseña?";
+"change_password" = "Actualizar contraseña";
+"forgot_code" = "Código";
+"new_password" = "Nueva contraseña";
+"confirm_new_password" = "Confirmar nueva contraseña";
+"password_updated_success" = "La contraseña se actualizó correctamente.";
+"no_email_found" = "No se encontró un usuario con este correo. Verifica la información e inténtalo de nuevo.";
+"send_code" = "Código enviado.";
+"verification_code_sent" = "Te enviamos un código de verificación por correo.";
+"incorrect_code" = "El código es incorrecto. Verifícalo nuevamente.";
+"password_changed_successfully" = "La contraseña se cambió correctamente.";
+"invalid_code_val" = "El campo del código no puede estar vacío.";
+
+/* --- Sign Up --- */
+"sign_up" = "Registrarse";
+"name" = "Nombre";
+"email" = "Correo electrónico";
+"confirm_email" = "Confirmar correo electrónico";
+"confirm_password" = "Confirmar contraseña";
+"invalid_name" = "Tu nombre debe tener al menos 3 caracteres.";
+"invalid_email" = "El campo de correo electrónico no puede estar vacío. Ingresa tu correo.";
+"invalid_confirmEmail" = "El campo de confirmación de correo no puede estar vacío. Confirma tu correo.";
+"invalid_confirmPass" = "El campo de confirmación de contraseña no puede estar vacío. Confirma tu contraseña.";
+"not_same_value" = "Los campos no coinciden. Verifica e inténtalo de nuevo.";
+"not_valid_email" = "Ingresa una dirección de correo válida (ej. usuario@dominio.com).";
+"invalid_password" = "La contraseña debe tener al menos 8 caracteres e incluir mayúsculas, minúsculas, números y símbolos.";
+"user_exists" = "Ya existe una cuenta con este correo. Verifica la información e inténtalo de nuevo.";
+"registration_success" = "Tu registro se completó correctamente.";
+
+/* --- Menu --- */
+"events" = "Eventos";
+"contacts" = "Contactos";
+"new_event" = "Nuevo evento";
+"scan_code" = "Escáner";
+"settings" = "Configuración";
+
+/* --- Events --- */
+"my_events" = "Mis eventos";
+"my_invites" = "Mis invitaciones";
+
+/* --- Contacts --- */
+"my_contacts" = "Mis contactos";
+"my_friends" = "Mis amigos";
+"received_request" = "Recibidas";
+"sent_request" = "Enviadas";
+"contact" = "Contacto";
+"add_contact" = "Agregar contacto";
+"update_contact" = "Actualizar contacto";
+"contact_save_successful" = "Contacto guardado exitosamente.";
+"contact_update_successful" = "Contacto actualizado exitosamente.";
+"contact_delete_successful" = "Contacto eliminado exitosamente.";
+"no_contacts_found" = "No se encontraron contactos.";
+"no_results_for" = "Sin resultados para \"%@\".";
+"delete_contact" = "Eliminar contacto.";
+"confirm_delete_contact" = "¿Estás seguro de que deseas eliminar este contacto?";
+"error_new_contact" = "No se pudo agregar el contacto, inténtalo de nuevo.";
+"error_update_contact" = "No se pudo actualizar el contacto, inténtalo de nuevo.";
+"error_delete_contact" = "No se pudo eliminar el contacto, inténtalo de nuevo.";
+
+/* --- Friends --- */
+"add_friend" = "Agregar amigo";
+"no_friends_found" = "No se encontraron amigos.";
+"no_sol_rec_found" = "No se encontraron solicitudes recibidas.";
+"no_sol_send_found" = "No se encontraron solicitudes enviadas.";
+"sol_friend_send" = "La solicitud fue enviada exitosamente.";
+"sol_no_friend_found" = "No pudimos encontrar a tu amigo con ese correo. Verifica que sea correcto.";
+"sol_friend_pending" = "Ya enviaste una solicitud de amistad a este usuario. Está pendiente de respuesta.";
+"reject_friend" = "Rechazar amigo";
+"confirm_reject_friend" = "¿Estás seguro de que deseas rechazar esta solicitud de amistad?";
+"friend_request_rejected_success" = "La solicitud de amistad fue rechazada exitosamente.";
+"friend_request_accepted_success" = "La solicitud de amistad fue aceptada exitosamente.";
+"cancel_request" = "Cancelar solicitud";
+"confirm_cancel_request" = "¿Estás seguro de que deseas cancelar esta solicitud de amistad?";
+"friend_request_cancelled_success" = "La solicitud de amistad fue cancelada exitosamente.";
+"delete_friend" = "Eliminar amigo";
+"confirm_delete_friend" = "¿Estás seguro de que deseas eliminar a este amigo?";
+"delete_friend_success" = "El amigo fue eliminado exitosamente.";
+
+/* --- Events --- */
+"event_name" = "Nombre";
+"event_description" = "Descripción";
+"event_type" = "Tipo";
+"start_date" = "Fecha de inicio";
+"end_date" = "Fecha de fin";
+"street" = "Calle y número";
+"city" = "Ciudad";
+"date" = "Fecha";
+"address" = "Dirección";
+"my_event_date" = "Día de mi evento";
+"event_category_social" = "Social / Celebración";
+"event_category_corporate" = "Corporativo / Profesional";
+"event_category_academic" = "Académico / Educativo";
+"event_category_other" = "Otro";
+"access_controller" = "Control de acceso";
+"invalid_date" = "La fecha de inicio no puede ser anterior a hoy. Verifica.";
+"invalid_date_bigger" = "La fecha de inicio no puede ser mayor que la fecha de fin. Verifica.";
+"event_save_success" = "El evento se guardó exitosamente.";
+"event_update_success" = "El evento se actualizó exitosamente.";
+"delete_event" = "Eliminar evento.";
+"confirm_delete_event" = "¿Estás seguro de que deseas eliminar este evento?";
+"event_deleted_success" = "El evento se eliminó exitosamente.";
+"invitations" = "Invitaciones";
+"no_guests_found" = "No se encontraron invitados.";
+"add_guest" = "Agregar invitado";
+"invitation_name_label" = "Nombre en la invitación";
+"send_invitation" = "Enviar invitación";
+"send_invitation_success" = "Invitación enviada exitosamente.";
+"no_pending_events" = "No tienes eventos pendientes.";
+"no_events" = "Sin eventos.";
+"no_events_found" = "No se encontraron eventos.";
+"no_invites_found" = "No se encontraron invitaciones.";
+
+/* --- Settings --- */
+"logOut" = "Cerrar sesión";
+"logout_message" = "¿Estás seguro de que deseas cerrar sesión?";
+"logout_success" = "Has cerrado sesión exitosamente.";
+"save" = "Guardar";
+"image_updated_success" = "La imagen se actualizó exitosamente.";
+"edit_name" = "Editar nombre";
+"edit_name_success" = "El nombre se actualizó exitosamente.";
+
+/* --- Contacts Menu --- */
+"my_guests" = "Mis invitados";
+"friends" = "Amigos";
+
+/* --- Scan --- */
+"valid_scan" = "Validando...";
+"valid_code_scan" = "Código válido";
+"invalid_code_scan" = "Código inválido";
+"code_scan_before" = "El código ya ha sido escaneado";

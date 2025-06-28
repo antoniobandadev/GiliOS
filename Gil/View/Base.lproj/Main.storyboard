@@ -499,9 +499,9 @@
                                                                 <constraint firstAttribute="width" constant="100" id="r3d-R7-TwU"/>
                                                             </constraints>
                                                         </imageView>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="R3w-7c-QX4">
-                                                            <rect key="frame" x="114" y="4" width="269" height="21"/>
-                                                            <fontDescription key="fontDescription" name="Parkinsans-Medium" family="Parkinsans" pointSize="18"/>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="R3w-7c-QX4">
+                                                            <rect key="frame" x="114" y="4" width="269" height="18.666666666666668"/>
+                                                            <fontDescription key="fontDescription" name="Parkinsans-Medium" family="Parkinsans" pointSize="16"/>
                                                             <color key="textColor" name="secondary"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
@@ -512,7 +512,7 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="dJZ-S8-8dg">
-                                                            <rect key="frame" x="114" y="28.999999999999996" width="269" height="44.666666666666657"/>
+                                                            <rect key="frame" x="114" y="26.666666666666671" width="269" height="47"/>
                                                             <fontDescription key="fontDescription" name="Parkinsans-Medium" family="Parkinsans" pointSize="14"/>
                                                             <color key="textColor" name="accent"/>
                                                             <nil key="highlightedColor"/>
@@ -764,9 +764,9 @@
                                                                 <constraint firstAttribute="height" constant="90" id="hID-y2-5dW"/>
                                                             </constraints>
                                                         </imageView>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tOX-Pg-i7H">
-                                                            <rect key="frame" x="114" y="4" width="269" height="21"/>
-                                                            <fontDescription key="fontDescription" name="Parkinsans-Medium" family="Parkinsans" pointSize="18"/>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="tOX-Pg-i7H">
+                                                            <rect key="frame" x="114" y="4" width="269" height="18.666666666666668"/>
+                                                            <fontDescription key="fontDescription" name="Parkinsans-Medium" family="Parkinsans" pointSize="16"/>
                                                             <color key="textColor" name="secondary"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
@@ -777,7 +777,7 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="v3j-GS-rtX">
-                                                            <rect key="frame" x="114" y="28.999999999999996" width="269" height="44.666666666666657"/>
+                                                            <rect key="frame" x="114" y="26.666666666666671" width="269" height="47"/>
                                                             <fontDescription key="fontDescription" name="Parkinsans-Medium" family="Parkinsans" pointSize="14"/>
                                                             <color key="textColor" name="accent"/>
                                                             <nil key="highlightedColor"/>
@@ -891,7 +891,7 @@
                                                     <constraint firstAttribute="height" constant="40" id="qMY-eP-hiM"/>
                                                 </constraints>
                                             </imageView>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="V5x-t1-1mo">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="V5x-t1-1mo">
                                                 <rect key="frame" x="60" y="0.0" width="303" height="40"/>
                                                 <fontDescription key="fontDescription" name="Parkinsans-Medium" family="Parkinsans" pointSize="16"/>
                                                 <color key="textColor" name="accent"/>
@@ -2833,9 +2833,9 @@
                                                                 <constraint firstAttribute="height" constant="90" id="LoE-FD-kb1"/>
                                                             </constraints>
                                                         </imageView>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fig-5J-jHo">
-                                                            <rect key="frame" x="114" y="4" width="269" height="21"/>
-                                                            <fontDescription key="fontDescription" name="Parkinsans-Medium" family="Parkinsans" pointSize="18"/>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="Fig-5J-jHo">
+                                                            <rect key="frame" x="114" y="4" width="269" height="18.666666666666668"/>
+                                                            <fontDescription key="fontDescription" name="Parkinsans-Medium" family="Parkinsans" pointSize="16"/>
                                                             <color key="textColor" name="secondary"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
@@ -2846,7 +2846,7 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="tIS-0r-T1K">
-                                                            <rect key="frame" x="114" y="28.999999999999996" width="269" height="44.666666666666657"/>
+                                                            <rect key="frame" x="114" y="26.666666666666671" width="269" height="47"/>
                                                             <fontDescription key="fontDescription" name="Parkinsans-Medium" family="Parkinsans" pointSize="14"/>
                                                             <color key="textColor" name="accent"/>
                                                             <nil key="highlightedColor"/>

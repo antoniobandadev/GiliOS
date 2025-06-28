@@ -192,7 +192,7 @@ class MyInvitesViewController: UIViewController, SkeletonTableViewDataSource, UI
             let fromFormat = "yyyy-MM-dd HH:mm"
             var toFormat = ""
             
-            if(currentLocale.identifier == "en_MX"){
+            if(currentLocale.identifier == "es_MX"){
                 toFormat = "dd/MM/yyyy"
             }else{
                 toFormat = "MM/dd/yyyy"

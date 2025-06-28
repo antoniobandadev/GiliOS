@@ -171,7 +171,7 @@ class EditEventViewController: KeyboardViewController, UITextFieldDelegate, UIIm
         let fromFormat = "yyyy-MM-dd HH:mm"
         var toFormat = ""
         
-        if(currentLocale.identifier == "en_MX"){
+        if(currentLocale.identifier == "es_MX"){
             toFormat = "dd/MM/yyyy HH:mm"
         }else{
             toFormat = "MM/dd/yyyy HH:mm"
@@ -353,7 +353,7 @@ class EditEventViewController: KeyboardViewController, UITextFieldDelegate, UIIm
         let currentLocale = Locale.current
         let formatter = DateFormatter()
         
-        if(currentLocale.identifier == "en_MX"){
+        if(currentLocale.identifier == "es_MX"){
             formatter.dateFormat = "dd/MM/yyyy HH:mm"
         }else{
             formatter.dateFormat = "MM/dd/yyyy HH:mm"
@@ -397,7 +397,7 @@ class EditEventViewController: KeyboardViewController, UITextFieldDelegate, UIIm
         let currentLocale = Locale.current
         let formatter = DateFormatter()
         
-        if(currentLocale.identifier == "en_MX"){
+        if(currentLocale.identifier == "es_MX"){
             formatter.dateFormat = "dd/MM/yyyy HH:mm"
         }else{
             formatter.dateFormat = "MM/dd/yyyy HH:mm"
@@ -410,7 +410,7 @@ class EditEventViewController: KeyboardViewController, UITextFieldDelegate, UIIm
         let formatter = DateFormatter()
         formatter.locale = Locale(identifier: "en_US_POSIX")
         
-        if(currentLocale.identifier == "en_MX"){
+        if(currentLocale.identifier == "es_MX"){
             formatter.dateFormat = "dd/MM/yyyy HH:mm"
         }else{
             formatter.dateFormat = "MM/dd/yyyy HH:mm"
@@ -604,7 +604,7 @@ class EditEventViewController: KeyboardViewController, UITextFieldDelegate, UIIm
         let toFormat = "yyyy-MM-dd HH:mm"
         var fromFormat = ""
         
-        if(currentLocale.identifier == "en_MX"){
+        if(currentLocale.identifier == "es_MX"){
             fromFormat = "dd/MM/yyyy HH:mm" // HH:mm
         }else{
             fromFormat = "MM/dd/yyyy HH:mm" //HH:mm
@@ -702,7 +702,7 @@ class EditEventViewController: KeyboardViewController, UITextFieldDelegate, UIIm
         let toFormat = "yyyy-MM-dd HH:mm"
         var fromFormat = ""
         
-        if(currentLocale.identifier == "en_MX"){
+        if(currentLocale.identifier == "es_MX"){
             fromFormat = "dd/MM/yyyy HH:mm" // HH:mm
         }else{
             fromFormat = "MM/dd/yyyy HH:mm" //HH:mm

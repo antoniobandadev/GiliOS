@@ -62,7 +62,7 @@ class NewEventViewController: KeyboardViewController, UITextFieldDelegate, UIIma
     @IBOutlet weak var eventScan: MDCOutlinedTextField!
     
     let categories = Utils.eventCategories
-    let friends = DataManager.shared.getFriendsArray()
+    var friends = DataManager.shared.getFriendsArray()
     
     
     let imagePicker = UIImagePickerController()
@@ -106,6 +106,8 @@ class NewEventViewController: KeyboardViewController, UITextFieldDelegate, UIIma
         if(isConnected){
            // let alertLoading = Utils.LoadigAlert.showAlert(on: self)
             updateContactsApi {
+                //self.currentOptions = Array(self.friends.values)
+                //self.scanTypePicker()
                // alertLoading.dismiss(animated: true)
             }
         }
@@ -248,7 +250,7 @@ class NewEventViewController: KeyboardViewController, UITextFieldDelegate, UIIma
         let currentLocale = Locale.current
         let formatter = DateFormatter()
         
-        if(currentLocale.identifier == "en_MX"){
+        if(currentLocale.identifier == "es_MX"){
             formatter.dateFormat = "dd/MM/yyyy HH:mm"
         }else{
             formatter.dateFormat = "MM/dd/yyyy HH:mm"
@@ -288,7 +290,7 @@ class NewEventViewController: KeyboardViewController, UITextFieldDelegate, UIIma
         let currentLocale = Locale.current
         let formatter = DateFormatter()
         //print(currentLocale.identifier)
-        if(currentLocale.identifier == "en_MX"){
+        if(currentLocale.identifier == "es_MX"){
             formatter.dateFormat = "dd/MM/yyyy HH:mm"
         }else{
             formatter.dateFormat = "MM/dd/yyyy HH:mm"
@@ -301,7 +303,7 @@ class NewEventViewController: KeyboardViewController, UITextFieldDelegate, UIIma
         let formatter = DateFormatter()
         formatter.locale = Locale(identifier: "en_US_POSIX")
         
-        if(currentLocale.identifier == "en_MX"){
+        if(currentLocale.identifier == "es_MX"){
             formatter.dateFormat = "dd/MM/yyyy HH:mm"
         }else{
             formatter.dateFormat = "MM/dd/yyyy HH:mm"
@@ -373,8 +375,9 @@ class NewEventViewController: KeyboardViewController, UITextFieldDelegate, UIIma
 
         if textField == eventScan {
             eventScan.clearTextFieldError()
+            friends = DataManager.shared.getFriendsArray()
             currentOptions = Array(friends.values)
-            
+            //print("Cargando Amigos en el Picker")
             if let selected = textField.text, let index = currentOptions.firstIndex(of: selected) {
                 picker.selectRow(index, inComponent: 0, animated: false)
             }
@@ -422,6 +425,7 @@ class NewEventViewController: KeyboardViewController, UITextFieldDelegate, UIIma
                         }
                     
                         DataManager.shared.insertContacts(contactsApiArray)
+                        
                     print("Amigos Actualizados")
                     case .failure(let error):
                     print("Error al actualizar desde el api : \(error)")
@@ -491,7 +495,7 @@ class NewEventViewController: KeyboardViewController, UITextFieldDelegate, UIIma
         let toFormat = "yyyy-MM-dd HH:mm"
         var fromFormat = ""
         
-        if(currentLocale.identifier == "en_MX"){
+        if(currentLocale.identifier == "es_MX"){
             fromFormat = "dd/MM/yyyy HH:mm" // HH:mm
         }else{
             fromFormat = "MM/dd/yyyy HH:mm" //HH:mm
@@ -642,7 +646,13 @@ extension NewEventViewController: UIPickerViewDataSource, UIPickerViewDelegate {
     }
 
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        activeTextField?.text = currentOptions[row]
+        if (currentOptions.count > 0) {
+            activeTextField?.text = currentOptions[row]
+        }else{
+            activeTextField?.text = ""
+        }
+        
+        
     }
     @objc func dismissPickers() {
         activeTextField?.resignFirstResponder()
