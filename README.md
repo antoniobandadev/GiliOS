@@ -39,6 +39,7 @@ Limitar a portrait también mejora el rendimiento en pantallas pequeñas, evita 
 ### Dependencias
 
 - Alamofire 5.10.2
+- CoreData
 - Kingfisher 8.3.3
 - MaterialComponents 124.2.0
 - SkeletonView 1.30.4
