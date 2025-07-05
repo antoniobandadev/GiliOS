@@ -164,3 +164,7 @@
 "valid_code_scan" = "Valid code";
 "invalid_code_scan" = "Invalid code";
 "code_scan_before" = "The code has already been scanned";
+
+"camera_permission_title" = "Camera Access Required";
+"camera_permission_message" = "Please enable camera access in Settings to scan QR codes.";
+"camera_permission_settings" = "Go to Settings";

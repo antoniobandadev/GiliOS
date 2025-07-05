@@ -41,10 +41,14 @@ class ScannerQRViewController: UIViewController, AVCaptureMetadataOutputObjectsD
         previewLayer.videoGravity = .resizeAspectFill
         view.layer.addSublayer(previewLayer)
 
-        DispatchQueue.global(qos: .userInitiated).async {
-            self.captureSession.startRunning()
-        }
         
+        
+        
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        checkPermission()
     }
 
     func metadataOutput(_ output: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from connection: AVCaptureConnection) {
@@ -172,4 +176,55 @@ class ScannerQRViewController: UIViewController, AVCaptureMetadataOutputObjectsD
         }
        
     }
+    
+    func checkPermission() {
+        let status = AVCaptureDevice.authorizationStatus(for: .video)
+        
+        switch status {
+        case .authorized:
+            DispatchQueue.main.async {
+                self.captureSession.startRunning()
+            }
+        case .notDetermined:
+            // Aún no ha pedido permiso, lo pedimos
+            AVCaptureDevice.requestAccess(for: .video) { granted in
+                DispatchQueue.main.async {
+                    if granted {
+                        self.captureSession.startRunning()
+                    } else {
+                        self.showPermissionAlert()
+                    }
+                }
+            }
+            
+        case .denied, .restricted:
+            DispatchQueue.main.async {
+                self.showPermissionAlert()
+            }
+
+        @unknown default:
+            DispatchQueue.main.async {
+                self.showPermissionAlert()
+            }
+        }
+    }
+
+    func showPermissionAlert() {
+        let alert = UIAlertController(
+            title: "camera_permission_title".localized(),
+            message: "camera_permission_message".localized(),
+            preferredStyle: .alert
+        )
+
+        alert.addAction(UIAlertAction(title: "cancel".localized(), style: .cancel, handler: nil))
+        alert.addAction(UIAlertAction(title: "camera_permission_settings".localized(), style: .default) { _ in
+            if let settingsURL = URL(string: UIApplication.openSettingsURLString) {
+                UIApplication.shared.open(settingsURL)
+            }
+        })
+
+        present(alert, animated: true)
+    }
+    
+   
 }

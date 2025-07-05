@@ -164,3 +164,7 @@
 "valid_code_scan" = "Código válido";
 "invalid_code_scan" = "Código inválido";
 "code_scan_before" = "El código ya ha sido escaneado";
+
+"camera_permission_title" = "Permiso de cámara requerido";
+"camera_permission_message" = "Por favor habilita el acceso a la cámara en Configuración para poder escanear códigos QR.";
+"camera_permission_settings" = "Ir a Configuración";
