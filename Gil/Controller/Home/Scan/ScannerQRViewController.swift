@@ -182,7 +182,7 @@ class ScannerQRViewController: UIViewController, AVCaptureMetadataOutputObjectsD
         
         switch status {
         case .authorized:
-            DispatchQueue.main.async {
+            DispatchQueue.global(qos: .userInitiated).async {
                 self.captureSession.startRunning()
             }
         case .notDetermined:
